@@ -1,0 +1,2449 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{article}
+
+    
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    
+
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Landsat\_Preprocessing}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    Landsat Data Preprocessing
+
+Chris Holden
+
+Friday, May 9th, 2014
+
+\subparagraph{Overview:}\label{overview}
+
+The Landsat family of satellites have been in space since 1972 and can
+provide a rich history of the land surface of the Earth over the last
+\textasciitilde{}40 years. Recent advances in computing hardware, free
+access to the data, and new innovative cloud screening and atmospheric
+correction algorithms have enabled researchers to ``data mine'' this
+archive. Analyses that were previously only possible at a very coarse
+resolution (e.g., AVHRR and MODIS) are beginning to be possible at the
+30m Landsat resolution.
+
+This workshop intends to teach good practices for acquiring, organizing,
+preprocessing, and documenting your dense Landsat time series before
+ingestion into the ``data mining'' algorithm of your choice.
+
+Topics:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Search for and filter Landsat acquisitions using EarthExplorer
+\item
+  Submit order for ``Landsat Climate Data Record (CDR)'' product using
+  ESPA
+\item
+  Download completed order onto GEO cluster
+\item
+  Organize and extract imagery from archives
+\item
+  Combine dataset bands into ``stacked'' images of common geographic
+  extent
+\item
+  Run Fmask using custom parameters on images
+\item
+  Create spatial subset using extent or polygon ROI
+\item
+  Create ``preview'' images to help filter through preprocessed imagery
+\item
+  Summarize and document your dataset
+\end{enumerate}
+
+Notes on workshop
+
+There are many ways to acquire and preprocess Landsat datasets and I
+will be demonstrating but one of the many approaches. Where applicable,
+I will demonstrate how to perform a step using a general method, and
+then by using one of my tools developed to help automate the general
+method for a specific workflow. The goal of showing both approaches will
+be to give you access to my specialized scripts or programs while
+helping you understand what they are automating.
+
+    \subsection{Step 1. Search for and filter Landsat acquisitions using
+EarthExplorer}\label{step-1.-search-for-and-filter-landsat-acquisitions-using-earthexplorer}
+
+The USGS has many portals for filtering through Landsat data (e.g.,
+GLOVIS, EarthExplorer, COVE tool, etc.), but the EarthExplorer tool is
+one of the better ones. If you don't have an account with EarthExplorer,
+you will need to create one before ordering data.
+
+You will also need to know the WRS-2 path and row for the dataset you
+wish to acquire. Further information on the WRS-2 reference system,
+including a shapefile of all path and rows (download the descending
+dataset for Landsat) is available here:
+
+https://landsat.usgs.gov/worldwide\_reference\_system\_WRS.php
+
+\subsubsection{EarthExplorer}\label{earthexplorer}
+
+Navigate to:
+
+http://earthexplorer.usgs.gov/
+
+On the left side of the user interface you will see four tabs
+representing components of the search workflow. Begin by skipping the
+``Search Criteria'' tab and continuing to the ``Data Sets'' tab.
+
+\subsubsection{Landsat CDR Datasets}\label{landsat-cdr-datasets}
+
+We will be submitting an order for the Landsat Climate Data Record (CDR)
+product (http://landsat.usgs.gov/CDR\_ECV.php) so that the USGS can
+perform the atmospheric correction and cloud masking preprocessing steps
+for us before we download our data.
+
+In the list of available datasets below, find ``Landsat CDR'', expand
+the tab, and select both Landsat 7 ETM+ and Landsat 4-5 TM datasets.
+
+\subsubsection{Filter}\label{filter}
+
+Proceed by clicking the ``Additional Cirteria
+\textgreater{}\textgreater{}'' button:
+
+The next window of this tabbed interface will allow you to customize
+your search result by various criteria for the Landsat 7 ETM+ and the
+Landsat 4-5 TM datasets.
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Input your WRS-2 path and row into the ``WRS Path'' and ``WRS Row''
+  forms
+\item
+  Select ``Less than 80\%'' under the ``Cloud Cover'' option (this cloud
+  cover is estimated from ACCA, not Fmask)
+\item
+  Ensure that the ``Station Identifier'' is set to ``All''
+\item
+  Select ``Processing Required'' and the ``L1T'' data type option for
+  both sensors (e.g., ETM+ L1T and TM L1T). We select the ``L1T''
+  product type because it is the only orthorectified product from the
+  Landsat Level 1 Product Generation System (LPGS). Orthorectification
+  is important to assure consistent geolocation of pixels on the land
+  surface. We include images that have the ``Processing Required''
+  status to include images that can be orthorectified to a L1T image,
+  but have not yet been processed (and thus don't have the L1T metadata
+  status in their database). For more information on LPGS, visit this
+  URL: http://landsat.usgs.gov/Landsat\_Processing\_Details.php
+\end{itemize}
+
+Repeat this last step of adding filters for each Landsat sensor dataset
+-- Landsat 7 ETM+ and Landsat 4-5 TM.
+
+\subsubsection{Results}\label{results}
+
+Finally, click the ``Results'' button to submit your query.
+
+\subsubsection{Export}\label{export}
+
+The last tab -- ``Results'' -- shows the Landsat imagery that met your
+search query.
+
+Click the button that says ``Click here to export your results'' to
+export your results. Select ``Non-Limited Results'' under ``Export
+Type''. I also recommend selecting the option ``Comma (,) Delimited''
+for the ``Format''.
+
+Remember to export your results from Landsat 4-5 TM and Landsat 7 ETM+.
+The results will be retrievable via a URL sent to the email account you
+registered with. In my case, my results are available at the following
+URLs:
+
+http://earthexplorer.usgs.gov/export/retrieve/?exportId=23721\&exportKey=1f457c3397af85c4c8b755355eb4eb52
+
+http://earthexplorer.usgs.gov/export/retrieve/?exportId=23722\&exportKey=cc5e80832dca85903a510f4ac4ddb311
+
+Manually click the links USGS provided you and download the ZIP files
+from their website. Unzip these files to find two comma separated text
+files.
+
+    \subsection{Step 2: Submit order for ``Landsat Climate Data Record
+(CDR)'' product using
+ESPA}\label{step-2-submit-order-for-landsat-climate-data-record-cdr-product-using-espa}
+
+The two zip files containing our search results from the previous step
+contain the metadata required to further filter through the Landsat
+acquisitions. This includes information on the sun and sensor
+geometries, the goodness of fit for the terrain correction, the date and
+time of the acquisition, and more:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{tm}\PY{o}{=}\PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{1}\PY{n}{\PYZus{}EarthExplorer}\PY{o}{/}\PY{n}{LSR\PYZus{}LANDSAT\PYZus{}TM\PYZus{}23721}\PY{o}{.}\PY{n}{txt}
+         
+         \PY{n}{echo} \PY{o}{\PYZhy{}}\PY{n}{e} \PY{l+s}{\PYZdq{}}\PY{l+s}{Landsat Metadata Fields:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}}
+         
+         \PY{n}{head} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1} \PY{err}{\PYZdl{}}\PY{n}{tm} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{,}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} max=30; }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s}{    for (i=1; i\PYZlt{}=NF; i = i + 3) \PYZob{} }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s}{        l1=(max \PYZhy{} length(\PYZdl{}i)); l2=(max \PYZhy{} length(\PYZdl{}(i + 1))); }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s}{        print \PYZdl{}i sprintf(}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}*s}\PY{l+s}{\PYZdq{}}\PY{l+s}{, l1, }\PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{l+s}{) \PYZdl{}(i + 1) sprintf(}\PY{l+s}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}*s}\PY{l+s}{\PYZdq{}}\PY{l+s}{, l2, }\PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{l+s}{) \PYZdl{}(i + 2)\PYZcb{} }\PY{l+s+se}{\PYZbs{}}
+         \PY{l+s}{    \PYZcb{}}\PY{l+s}{\PYZsq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Landsat Metadata Fields:
+
+Result Number                 EE\_DISPLAY\_ID                 EE\_ORDERING\_ID
+DOWNLOADABLE                  ON\_DEMAND                     Landsat Scene Identifier
+Spacecraft Identifier         Sensor Mode                   Station Identifier
+Day/Night                     WRS Path                      WRS Row
+WRS Type                      Date Acquired                 Start Time
+Stop Time                     Sensor Anomalies              Acquisition Quality
+Quality Band 1                Quality Band 2                Quality Band 3
+Quality Band 4                Quality Band 5                Quality Band 6
+Quality Band 7                Cloud Cover                   Cloud Cover Quad Upper Left
+Cloud Cover Quad Upper Right  Cloud Cover Quad Lower Left   Cloud Cover Quad Lower Right
+Sun Elevation                 Sun Azimuth                   Scene Center Latitude
+Scene Center Longitude        Corner Upper Left Latitude    Corner Upper Left Longitude
+Corner Upper Right Latitude   Corner Upper Right Longitude  Corner Lower Left Latitude
+Corner Lower Left Longitude   Corner Lower Right Latitude   Corner Lower Right Longitude
+Browse  Exists                Data Category                 Map Projection LORa
+Data Type L0Rp                Data Type Level 1             Elevation Source
+Output Format                 Ephemeris Type                Corner UL Latitude Product
+Corner UL Longitude Product   Corner UR Latitude Product    Corner UR Longitude Product
+Corner LL Latitude Product    Corner LL Longitude Product   Corner LR Latitude Product
+Corner LR Longitude Product   Reflective Samples            Reflective Lines
+Thermal Lines                 Thermal Samples               Ground Control Points Model
+Geometric RMSE Model          Geometric RMSE Model X        Geometric RMSE Model Y
+Geometric RMSE Verify         Map Projection Level 1        Datum
+Ellipsoid                     UTM Zone                      Vertical Long from Pole
+True Scale Latitude           False Easting                 False Northing
+Grid Cell Size Reflective     Grid Cell Size Thermal        Orientation
+Resampling Option             Scene Center Latitude dec     Scene Center Longitude dec
+Corner Upper Left Lat dec     Corner Upper Left Long dec    Corner Upper Right Lat dec
+Corner Upper Right Long dec   Corner Lower Left Lat dec     Corner Lower Left Long dec
+Corner Lower Right Lat dec    Corner Lower Right Long dec
+    \end{Verbatim}
+
+    \subsubsection{Extract IDs}\label{extract-ids}
+
+For right now, let's just extract the Landsat IDs from our search
+result. We want to create a text file that only contains the Landsat IDs
+we want to order with each ID separated by row.
+
+You could do this step in a variety of ways - Excel, a text editor, R,
+C, etc\ldots{} - but let's just use some utilities in Bash:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{c}{\PYZsh{} First let\PYZsq{}s move to our working directory \PYZhy{} USE YOUR OWN DIRECTORY}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}
+         
+         \PY{c}{\PYZsh{} Let\PYZsq{}s test our command and only print the first few lines using \PYZdq{}head\PYZdq{}}
+         \PY{n}{cat} \PY{l+m+mi}{1}\PY{n}{\PYZus{}EarthExplorer}\PY{o}{/}\PY{n}{LSR\PYZus{}LANDSAT\PYZus{}ETM\PYZus{}COMBINED\PYZus{}23722}\PY{o}{.}\PY{n}{txt} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{,}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{NR \PYZgt{} 1 \PYZob{} print \PYZdl{}2 \PYZcb{}}\PY{l+s}{\PYZsq{}} \PY{o}{|} \PY{n}{head} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LE70200472014109ASN00
+LE70200472014093ASN00
+LE70200472014077ASN00
+LE70200472014061EDC00
+LE70200472014045EDC00
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{c}{\PYZsh{} Now let\PYZsq{}s save our IDs to our output file}
+         
+         \PY{c}{\PYZsh{} My results are located within \PYZdq{}1\PYZus{}EarthExplorer\PYZdq{} and I will extract the IDs to a file named \PYZdq{}p020r047\PYZus{}submit.txt\PYZdq{}}
+         \PY{n}{output}\PY{o}{=}\PY{l+m+mi}{2}\PY{n}{\PYZus{}ESPA}\PY{o}{/}\PY{n}{p020r047\PYZus{}submit}\PY{o}{.}\PY{n}{txt}
+         
+         \PY{c}{\PYZsh{} First I create the text file using the output from AWK for Landsat 7 ETM+ using \PYZdq{}\PYZgt{}\PYZdq{} to redirect from stdout to a file}
+         \PY{n}{cat} \PY{l+m+mi}{1}\PY{n}{\PYZus{}EarthExplorer}\PY{o}{/}\PY{n}{LSR\PYZus{}LANDSAT\PYZus{}ETM\PYZus{}COMBINED\PYZus{}23722}\PY{o}{.}\PY{n}{txt} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{,}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{NR \PYZgt{} 1 \PYZob{} print \PYZdl{}2 \PYZcb{}}\PY{l+s}{\PYZsq{}} \PY{o}{\PYZgt{}} \PY{err}{\PYZdl{}}\PY{n}{output}
+         \PY{c}{\PYZsh{} Now I append this text file with the IDs from Landsat 4\PYZhy{}5 TM using \PYZdq{}\PYZgt{}\PYZgt{}\PYZdq{} to append}
+         \PY{n}{cat} \PY{l+m+mi}{1}\PY{n}{\PYZus{}EarthExplorer}\PY{o}{/}\PY{n}{LSR\PYZus{}LANDSAT\PYZus{}TM\PYZus{}23721}\PY{o}{.}\PY{n}{txt} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{,}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{NR \PYZgt{} 1 \PYZob{} print \PYZdl{}2 \PYZcb{}}\PY{l+s}{\PYZsq{}} \PY{o}{\PYZgt{}\PYZgt{}} \PY{err}{\PYZdl{}}\PY{n}{output}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{c}{\PYZsh{} We can check to see how many images we have by concatenating our output file and piping it to \PYZdq{}wc\PYZdq{} (word count)}
+         \PY{n}{n}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{cat} \PY{l+m+mi}{2}\PY{n}{\PYZus{}ESPA}\PY{o}{/}\PY{n}{p020r047\PYZus{}submit}\PY{o}{.}\PY{n}{txt} \PY{o}{|} \PY{n}{wc} \PY{o}{\PYZhy{}}\PY{n}{l}\PY{p}{)}
+         
+         \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{You have \PYZdl{}n Landsat images in your text file}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+You have 438 Landsat images in your text file
+    \end{Verbatim}
+
+    \subsubsection{Submit text file of Landsat IDs to EROS Science
+Processing Architecture
+(ESPA)}\label{submit-text-file-of-landsat-ids-to-eros-science-processing-architecture-espa}
+
+In a web browser, navigate to:
+
+https://espa.cr.usgs.gov
+
+and login using your username and password (they're all defaults, so you
+can also ask me for now, but it is important to register for tracking
+purposes).
+
+Once you log in, you'll be taken to the order page:
+
+Enter your email address, click ``Browse'', and navigate to your list of
+Landsat IDs.
+
+You have many dataset options for your download, but it is always a good
+idea to download the ``Source Metadata'' because this product contains
+the Landsat ``MTL'' metadata file.
+
+As pictured, I suggest downloading the following in addition to the
+metadata:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  ``Source Products''
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    original TIF imagery in units of DNs
+  \end{itemize}
+\item
+  ``Surface Reflectance''
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    ``lndsr*hdf" LEDAPS output, and the ``CFmask'' cloud mask
+  \end{itemize}
+\item
+  ``Band 6 Brightness Temperature''
+
+  \begin{itemize}
+  \itemsep1pt\parskip0pt\parsep0pt
+  \item
+    ``lndth*hdf" LEDAPS thermal brightness temperature
+  \end{itemize}
+\end{itemize}
+
+I recommend downloading the ``Source Products'' even though the
+``Surface Reflectance'' imagery has a Fmask cloud mask band because the
+Landsat CDR version of Fmask is ran using default parameters (cloud
+probability = 22.5, and cloud, shadow, and snow buffering of 3 pixels),
+but you may require a more conservative mask depending on your scene
+location or usage scenarios.
+
+You also have the potential of having your output datasets resized,
+reprojected, or subset.
+
+When you have submitted your order, you will receive a confirmation
+email and will be taken to your order status page:
+
+    \subsection{Step 3. Download completed order onto GEO
+cluster}\label{step-3.-download-completed-order-onto-geo-cluster}
+
+When you receive an email update notifying you that your images have
+been processed, you may access them here:
+
+http://espa.cr.usgs.gov/status/
+
+Simply input the email address associated with your order, select your
+order, and you'll find a page with each image and it's status:
+
+The ESPA interface provides you with a URL for downloading the image
+archive and a checksum useful for assuring your download completed
+without error (see http://en.wikipedia.org/wiki/Checksum).
+
+Download onto the cluster
+
+The quickest and easiest way of downloading these datasets onto the
+cluster would be using Firefox's ``DownThemAll'' addon because it easily
+allows for parallel downloads
+(https://addons.mozilla.org/en-US/firefox/addon/downthemall/).
+
+One simple way of downloading the datasets would be using ``wget''
+(enter ``man wget'' for more information).
+
+In this example, we use ``wget'' with several options: + ``-nH''
+specifies no host directories will be downloaded + ``-nc'' specifies
+``no clobber'', or no overwrite + ``--cut-dirs=2'' works with ``-nH'' to
+remove directories containing our files + ``-r'' specifies recursion, so
+we can find our files beneath the download URL + ``-A
+L*2014*-*tar.gz,L*2014*-*cksum" is an accept list that specifies a
+pattern for files we will download. Files not matching the pattern are
+ignored + ``-nv'' will turn off verbose
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{3}\PY{n}{\PYZus{}Download}
+         
+         \PY{n}{url}\PY{o}{=}\PY{n}{http}\PY{p}{:}\PY{o}{/}\PY{o}{/}\PY{n}{espa}\PY{o}{.}\PY{n}{cr}\PY{o}{.}\PY{n}{usgs}\PY{o}{.}\PY{n}{gov}\PY{o}{/}\PY{n}{status}\PY{o}{/}\PY{n}{ceholden}\PY{o}{\PYZpc{}}\PY{k}{40bu}\PY{o}{.}\PY{n}{edu}\PY{o}{\PYZhy{}}\PY{l+m+mi}{572014}\PY{o}{\PYZhy{}}\PY{l+m+mi}{17955}\PY{o}{/}
+         
+         \PY{n}{wget} \PY{o}{\PYZhy{}}\PY{n}{nH} \PY{o}{\PYZhy{}}\PY{n}{nc} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{cut}\PY{o}{\PYZhy{}}\PY{n}{dirs}\PY{o}{=}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}}\PY{n}{r} \PY{o}{\PYZhy{}}\PY{n}{A} \PY{n}{L}\PY{o}{*}\PY{l+m+mi}{2014}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{o}{*}\PY{n}{tar}\PY{o}{.}\PY{n}{gz}\PY{p}{,}\PY{n}{L}\PY{o}{*}\PY{l+m+mi}{2014}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{o}{*}\PY{n}{cksum} \PY{o}{\PYZhy{}}\PY{n}{nv} \PY{err}{\PYZdl{}}\PY{n}{url}
+         
+         \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Done!}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Process is terminated.
+    \end{Verbatim}
+
+    Validate checksums of downloads
+
+It is important, but not always necessary, to assert that the files
+stored on the USGS's servers are fully intact once downloaded to our
+cluster. We can assert that the files are in tact with high confidence
+by checking to make sure the ``checksum'' of the file matches once
+downloaded to BU.
+
+For each archive you download, there will be a corresponding ``*.cksum"
+file. The checksum provided is output from the Unix ``cksum'' command
+(http://en.wikipedia.org/wiki/Cksum). Unfortuantely, there isn't a
+built-in mechanism in this program to validate checksums, so we'll do
+this in a Bash loop and if statement.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{3}\PY{n}{\PYZus{}Download}
+         
+         \PY{c}{\PYZsh{} Loop over cksum files}
+         \PY{k}{for} \PY{n}{checksum} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{L*.cksum}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+             \PY{c}{\PYZsh{} Find basename of file and remove extension to match up with archive}
+             \PY{n}{bn}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{basename} \PY{err}{\PYZdl{}}\PY{n}{checksum} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{.}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}1 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{} Test to see if archive exists}
+             \PY{n}{archive}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{\PYZob{}}\PY{n}{bn}\PY{p}{\PYZcb{}}\PY{o}{.}\PY{n}{tar}\PY{o}{.}\PY{n}{gz}
+             \PY{k}{if} \PY{p}{[} \PY{err}{!} \PY{o}{\PYZhy{}}\PY{n}{f} \PY{err}{\PYZdl{}}\PY{n}{archive} \PY{p}{]}\PY{p}{;} \PY{n}{then}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}bn has no matching archive}\PY{l+s}{\PYZdq{}}
+                 \PY{k}{continue}
+             \PY{n}{fi}
+             
+             \PY{c}{\PYZsh{} If archive exists, then validate checksum}
+             \PY{n}{test}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{cksum} \PY{err}{\PYZdl{}}\PY{n}{archive}\PY{p}{)}
+             \PY{k}{if} \PY{p}{[} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}test}\PY{l+s}{\PYZdq{}} \PY{o}{!=} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}(cat \PYZdl{}checksum)}\PY{l+s}{\PYZdq{}} \PY{p}{]}\PY{p}{;} \PY{n}{then}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{!!!!! WARNING !!!!!}\PY{l+s}{\PYZdq{}}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}bn may be corrupted}\PY{l+s}{\PYZdq{}}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{!!!!! WARNING !!!!!}\PY{l+s}{\PYZdq{}}
+             \PY{k}{else}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}bn is OK}\PY{l+s}{\PYZdq{}}
+             \PY{n}{fi}
+         \PY{n}{done}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LE70200472014093-SC20140507171414 is OK
+LE70200472014109-SC20140507171414 is OK
+LE70200472014077-SC20140507171413 is OK
+LE70200472014061-SC20140507171414 is OK
+    \end{Verbatim}
+
+    \subsection{Step 4. Organize and extract imagery from
+archives}\label{step-4.-organize-and-extract-imagery-from-archives}
+
+If you have any prior experience with Landsat imagery, you'll notice
+that the archives we downloaded have an unusual filename:
+
+\begin{verbatim}
+                LE70200472011261-SC20140507171414.tar.gz
+                
+\end{verbatim}
+
+The first half of this string is the Landsat ID, minus the receiving
+station information. The second half of this string details the timing
+of when the Landsat image was processed through ESPA.
+
+Since we're not very interested in the processing detail, we will
+extract each of these archives to a folder based on the reference ID of
+the Landsat image.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{4}\PY{n}{\PYZus{}Organize}
+         
+         \PY{c}{\PYZsh{} We want to find things ONLY in our current directory, not in any subfolders}
+         \PY{c}{\PYZsh{}     So, we use \PYZhy{}maxdepth 1 option}
+         \PY{c}{\PYZsh{}     You could also just use \PYZdq{}ls *tar.gz\PYZdq{}, }
+         \PY{c}{\PYZsh{}     but find is good to know because it gives you a lot of control}
+         \PY{n}{n}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{maxdepth} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*tar.gz}\PY{l+s}{\PYZsq{}} \PY{o}{|} \PY{n}{wc} \PY{o}{\PYZhy{}}\PY{n}{l}\PY{p}{)}
+         \PY{n}{i}\PY{o}{=}\PY{l+m+mi}{1}
+         
+         \PY{k}{for} \PY{n}{archive} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{maxdepth} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*tar.gz}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+             \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZlt{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} \PYZdl{}i / \PYZdl{}n: \PYZdl{}(basename \PYZdl{}img)}\PY{l+s}{\PYZdq{}}
+             
+             \PY{c}{\PYZsh{} Create temporary folder for storage}
+             \PY{n}{mkdir} \PY{n}{temp}
+             
+             \PY{c}{\PYZsh{} Extract archive to temporary folder}
+             \PY{n}{tar} \PY{o}{\PYZhy{}}\PY{n}{xzvf} \PY{err}{\PYZdl{}}\PY{n}{archive} \PY{o}{\PYZhy{}}\PY{n}{C} \PY{n}{temp}\PY{o}{/}
+             
+             \PY{c}{\PYZsh{} Find ID based on MTL file\PYZsq{}s filename}
+             \PY{n}{mtl}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{n}{temp}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{L*MTL.txt}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{} Test to make sure we found it}
+             \PY{k}{if} \PY{p}{[} \PY{err}{!} \PY{o}{\PYZhy{}}\PY{n}{f} \PY{err}{\PYZdl{}}\PY{n}{mtl} \PY{p}{]}\PY{p}{;} \PY{n}{then}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Could not find MTL file for \PYZdl{}archive}\PY{l+s}{\PYZdq{}}
+                 \PY{k}{break}
+             \PY{n}{fi}
+             
+             \PY{c}{\PYZsh{} Use AWK to remove \PYZus{}MTL.txt}
+             \PY{n+nb}{id}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{basename} \PY{err}{\PYZdl{}}\PY{n}{mtl} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZus{}}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}1 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{} Move archive into temporary folder}
+             \PY{n}{mv} \PY{err}{\PYZdl{}}\PY{n}{archive} \PY{n}{temp}\PY{o}{/}
+             
+             \PY{c}{\PYZsh{} Rename archive}
+             \PY{n}{mv} \PY{n}{temp} \PY{err}{\PYZdl{}}\PY{n+nb}{id}
+             
+             \PY{c}{\PYZsh{} Iterate count}
+             \PY{n}{let} \PY{n}{i}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{done}
+         
+         \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Done!}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done!
+    \end{Verbatim}
+
+    Filter L1G images
+
+If you recall when we filtered our dataset from the Landsat archive, we
+had selected the ``Processing Required'' option. This means that some of
+the images we downloaded that had this status will be L1T, but some of
+them will be L1G (not orthorectified).
+
+In order to remove the L1G images, we can run through our image stacks
+and do a quick ``grep'' on each MTL file:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{4}\PY{n}{\PYZus{}Organize}
+         
+         \PY{k}{if} \PY{p}{[} \PY{err}{!} \PY{o}{\PYZhy{}}\PY{n}{d} \PY{n}{L1G} \PY{p}{]}\PY{p}{;} \PY{n}{then}
+             \PY{n}{mkdir} \PY{n}{L1G}\PY{o}{/}
+         \PY{n}{fi}
+         
+         \PY{k}{for} \PY{n}{mtl} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{L*MTL.txt}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+             \PY{n+nb}{id}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{basename} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{dirname} \PY{err}{\PYZdl{}}\PY{n}{mtl}\PY{p}{)}\PY{p}{)}
+             
+             \PY{n}{l1t}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{L1T}\PY{l+s}{\PYZdq{}} \PY{err}{\PYZdl{}}\PY{n}{mtl}\PY{p}{)}
+             
+             \PY{k}{if} \PY{p}{[} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}l1t}\PY{l+s}{\PYZdq{}} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}} \PY{p}{]}\PY{p}{;} \PY{n}{then}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}id is not L1T}\PY{l+s}{\PYZdq{}}
+                 \PY{n}{mv} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{dirname} \PY{err}{\PYZdl{}}\PY{n}{mtl}\PY{p}{)} \PY{n}{L1G}
+             \PY{k}{else}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}id is L1T}\PY{l+s}{\PYZdq{}}
+             \PY{n}{fi}
+             
+         \PY{n}{done}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LE70200472014061EDC00 is L1T
+LE70200472014077ASN00 is L1T
+LE70200472014093ASN00 is L1T
+LE70200472014109ASN00 is L1T
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+mkdir: cannot create directory `L1G/': File exists
+    \end{Verbatim}
+
+    \subsection{Step 5. Combine dataset bands into ``stacked'' images of
+common geographic
+extent}\label{step-5.-combine-dataset-bands-into-stacked-images-of-common-geographic-extent}
+
+We now have the images organized by their Landsat ID and extracted from
+the archives. The next step in our workflow is to create ``layer
+stacks'' - or multiband images - that contain the bands we want to use
+in our analysis. For example, we might want to create a multiband image
+for each Landsat ID that contains all Landsat bands, ordered by
+wavelength, and the Fmask result.
+
+This workflow can be accomplished using a variety of software - ENVI,
+ArcGIS, ERDAS, R, and QGIS, for example - but it would be enormously
+time consuming to use these programs to accomplish our goal for hundreds
+of images. Instead, we will use the free program
+\textbf{\emph{gdal\_merge.py}} from the GDAL command line set of
+programs (http://www.gdal.org/ or http://www.gdal.org/gdal\_merge.html).
+
+One complicating factor in this workflow is that our LEDAPS output are
+currently stored as HDF files which stores bands as ``subdatasets''
+instead of bands, making referencing them a little difficult (see
+http://www.gdal.org/frmt\_hdf4.html).
+
+Sometime soon, the ESPA processing system will allow you to download
+your datasets as either HDF, GeoTIFF, or binary files
+(http://landsat.usgs.gov/sr\_samples.php).
+
+First we will begin my loading the module for GDAL and inspecting one of
+the LEDAPS outputs.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{module} \PY{n}{purge}
+         \PY{n}{module} \PY{n}{load} \PY{n}{gdal}\PY{o}{/}\PY{l+m+mf}{1.10}\PY{o}{.}\PY{l+m+mi}{0}
+         
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}\PY{o}{/}\PY{n}{LE70200472014061EDC00}
+         
+         \PY{n}{gdalinfo} \PY{n}{lndsr}\PY{o}{.}\PY{n}{LE70200472014061EDC00}\PY{o}{.}\PY{n}{hdf}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Driver: HDF4/Hierarchical Data Format Release 4
+Files: lndsr.LE70200472014061EDC00.hdf
+Size is 512, 512
+Coordinate System is `'
+Metadata:
+  AcquisitionDate=2014-03-02T16:19:41.029800Z
+  CFmaskVersion=1.3.0
+  Cloud Mask Algo Version=CMReflectanceBasedv1.0
+  DataProvider=USGS/EROS
+  EastBoundingCoordinate=-88.6776995141039
+  HDFEOSVersion=4.2
+  HDFVersion=4.2.5
+  Instrument=ETM
+  LEDAPSVersion=1.3.1
+  Level1ProductionDate=2014-03-02T00:00:00.000000Z
+  LocalGranuleID=L7ESR.a2014061.w2p020r047.020.2014127222256.hdf
+  LowerRightCornerLatLong=17.8410695070442, -88.6778422897102
+  LPGSMetadataFile=LE70200472014061EDC00\_MTL.txt
+  NorthBoundingCoordinate=19.7654335783953
+  OrientationAngle=0
+  PixelSize=30
+  ProductionDate=2014-05-07T22:22:56Z
+  ReflBias=-6.97874021530151, -7.19881916046143, -5.62165403366089, -6.06929111480713, -1.12621998786926, -0.393898010253906
+  ReflGains=0.778739988803864, 0.798819005489349, 0.621653020381927, 0.969290971755981, 0.126220002770424, 0.0438980013132095
+  Satellite=LANDSAT\_7
+  ShortName=L7ESR
+  SolarAzimuth=130.5961761
+  SolarZenith=37.7718544
+  SouthBoundingCoordinate=17.8077011670647
+  ThermalBias=-0.0670870020985603
+  ThermalGain=0.0670870020985603
+  UpperLeftCornerLatLong=19.7282076307976, -91.0190580192774
+  WestBoundingCoordinate=-91.0192042045475
+  WRS\_Path=20
+  WRS\_Row=47
+  WRS\_System=2
+Subdatasets:
+  SUBDATASET\_1\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band1
+  SUBDATASET\_1\_DESC=[7101x8121] band1 Grid (16-bit integer)
+  SUBDATASET\_2\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band2
+  SUBDATASET\_2\_DESC=[7101x8121] band2 Grid (16-bit integer)
+  SUBDATASET\_3\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band3
+  SUBDATASET\_3\_DESC=[7101x8121] band3 Grid (16-bit integer)
+  SUBDATASET\_4\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band4
+  SUBDATASET\_4\_DESC=[7101x8121] band4 Grid (16-bit integer)
+  SUBDATASET\_5\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band5
+  SUBDATASET\_5\_DESC=[7101x8121] band5 Grid (16-bit integer)
+  SUBDATASET\_6\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band7
+  SUBDATASET\_6\_DESC=[7101x8121] band7 Grid (16-bit integer)
+  SUBDATASET\_7\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:atmos\_opacity
+  SUBDATASET\_7\_DESC=[7101x8121] atmos\_opacity Grid (16-bit integer)
+  SUBDATASET\_8\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:fill\_QA
+  SUBDATASET\_8\_DESC=[7101x8121] fill\_QA Grid (8-bit unsigned integer)
+  SUBDATASET\_9\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:DDV\_QA
+  SUBDATASET\_9\_DESC=[7101x8121] DDV\_QA Grid (8-bit unsigned integer)
+  SUBDATASET\_10\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:cloud\_QA
+  SUBDATASET\_10\_DESC=[7101x8121] cloud\_QA Grid (8-bit unsigned integer)
+  SUBDATASET\_11\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:cloud\_shadow\_QA
+  SUBDATASET\_11\_DESC=[7101x8121] cloud\_shadow\_QA Grid (8-bit unsigned integer)
+  SUBDATASET\_12\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:snow\_QA
+  SUBDATASET\_12\_DESC=[7101x8121] snow\_QA Grid (8-bit unsigned integer)
+  SUBDATASET\_13\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:land\_water\_QA
+  SUBDATASET\_13\_DESC=[7101x8121] land\_water\_QA Grid (8-bit unsigned integer)
+  SUBDATASET\_14\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:adjacent\_cloud\_QA
+  SUBDATASET\_14\_DESC=[7101x8121] adjacent\_cloud\_QA Grid (8-bit unsigned integer)
+  SUBDATASET\_15\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band6
+  SUBDATASET\_15\_DESC=[7101x8121] band6 Grid (16-bit integer)
+  SUBDATASET\_16\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band6\_fill\_QA
+  SUBDATASET\_16\_DESC=[7101x8121] band6\_fill\_QA Grid (8-bit unsigned integer)
+  SUBDATASET\_17\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:fmask\_band
+  SUBDATASET\_17\_DESC=[7101x8121] fmask\_band Grid (8-bit unsigned integer)
+Corner Coordinates:
+Upper Left  (    0.0,    0.0)
+Lower Left  (    0.0,  512.0)
+Upper Right (  512.0,    0.0)
+Lower Right (  512.0,  512.0)
+Center      (  256.0,  256.0)
+    \end{Verbatim}
+
+    The LEDAPS surface reflectance HDF file contains 17 subdatasets which
+store the surface reflectance bands, a variety of QA/QC bands, the
+thermal brightness temperature band, and the Fmask band.
+
+In order to reference an individual subdataset from this file, we have
+to reference the name of the subdataset directly. For example,
+``HDF4\_EOS:EOS\_GRID:''lndsr.LE70200472014061EDC00.hdf``:Grid:fmask\_band''.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}\PY{o}{/}\PY{n}{LE70200472014061EDC00}
+         
+         \PY{n}{gdalinfo} \PY{n}{HDF4\PYZus{}EOS}\PY{p}{:}\PY{n}{EOS\PYZus{}GRID}\PY{p}{:}\PY{l+s}{\PYZdq{}}\PY{l+s}{lndsr.LE70200472014061EDC00.hdf}\PY{l+s}{\PYZdq{}}\PY{p}{:}\PY{n}{Grid}\PY{p}{:}\PY{n}{fmask\PYZus{}band}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Driver: HDF4Image/HDF4 Dataset
+Files: lndsr.LE70200472014061EDC00.hdf
+Size is 8121, 7101
+Coordinate System is:
+PROJCS["UTM Zone 16, Northern Hemisphere",
+    GEOGCS["Unknown datum based upon the WGS 84 ellipsoid",
+        DATUM["Not specified (based on WGS 84 spheroid)",
+            SPHEROID["WGS 84",6378137,298.257223563,
+                AUTHORITY["EPSG","7030"]]],
+        PRIMEM["Greenwich",0],
+        UNIT["degree",0.0174532925199433]],
+    PROJECTION["Transverse\_Mercator"],
+    PARAMETER["latitude\_of\_origin",0],
+    PARAMETER["central\_meridian",-87],
+    PARAMETER["scale\_factor",0.9996],
+    PARAMETER["false\_easting",500000],
+    PARAMETER["false\_northing",0],
+    UNIT["Meter",1]]
+Origin = (78585.000000000000000,2186415.000000000000000)
+Pixel Size = (30.000000000000000,-30.000000000000000)
+Metadata:
+  \_FillValue=255
+  AcquisitionDate=2014-03-02T16:19:41.029800Z
+  CFmaskVersion=1.3.0
+  Cloud Mask Algo Version=CMReflectanceBasedv1.0
+  DataProvider=USGS/EROS
+  EastBoundingCoordinate=-88.6776995141039
+  HDFEOSVersion=4.2
+  HDFVersion=4.2.5
+  Instrument=ETM
+  LEDAPSVersion=1.3.1
+  Level1ProductionDate=2014-03-02T00:00:00.000000Z
+  LocalGranuleID=L7ESR.a2014061.w2p020r047.020.2014127222256.hdf
+  long\_name=fmask\_band
+  LowerRightCornerLatLong=17.8410695070442, -88.6778422897102
+  LPGSMetadataFile=LE70200472014061EDC00\_MTL.txt
+  mask\_index=0 clear; 1 water; 2 cloud\_shadow; 3 snow; 4 cloud
+  NorthBoundingCoordinate=19.7654335783953
+  OrientationAngle=0
+  PixelSize=30
+  ProductionDate=2014-05-07T22:22:56Z
+  ReflBias=-6.97874021530151, -7.19881916046143, -5.62165403366089, -6.06929111480713, -1.12621998786926, -0.393898010253906
+  ReflGains=0.778739988803864, 0.798819005489349, 0.621653020381927, 0.969290971755981, 0.126220002770424, 0.0438980013132095
+  Satellite=LANDSAT\_7
+  ShortName=L7ESR
+  SolarAzimuth=130.5961761
+  SolarZenith=37.7718544
+  SouthBoundingCoordinate=17.8077011670647
+  ThermalBias=-0.0670870020985603
+  ThermalGain=0.0670870020985603
+  UpperLeftCornerLatLong=19.7282076307976, -91.0190580192774
+  valid\_range=0, 4
+  WestBoundingCoordinate=-91.0192042045475
+  WRS\_Path=20
+  WRS\_Row=47
+  WRS\_System=2
+Corner Coordinates:
+Upper Left  (   78585.000, 2186415.000) ( 91d 1' 9.14"W, 19d43'42.02"N)
+Lower Left  (   78585.000, 1973385.000) ( 90d58'25.95"W, 17d48'27.72"N)
+Upper Right (  322215.000, 2186415.000) ( 88d41'48.80"W, 19d45'55.56"N)
+Lower Right (  322215.000, 1973385.000) ( 88d40'39.72"W, 17d50'27.37"N)
+Center      (  200400.000, 2079900.000) ( 89d50'31.44"W, 18d47'21.19"N)
+Band 1 Block=8121x123 Type=Byte, ColorInterp=Gray
+  Description = fmask\_band
+  NoData Value=255
+    \end{Verbatim}
+
+    One thing to note is that the HDF files the USGS provides do not
+properly describe the datum of the datasets.
+
+\begin{verbatim}
+                GEOGCS["Unknown datum based upon the WGS 84 ellipsoid",
+                
+\end{verbatim}
+
+From the ``Landsat Dictionary''
+(https://lta.cr.usgs.gov/landsat\_dictionary.html\#ellipsoid), we know
+that Landsat data is using the WGS-84 ellipsoid.
+
+Fortunately, we can overwrite the projection with the correct one by
+either using the ``proj4'' string from one of the TIF files:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}\PY{o}{/}\PY{n}{LE70200472014061EDC00}
+         
+         \PY{n}{gdalinfo} \PY{o}{\PYZhy{}}\PY{n}{proj4} \PY{n}{LE70200472014061EDC00\PYZus{}B1}\PY{o}{.}\PY{n}{TIF} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{+proj}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'+proj=utm +zone=16 +datum=WGS84 +units=m +no\_defs '
+    \end{Verbatim}
+
+    Stacked images
+
+To create a ``layer stack'' from this LEDAPS output, we first need to
+identify which bands we would like to use and which subdatasets the
+bands are contained in.
+
+For a ``layer stack'' of the optical bands, the thermal band, and the
+Fmask band, we would reference the first 6 subdatasets, the 15th, and
+the 17th. Since we know ``gdalinfo'' will provide us with the correct
+references to the subdatasets, we can loop over these subdataset indices
+and store the names:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}\PY{o}{/}\PY{n}{LE70200472014061EDC00}
+         
+         \PY{n}{image}\PY{o}{=}\PY{n}{lndsr}\PY{o}{.}\PY{n}{LE70200472014061EDC00}\PY{o}{.}\PY{n}{hdf}
+         
+         \PY{n}{bands}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{1 2 3 4 5 6 15 17}\PY{l+s}{\PYZdq{}}
+         
+         \PY{n}{sds\PYZus{}names}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+         
+         \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{n}{bands}\PY{p}{;} \PY{n}{do}
+             \PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{n}{image} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{SUBDATASET\PYZus{}\PYZdl{}\PYZob{}b\PYZcb{}\PYZus{}NAME}\PY{l+s}{\PYZdq{}}
+             \PY{n}{sds}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{n}{image} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{SUBDATASET\PYZus{}\PYZdl{}\PYZob{}b\PYZcb{}\PYZus{}NAME}\PY{l+s}{\PYZdq{}} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{=}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}2 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{sds\PYZus{}names}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}sds\PYZus{}names \PYZdl{}sds}\PY{l+s}{\PYZdq{}}
+         \PY{n}{done}
+         
+         \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{All subdatasets:}\PY{l+s}{\PYZdq{}}
+         \PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{sds\PYZus{}names}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+SUBDATASET\_1\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band1
+  SUBDATASET\_2\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band2
+  SUBDATASET\_3\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band3
+  SUBDATASET\_4\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band4
+  SUBDATASET\_5\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band5
+  SUBDATASET\_6\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band7
+  SUBDATASET\_15\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band6
+  SUBDATASET\_17\_NAME=HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:fmask\_band
+All subdatasets:
+HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band1 HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band2 HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band3 HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band4 HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band5 HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band7 HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:band6 HDF4\_EOS:EOS\_GRID:"lndsr.LE70200472014061EDC00.hdf":Grid:fmask\_band
+    \end{Verbatim}
+
+    gdal\_merge.py
+
+Now that we know which subdatasets we would like to include, we can
+create our ``layer stack'' using \textbf{\emph{gdal\_merge.py}} (see
+http://www.gdal.org/gdal\_merge.html)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{gdal\PYZus{}merge}\PY{o}{.}\PY{n}{py} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{help}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Unrecognised command option: --help
+Usage: gdal\_merge.py [-o out\_filename] [-of out\_format] [-co NAME=VALUE]*
+                     [-ps pixelsize\_x pixelsize\_y] [-tap] [-separate] [-q] [-v] [-pct]
+                     [-ul\_lr ulx uly lrx lry] [-init "value [value\ldots]"]
+                     [-n nodata\_value] [-a\_nodata output\_nodata\_value]
+                     [-ot datatype] [-createonly] input\_files
+                     [--help-general]
+    \end{Verbatim}
+
+    To create an ``ENVI'' formatted binary image, with band interleave by
+pixel interleave, we can modify our previous code:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}\PY{o}{/}\PY{n}{LE70200472014061EDC00}
+         
+         \PY{n}{image}\PY{o}{=}\PY{n}{lndsr}\PY{o}{.}\PY{n}{LE70200472014061EDC00}\PY{o}{.}\PY{n}{hdf}
+         \PY{n}{output}\PY{o}{=}\PY{n}{LE70200472014061EDC00\PYZus{}test\PYZus{}stack}\PY{o}{.}\PY{n}{bip}
+         
+         \PY{n}{bands}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{1 2 3 4 5 6 15 17}\PY{l+s}{\PYZdq{}}
+         
+         \PY{n}{sds\PYZus{}names}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+         
+         \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{n}{bands}\PY{p}{;} \PY{n}{do}
+             \PY{n}{sds}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{n}{image} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{SUBDATASET\PYZus{}\PYZdl{}\PYZob{}b\PYZcb{}\PYZus{}NAME}\PY{l+s}{\PYZdq{}} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{=}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}2 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{sds\PYZus{}names}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}sds\PYZus{}names \PYZdl{}sds}\PY{l+s}{\PYZdq{}}
+         \PY{n}{done}
+         
+         \PY{c}{\PYZsh{} Create the stack}
+         \PY{n}{gdal\PYZus{}merge}\PY{o}{.}\PY{n}{py} \PY{o}{\PYZhy{}}\PY{n}{o} \PY{n}{temp}\PY{o}{.}\PY{n}{gtif} \PY{o}{\PYZhy{}}\PY{n}{separate} \PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}nodata} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9999} \PY{err}{\PYZdl{}}\PY{n}{sds\PYZus{}names}
+         
+         \PY{c}{\PYZsh{} Correct the projection using gdal\PYZus{}translate}
+         \PY{n}{gdal\PYZus{}translate} \PY{o}{\PYZhy{}}\PY{n}{of} \PY{n}{ENVI} \PY{o}{\PYZhy{}}\PY{n}{co} \PY{l+s}{\PYZdq{}}\PY{l+s}{INTERLEAVE=BIP}\PY{l+s}{\PYZdq{}} \PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}srs} \PY{l+s}{\PYZsq{}}\PY{l+s}{+proj=utm +zone=16 +datum=WGS84 +units=m +no\PYZus{}defs }\PY{l+s}{\PYZsq{}} \PY{n}{temp}\PY{o}{.}\PY{n}{gtif} \PY{err}{\PYZdl{}}\PY{n}{output}
+         
+         \PY{c}{\PYZsh{} Delete the temporary GeoTIFF}
+         \PY{n}{rm} \PY{n}{temp}\PY{o}{.}\PY{o}{*}
+         
+         \PY{c}{\PYZsh{} Query the new stack for metadata}
+         \PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{n}{output}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Input file size is 8121, 7101
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Driver: ENVI/ENVI .hdr Labelled
+Files: LE70200472014061EDC00\_test\_stack.bip
+       LE70200472014061EDC00\_test\_stack.bip.aux.xml
+       LE70200472014061EDC00\_test\_stack.hdr
+Size is 8121, 7101
+Coordinate System is:
+PROJCS["WGS\_1984\_UTM\_Zone\_16N",
+    GEOGCS["GCS\_WGS\_1984",
+        DATUM["WGS\_1984",
+            SPHEROID["WGS\_84",6378137,298.257223563]],
+        PRIMEM["Greenwich",0],
+        UNIT["Degree",0.017453292519943295]],
+    PROJECTION["Transverse\_Mercator"],
+    PARAMETER["latitude\_of\_origin",0],
+    PARAMETER["central\_meridian",-87],
+    PARAMETER["scale\_factor",0.9996],
+    PARAMETER["false\_easting",500000],
+    PARAMETER["false\_northing",0],
+    UNIT["Meter",1]]
+Origin = (78585.000000000000000,2186415.000000000000000)
+Pixel Size = (30.000000000000000,-30.000000000000000)
+Metadata:
+  AREA\_OR\_POINT=Area
+  Band\_1=Band 1
+  Band\_2=Band 2
+  Band\_3=Band 3
+  Band\_4=Band 4
+  Band\_5=Band 5
+  Band\_6=Band 6
+  Band\_7=Band 7
+  Band\_8=Band 8
+Image Structure Metadata:
+  INTERLEAVE=PIXEL
+Corner Coordinates:
+Upper Left  (   78585.000, 2186415.000) ( 91d 1' 9.14"W, 19d43'42.02"N)
+Lower Left  (   78585.000, 1973385.000) ( 90d58'25.95"W, 17d48'27.72"N)
+Upper Right (  322215.000, 2186415.000) ( 88d41'48.80"W, 19d45'55.56"N)
+Lower Right (  322215.000, 1973385.000) ( 88d40'39.72"W, 17d50'27.37"N)
+Center      (  200400.000, 2079900.000) ( 89d50'31.44"W, 18d47'21.19"N)
+Band 1 Block=8121x1 Type=Int16, ColorInterp=Undefined
+  Description = Band 1
+Band 2 Block=8121x1 Type=Int16, ColorInterp=Undefined
+  Description = Band 2
+Band 3 Block=8121x1 Type=Int16, ColorInterp=Undefined
+  Description = Band 3
+Band 4 Block=8121x1 Type=Int16, ColorInterp=Undefined
+  Description = Band 4
+Band 5 Block=8121x1 Type=Int16, ColorInterp=Undefined
+  Description = Band 5
+Band 6 Block=8121x1 Type=Int16, ColorInterp=Undefined
+  Description = Band 6
+Band 7 Block=8121x1 Type=Int16, ColorInterp=Undefined
+  Description = Band 7
+Band 8 Block=8121x1 Type=Int16, ColorInterp=Undefined
+  Description = Band 8
+    \end{Verbatim}
+
+    Output extent
+
+Since we will be utilizing a large number of images in whatever analysis
+we perform, it would be convenient if all of the ``layer stack'' images
+share a common image size and geographic extent. If they did not, then
+our algorithm would have to perform some arithmetic to determine which
+pixel it should read in from every image. Instead, it is much easier to
+know that every row and column corresponds to the same extent on the
+ground.
+
+In order to do this, the simplest approach would be to define an output
+extent based on one image. A more sophisticated approach would be to
+define the output extent as the maximum extent required to fit all
+images, but this is too difficult in Bash to demonstrate.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}\PY{o}{/}
+         
+         \PY{c}{\PYZsh{} Define \PYZdq{}extent\PYZdq{} function (from https://github.com/dwtkns/gdal\PYZhy{}cheat\PYZhy{}sheet)}
+         \PY{n}{function} \PY{n}{gdal\PYZus{}extent}\PY{p}{(}\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{k}{if} \PY{p}{[} \PY{o}{\PYZhy{}}\PY{n}{z} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}1}\PY{l+s}{\PYZdq{}} \PY{p}{]}\PY{p}{;} \PY{n}{then} 
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Missing arguments. Syntax:}\PY{l+s}{\PYZdq{}}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{  gdal\PYZus{}extent \PYZlt{}input\PYZus{}raster\PYZgt{}}\PY{l+s}{\PYZdq{}}
+                 \PY{k}{return}
+             \PY{n}{fi}
+             \PY{n}{EXTENT}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{l+m+mi}{1} \PY{o}{|}\PYZbs{}
+                 \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{Upper Left}\PY{l+s}{\PYZbs{}}\PY{l+s}{|Lower Right}\PY{l+s}{\PYZdq{}} \PY{o}{|}\PYZbs{}
+                 \PY{n}{sed} \PY{l+s}{\PYZdq{}}\PY{l+s}{s/Upper Left  //g;s/Lower Right //g;s/).*//g}\PY{l+s}{\PYZdq{}} \PY{o}{|}\PYZbs{}
+                 \PY{n}{tr} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}} \PY{o}{|}\PYZbs{}
+                 \PY{n}{sed} \PY{l+s}{\PYZsq{}}\PY{l+s}{s/ *\PYZdl{}//g}\PY{l+s}{\PYZsq{}} \PY{o}{|}\PYZbs{}
+                 \PY{n}{tr} \PY{o}{\PYZhy{}}\PY{n}{d} \PY{l+s}{\PYZdq{}}\PY{l+s}{[(,]}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{echo} \PY{o}{\PYZhy{}}\PY{n}{n} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}EXTENT}\PY{l+s}{\PYZdq{}}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{c}{\PYZsh{} Define \PYZdq{}subdataset\PYZdq{} function}
+         \PY{n}{function} \PY{n}{get\PYZus{}sds}\PY{p}{(}\PY{p}{)} \PY{p}{\PYZob{}}
+             \PY{k}{if} \PY{p}{[} \PY{o}{\PYZhy{}}\PY{n}{z} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}1}\PY{l+s}{\PYZdq{}} \PY{p}{]} \PY{o}{|}\PY{o}{|} \PY{p}{[} \PY{o}{\PYZhy{}}\PY{n}{z} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}2}\PY{l+s}{\PYZdq{}} \PY{p}{]}\PY{p}{;} \PY{n}{then}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Missing arguments. Usage:}\PY{l+s}{\PYZdq{}}
+                 \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{    get\PYZus{}sds \PYZlt{}raster\PYZgt{} \PYZlt{}bands\PYZgt{}}\PY{l+s}{\PYZdq{}}
+                 \PY{k}{return}
+             \PY{n}{fi}
+         
+             \PY{n}{sds\PYZus{}names}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+             \PY{k}{for} \PY{n}{b} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{l+m+mi}{2}\PY{p}{;} \PY{n}{do}
+                 \PY{n}{sds}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{l+m+mi}{1} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{SUBDATASET\PYZus{}\PYZdl{}\PYZob{}b\PYZcb{}\PYZus{}NAME}\PY{l+s}{\PYZdq{}} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{=}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}2 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{sds\PYZus{}names}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}sds\PYZus{}names \PYZdl{}sds}\PY{l+s}{\PYZdq{}}
+             \PY{n}{done}
+             \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}sds\PYZus{}names}\PY{l+s}{\PYZdq{}}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{c}{\PYZsh{} Define index so we only grab extent from first}
+         \PY{n}{i}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{c}{\PYZsh{} Bands of interest}
+         \PY{n}{bands}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{1 2 3 4 5 6 15 17}\PY{l+s}{\PYZdq{}}
+         \PY{c}{\PYZsh{} Projection \PYZdq{}proj4\PYZdq{} string to use}
+         \PY{n}{proj4}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{+proj=utm +zone=16 +datum=WGS84 +units=m +no\PYZus{}defs }\PY{l+s}{\PYZdq{}}
+         
+         \PY{c}{\PYZsh{} Loop through all image directories}
+         \PY{k}{for} \PY{n}{img} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{maxdepth} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{L*}\PY{l+s}{\PYZsq{}} \PY{o}{\PYZhy{}}\PY{n+nb}{type} \PY{n}{d}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+             \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Creating layer stack for \PYZdl{}img}\PY{l+s}{\PYZdq{}}
+             
+             \PY{c}{\PYZsh{} Find LEDAPS file}
+             \PY{n}{lndsr}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{err}{\PYZdl{}}\PY{n}{img} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{lndsr*hdf}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{c}{\PYZsh{} Get subdatasets \PYZhy{} quote bands so they\PYZsq{}re all sent as \PYZdl{}2}
+             \PY{n}{subdatasets}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{get\PYZus{}sds} \PY{err}{\PYZdl{}}\PY{n}{lndsr} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}bands}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+         
+             \PY{c}{\PYZsh{} Get extent of first image we find}
+             \PY{k}{if} \PY{p}{[} \PY{err}{\PYZdl{}}\PY{n}{i} \PY{o}{\PYZhy{}}\PY{n}{eq} \PY{l+m+mi}{0} \PY{p}{]}\PY{p}{;} \PY{n}{then}
+                 \PY{c}{\PYZsh{} Extent}
+                 \PY{n}{sds}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{subdatasets} \PY{o}{|} \PY{n}{awk} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}1 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{extent}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{gdal\PYZus{}extent} \PY{err}{\PYZdl{}}\PY{n}{sds}\PY{p}{)}
+             \PY{n}{fi}
+             
+             \PY{c}{\PYZsh{} Find image Landsat ID for filename}
+             \PY{n+nb}{id}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{basename} \PY{err}{\PYZdl{}}\PY{n}{img}\PY{p}{)}
+             
+             \PY{n}{output}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{n}{img}\PY{o}{/}\PY{err}{\PYZdl{}}\PY{p}{\PYZob{}}\PY{n+nb}{id}\PY{p}{\PYZcb{}}\PY{n}{\PYZus{}stack}
+             
+             \PY{c}{\PYZsh{} Create layer stack}
+             \PY{n}{gdal\PYZus{}merge}\PY{o}{.}\PY{n}{py} \PY{o}{\PYZhy{}}\PY{n}{o} \PY{n}{temp}\PY{o}{.}\PY{n}{gtif} \PY{o}{\PYZhy{}}\PY{n}{ul\PYZus{}lr} \PY{err}{\PYZdl{}}\PY{n}{extent} \PY{o}{\PYZhy{}}\PY{n}{separate} \PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}nodata} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9999} \PY{err}{\PYZdl{}}\PY{n}{subdatasets}
+             
+             \PY{c}{\PYZsh{} Now translate this into ENVI BIP with correct projection}
+             \PY{n}{gdal\PYZus{}translate} \PY{o}{\PYZhy{}}\PY{n}{of} \PY{n}{ENVI} \PY{o}{\PYZhy{}}\PY{n}{co} \PY{l+s}{\PYZdq{}}\PY{l+s}{INTERLEAVE=BIP}\PY{l+s}{\PYZdq{}} \PY{o}{\PYZhy{}}\PY{n}{a\PYZus{}srs} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}proj4}\PY{l+s}{\PYZdq{}} \PY{n}{temp}\PY{o}{.}\PY{n}{gtif} \PY{err}{\PYZdl{}}\PY{n}{output}
+         
+             \PY{c}{\PYZsh{} Iterate i and delete temp file}
+             \PY{n}{let} \PY{n}{i}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{n}{rm} \PY{n}{temp}\PY{o}{.}\PY{o}{*}
+         \PY{n}{done}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Creating layer stack for ./LE70200472014061EDC00
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Input file size is 8121, 7101
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Creating layer stack for ./LE70200472014077ASN00
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Input file size is 8121, 7101
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Creating layer stack for ./LE70200472014093ASN00
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Input file size is 8121, 7101
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Creating layer stack for ./LE70200472014109ASN00
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Input file size is 8121, 7101
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+    \end{Verbatim}
+
+    We can check out output to make sure they're all the same size and upper
+left coordinate:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}\PY{o}{/}
+         
+         \PY{k}{for} \PY{n}{stack} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*stack}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+             \PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{n}{stack} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{Size is}\PY{l+s}{\PYZdq{}}
+             \PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{n}{stack} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{Origin =}\PY{l+s}{\PYZdq{}}
+             \PY{n}{du} \PY{o}{\PYZhy{}}\PY{n}{hs} \PY{err}{\PYZdl{}}\PY{n}{stack}
+         \PY{n}{done}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Size is 8121, 7101
+Origin = (78585.000000000000000,2186415.000000000000000)
+880M	./LE70200472014061EDC00/LE70200472014061EDC00\_stack
+Size is 8121, 7101
+Origin = (78585.000000000000000,2186415.000000000000000)
+880M	./LE70200472014077ASN00/LE70200472014077ASN00\_stack
+Size is 8121, 7101
+Origin = (78585.000000000000000,2186415.000000000000000)
+880M	./LE70200472014093ASN00/LE70200472014093ASN00\_stack
+Size is 8121, 7101
+Origin = (78585.000000000000000,2186415.000000000000000)
+880M	./LE70200472014109ASN00/LE70200472014109ASN00\_stack
+    \end{Verbatim}
+
+    Complicated stuff!
+
+Wow - that's a lot of Bash work! You could formalize these lines of code
+into your own Bash script, of course, but it probably isn't the best
+language for the job.
+
+In order to create these layer stacks myself, I ended up writing a
+heavily modified version of \textbf{\emph{gdal\_merge.py}} that does the
+following: - Determines the output extent of your stack by: - the
+maximum extent of all datasets - the minimum extent of all datasets - a
+specified extent - a percentile of the extents (e.g., 1\% for minimum
+and 99\% for maximum) - Treats HDF subdatasets as bands, removing
+necessity for referencing them directly - Preserves band name metadata
+(i.e., so your stack has the name ``band 1 reflectance'' from the LEDAPS
+HDF file) - Applies NDV separately per band - Can overwrite UTM zone to
+fix datum - Can ``resume'' if interrupted
+
+If you'd like to use this solution, you may do so as follows:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}65}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{module} \PY{n}{load} \PY{n}{gdal}\PY{o}{/}\PY{l+m+mf}{1.10}\PY{o}{.}\PY{l+m+mi}{0}
+         \PY{n}{module} \PY{n}{load} \PY{n}{batch\PYZus{}landsat}
+         
+         \PY{n}{landsat\PYZus{}stack}\PY{o}{.}\PY{n}{py} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{help}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Stack Landsat Data
+
+Usage: landsat\_stack.py [options] (--max\_extent | --min\_extent | 
+    --extent=<extent> | --percentile=<pct>) <location>
+
+Options:
+    -f --files=<files>\ldots       Files to stack [default: lndsr.*.hdf *Fmask]
+    -b --bands=<bands>\ldots       Bands from files to stack [default: all]
+    -d --dirs=<pattern>         Directory name pattern to search [default: L*]
+    -o --output=<pattern>       Output filename pattern [default: *stack]
+    -p --pickup                 Pickup / resume where left off 
+    -n --ndv=<ndv>              No data value [default: 0]
+    -u --utm=<zone>             Force a UTM zone (in WGS84)
+    -e --exit-on-warn           Exit on warning messages
+    --format=<format>           GDAL format [default: ENVI]
+    --co=<creation options>     GDAL creation options [default: None]
+    -v --verbose                Show verbose debugging messages
+    -q --quiet                  Be quiet by not showing warnings
+    --dry-run                   Dry run - don't actually stack
+    -h --help                   Show help
+
+Examples:
+    landsat\_stack.py -vq -n "-9999; 255" -b "1 2 3 4 5 6 15; 1" --min\_extent ./
+    \end{Verbatim}
+
+    Example:
+
+Let's say we want the same bands, but want to specify that the extent of
+the images be the maximum of all images in the stack so nothing gets
+clipped. We can also specify NoDataValues for each band:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}\PY{o}{/}
+         
+         \PY{n}{module} \PY{n}{load} \PY{n}{gdal}\PY{o}{/}\PY{l+m+mf}{1.10}\PY{o}{.}\PY{l+m+mi}{0}
+         \PY{n}{module} \PY{n}{load} \PY{n}{batch\PYZus{}landsat}
+         
+         \PY{n}{landsat\PYZus{}stack}\PY{o}{.}\PY{n}{py} \PY{o}{\PYZhy{}}\PY{n}{q} \PY{o}{\PYZhy{}}\PY{n}{p} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{files} \PY{l+s}{\PYZdq{}}\PY{l+s}{lndsr*hdf; *Fmask}\PY{l+s}{\PYZdq{}} \PYZbs{}
+             \PY{o}{\PYZhy{}}\PY{n}{b} \PY{l+s}{\PYZdq{}}\PY{l+s}{1 2 3 4 5 6 15; 1}\PY{l+s}{\PYZdq{}} \PYZbs{}
+             \PY{o}{\PYZhy{}}\PY{n}{n} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZhy{}9999 \PYZhy{}9999 \PYZhy{}9999 \PYZhy{}9999 \PYZhy{}9999 \PYZhy{}9999; 255}\PY{l+s}{\PYZdq{}} \PYZbs{}
+             \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{utm} \PY{l+m+mi}{16} \PY{o}{\PYZhy{}}\PY{n}{o} \PY{l+s}{\PYZdq{}}\PY{l+s}{*\PYZus{}stack\PYZus{}chris}\PY{l+s}{\PYZdq{}} \PYZbs{}
+             \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{format} \PY{l+s}{\PYZdq{}}\PY{l+s}{ENVI}\PY{l+s}{\PYZdq{}} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{co} \PY{l+s}{\PYZdq{}}\PY{l+s}{INTERLEAVE=BIP}\PY{l+s}{\PYZdq{}} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{max\PYZus{}extent} \PY{o}{.}\PY{o}{/}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Found 4 Landsat images to stack.
+Finding maximum extent
+Landsat ID: LE70200472014061EDC00 updated maximum extent
+Landsat ID: LE70200472014077ASN00 updated maximum extent
+Landsat ID: LE70200472014093ASN00 updated maximum extent
+Landsat ID: LE70200472014109ASN00 updated maximum extent
+
+Stacking to extent:
+	Upper Left: 77385.0,2187015.0
+	Lower Right: 323115.0,1973385.0
+
+Stacking images:
+<--------------- 1 / 4 
+Stacking:
+ ./LE70200472014061EDC00/LE70200472014061EDC00\_stack\_chris
+
+Target extent: [77385.0, 2187015.0, 323115.0, 1973385.0]
+Output size: x=8191, y=7121
+Output projection: 
+ 		PROJCS["UTM Zone 16, Northern Hemisphere",GEOGCS["WGS 84",DATUM["WGS\_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9108"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse\_Mercator"],PARAMETER["latitude\_of\_origin",0],PARAMETER["central\_meridian",-87],PARAMETER["scale\_factor",0.9996],PARAMETER["false\_easting",500000],PARAMETER["false\_northing",0],UNIT["Meter",1]]
+
+<--------------- 2 / 4 
+Stacking:
+ ./LE70200472014077ASN00/LE70200472014077ASN00\_stack\_chris
+
+Target extent: [77385.0, 2187015.0, 323115.0, 1973385.0]
+Output size: x=8191, y=7121
+Output projection: 
+ 		PROJCS["UTM Zone 16, Northern Hemisphere",GEOGCS["WGS 84",DATUM["WGS\_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9108"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse\_Mercator"],PARAMETER["latitude\_of\_origin",0],PARAMETER["central\_meridian",-87],PARAMETER["scale\_factor",0.9996],PARAMETER["false\_easting",500000],PARAMETER["false\_northing",0],UNIT["Meter",1]]
+
+<--------------- 3 / 4 
+Stacking:
+ ./LE70200472014093ASN00/LE70200472014093ASN00\_stack\_chris
+
+Target extent: [77385.0, 2187015.0, 323115.0, 1973385.0]
+Output size: x=8191, y=7121
+Output projection: 
+ 		PROJCS["UTM Zone 16, Northern Hemisphere",GEOGCS["WGS 84",DATUM["WGS\_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9108"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse\_Mercator"],PARAMETER["latitude\_of\_origin",0],PARAMETER["central\_meridian",-87],PARAMETER["scale\_factor",0.9996],PARAMETER["false\_easting",500000],PARAMETER["false\_northing",0],UNIT["Meter",1]]
+
+<--------------- 4 / 4 
+Stacking:
+ ./LE70200472014109ASN00/LE70200472014109ASN00\_stack\_chris
+
+Target extent: [77385.0, 2187015.0, 323115.0, 1973385.0]
+Output size: x=8191, y=7121
+Output projection: 
+ 		PROJCS["UTM Zone 16, Northern Hemisphere",GEOGCS["WGS 84",DATUM["WGS\_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9108"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse\_Mercator"],PARAMETER["latitude\_of\_origin",0],PARAMETER["central\_meridian",-87],PARAMETER["scale\_factor",0.9996],PARAMETER["false\_easting",500000],PARAMETER["false\_northing",0],UNIT["Meter",1]]
+
+
+
+ --------------- REPORT --------------- 
+
+
+Stacking completed successfully
+    \end{Verbatim}
+
+    Now let's check the ``landsat\_stack.py'' result:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}\PY{o}{/}
+         
+         \PY{k}{for} \PY{n}{stack} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*stack\PYZus{}chris}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+             \PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{n}{stack} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{Size is}\PY{l+s}{\PYZdq{}}
+             \PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{n}{stack} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{Origin =}\PY{l+s}{\PYZdq{}}
+             \PY{n}{du} \PY{o}{\PYZhy{}}\PY{n}{hs} \PY{err}{\PYZdl{}}\PY{n}{stack}
+         \PY{n}{done}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Size is 8191, 7121
+Origin = (77385.000000000000000,2187015.000000000000000)
+891M	./LE70200472014061EDC00/LE70200472014061EDC00\_stack\_chris
+Size is 8191, 7121
+Origin = (77385.000000000000000,2187015.000000000000000)
+891M	./LE70200472014077ASN00/LE70200472014077ASN00\_stack\_chris
+Size is 8191, 7121
+Origin = (77385.000000000000000,2187015.000000000000000)
+891M	./LE70200472014093ASN00/LE70200472014093ASN00\_stack\_chris
+Size is 8191, 7121
+Origin = (77385.000000000000000,2187015.000000000000000)
+891M	./LE70200472014109ASN00/LE70200472014109ASN00\_stack\_chris
+    \end{Verbatim}
+
+    \subsection{6. Run Fmask using custom parameters on
+images}\label{run-fmask-using-custom-parameters-on-images}
+
+Depending on your scene location or tolerance for noise, you may wish to
+run Fmask with a more conservative threshold.
+
+Since this example is in the Yucatan Penninsula, my guess is that the
+default Fmask cloud probability of 22.5 will miss a lot of small clouds.
+Furthermore, we have a relatively large amount of data to work with, so
+comission is not much of an issue.
+
+To run Fmask on our cluster, you can run MATLAB as a single threaded
+``batch style'' job using some command line arguments to MATLAB:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{module} \PY{n}{load} \PY{n}{gdal}\PY{o}{/}\PY{l+m+mf}{1.10}\PY{o}{.}\PY{l+m+mi}{0}
+         
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{6}\PY{n}{\PYZus{}Fmask}
+         
+         \PY{c}{\PYZsh{} Define MATLAB single threaded \PYZdq{}batch\PYZdq{} runtime}
+         \PY{n}{ML}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{/usr/local/bin/matlab \PYZhy{}nodisplay \PYZhy{}nojvm \PYZhy{}singleCompThread \PYZhy{}r }\PY{l+s}{\PYZdq{}}
+         
+         \PY{c}{\PYZsh{} Define MATLAB command to run \PYZhy{} let\PYZsq{}s use 12.5 as cloud probabilty and dilate clouds and shadow by 5 and 4}
+         \PY{n}{CMD}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{addpath(}\PY{l+s}{\PYZsq{}}\PY{l+s}{/usr3/graduate/zhuzhe/Algorithms/Fmask}\PY{l+s}{\PYZsq{}}\PY{l+s}{);clr\PYZus{}pct=autoFmask(5,4,3,12.5);fprintf(}\PY{l+s}{\PYZsq{}}\PY{l+s}{CLEAR=}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZsq{}}\PY{l+s}{,clr\PYZus{}pct);exit;}\PY{l+s}{\PYZdq{}}
+         
+         \PY{c}{\PYZsh{} Loop over all images running Fmask}
+         \PY{n}{here}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{pwd}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{img} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{L*}\PY{l+s}{\PYZsq{}} \PY{o}{\PYZhy{}}\PY{n+nb}{type} \PY{n}{d}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+             \PY{n}{cd} \PY{err}{\PYZdl{}}\PY{n}{img}
+             
+             \PY{c}{\PYZsh{} Let\PYZsq{}s not just run Fmask, but also capture clear percentage}
+             \PY{n}{clear}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{err}{\PYZdl{}}\PY{n}{ML} \PY{err}{\PYZdl{}}\PY{n}{CMD} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{CLEAR=}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{c}{\PYZsh{} Find Fmask}
+             \PY{n}{fmask}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*Fmask}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             \PY{c}{\PYZsh{} Add clear percent to metadata}
+             \PY{n}{gdal\PYZus{}edit}\PY{o}{.}\PY{n}{py} \PY{o}{\PYZhy{}}\PY{n}{mo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}clear}\PY{l+s}{\PYZdq{}} \PY{err}{\PYZdl{}}\PY{n}{fmask}
+             
+             \PY{n}{cd} \PY{err}{\PYZdl{}}\PY{n}{here}
+         \PY{n}{done}
+         
+         \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Done!}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done!
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{6}\PY{n}{\PYZus{}Fmask}
+         
+         \PY{k}{for} \PY{n}{fmask} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*Fmask}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+             \PY{n}{echo} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{basename} \PY{err}{\PYZdl{}}\PY{n}{fmask}\PY{p}{)}
+             \PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{n}{fmask} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{CLEAR}\PY{l+s}{\PYZdq{}}
+         \PY{n}{done}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LE70200472014061EDC00\_MTLFmask
+  CLEAR=36.869076
+LE70200472014077ASN00\_MTLFmask
+  CLEAR=20.763808
+LE70200472014093ASN00\_MTLFmask
+  CLEAR=36.600765
+LE70200472014109ASN00\_MTLFmask
+  CLEAR=21.032762
+    \end{Verbatim}
+
+    Batch Fmask
+
+Prior to the USGS providing surface reflectance results from LEDAPS, we
+had to run LEDAPS ourselves here at BU.
+
+To help facilitate the preprocessing of Landsat data, I created a script
+that works on a directory full of Landsat image archives and
+intelligently submits ``qsub'' jobs to preprocess each archive. Features
+of the script include:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  Stop preprocessing routine and create error log file if image is L1G
+\item
+  Delete TIF images after completed
+\item
+  Extract Landsat archives and organize by Path-Row/LandsatID
+\item
+  Perform LEDAPS and/or Fmask
+\item
+  Customize Fmask parameters
+\item
+  Set number of batch jobs running at one time on the cluster (useful
+  since MATLAB runs out of licenses)
+\end{itemize}
+
+You can access this script by loading the module ``batch\_landsat'':
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{module} \PY{n}{load} \PY{n}{batch\PYZus{}landsat}
+         
+         \PY{n}{landsatPrepSubmit}\PY{o}{.}\PY{n}{sh} \PY{o}{\PYZhy{}}\PY{n}{h}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+usage: /project/earth/packages/batch\_landsat/bin/landsatPrepSubmit.sh [options] image\_directory
+
+    Author: Chris Holden (ceholden@bu.edu)
+
+    Purpose:
+    This script generates and manages the submissions of Landsat
+    pre-processing (LEDAPS/Fmask) jobs to the Sun Grid Engine on BU's
+    Katana cluster. 
+
+    Note: requires script "landsatPrepQsub.sh" to also be in your path
+
+    Options:
+        -h  help
+        -m  maximum SGE jobs at one time (default 2)
+        -n  base for job names (default - landsat; cannot begin with a \#)
+        -w  wait between qstat checks (default 60s)
+        -d  delete TIF files?
+        -c  cloud dilation parameter for FMASK (default 3)
+        -s  shadow dilation parameter for FMASK (default 3)
+        -p  cloud probability parameter for FMASK (default 22.5)
+        -l  do LEDAPS? 1 - yes, 0 - no (default 1)
+        -f  do FMask? 1 - yes, 0 - no (default 1)
+        -x  do directory structure organization? (default 1)
+            0 - no, just find tar.gz and move to their locations
+            1 - yes, creates directory structure
+        -g  check for L1G images and exit if found? (default 0)
+        -e  send email? (default 1)
+        -u  do unzipping? useful if data already extracted (default 1)
+        -8  (BETA) use Qingsong's LC8 compatible version of LEDAPS (default 0)
+        -2  Use Fmask 2.1 (default 0)
+
+    Examples:
+        Run LEDAPS and Fmask (3.2) using 10 jobs maximum and use custom Fmask 
+        options on the folder "images":
+        > landsatPrepSubmit.sh -m 10 -n myjob -w 60 -d -c 5 -s 4 -p 12.5 images/
+
+        Run ONLY Fmask (3.2) on the files processed above, but this time with a 
+        different Fmask cloud probability. Note the "-x" option:
+        > landsatPrepSubmit.sh -m 10 -n myjob -c 5 -s 4 -p 22.5 images/P012-R031
+
+        Run ONLY Fmask (3.2) on the files processed above, but with a different
+        set of Fmask dilation values. Note that because we did not ask for the 
+        TIF files to be deleted in the last run, they still exist and we will 
+        not extract them ("-u 0").
+        > landsatPrepSubmit.sh -m 10 -n myjob -c 3 -s 3 -p 22.5 images/P012-R031
+    \end{Verbatim}
+
+    While we could run LEDAPS with this tool, it is not longer required and
+our version of LEDAPS is not as recently updated as the one running at
+the USGS.
+
+Instead, let's pretend we just downloaded new data and we'll unzip,
+organize, and then run Fmask with custom parameters for each image:
+
+\begin{quote}
+\textgreater{} landsatPrepSubmit.sh -m 2 -d -c 5 -s 4 -p 12.5 -l 0
+\end{quote}
+
+This command will: - -m maximum of 2 qsub jobs - -d delete TIF files
+when done - -c 5 dilate clouds by 5 pixels - -s 4 dilate shadows by 4
+pixels - -p 12.5 cloud probability = 12.5 - -l 0 do not do LEDAPS
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{7}\PY{n}{\PYZus{}BatchPrep}
+         
+         \PY{n}{module} \PY{n}{load} \PY{n}{batch\PYZus{}landsat}
+         
+         \PY{n}{landsatPrepSubmit}\PY{o}{.}\PY{n}{sh} \PY{o}{\PYZhy{}}\PY{n}{m} \PY{l+m+mi}{2} \PY{o}{\PYZhy{}}\PY{n}{d} \PY{o}{\PYZhy{}}\PY{n}{c} \PY{l+m+mi}{5} \PY{o}{\PYZhy{}}\PY{n}{s} \PY{l+m+mi}{4} \PY{o}{\PYZhy{}}\PY{n}{p} \PY{l+m+mf}{12.5} \PY{o}{\PYZhy{}}\PY{n}{l} \PY{l+m+mi}{0} \PY{o}{\PYZhy{}}\PY{n}{e} \PY{l+m+mi}{0} \PY{o}{\PYZhy{}}\PY{n}{g} \PY{l+m+mi}{1} \PY{o}{.}\PY{o}{/}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Scene directory:  /projectnb/landsat/users/ceholden/2014\_Landsat\_Preprocess/7\_BatchPrep
+Maximum jobs:  2
+Job basename:  landsat
+Time between qstat checks:  60
+Cloud dilation:  5
+Shadow dilation:  4
+Cloud probability:  12.5
+Remove unneccessary files?:  1
+Do LEDAPS?:  0
+Do Fmask?:  1
+Check for L1G?:  1
+Send email?:  0
+Do unzip?:  1
+LC8 LEDAPS:  0
+Use FMask 2.1sav:  0
+Found 4 Landsat archives
+Wrote jobs out\ldots
+Jobs running: 0
+<------------------------->
+Your job 5773156 ("landsat.LE70200472014077-SC20140507171413") has been submitted
+Submitted job \#1
+<------------------------->
+Jobs submitted:  1
+Jobs on SGE:  0
+Jobs running:  0
+Jobs waiting:  0
+<------------------------->
+Your job 5773157 ("landsat.LE70200472014093-SC20140507171414") has been submitted
+Submitted job \#2
+<------------------------->
+Jobs submitted:  2
+Jobs on SGE:  1
+Jobs running:  0
+Jobs waiting:  1
+<------------------------->
+Jobs submitted:  2
+Jobs on SGE:  2
+Jobs running:  0
+Jobs waiting:  2
+<------------------------->
+Jobs submitted:  2
+Jobs on SGE:  2
+Jobs running:  2
+Jobs waiting:  0
+<------------------------->
+Jobs submitted:  2
+Jobs on SGE:  2
+Jobs running:  2
+Jobs waiting:  0
+<------------------------->
+Your job 5773183 ("landsat.LE70200472014061-SC20140507171414") has been submitted
+Submitted job \#3
+<------------------------->
+Jobs submitted:  3
+Jobs on SGE:  1
+Jobs running:  1
+Jobs waiting:  0
+<------------------------->
+Jobs submitted:  3
+Jobs on SGE:  2
+Jobs running:  1
+Jobs waiting:  1
+<------------------------->
+Your job 5773191 ("landsat.LE70200472014109-SC20140507171414") has been submitted
+Submitted job \#4
+<------------------------->
+Jobs submitted:  4
+Jobs on SGE:  1
+Jobs running:  1
+Jobs waiting:  0
+All jobs submitted to SGE. Exiting.
+    \end{Verbatim}
+
+    Now that the job is done, let's look at our results:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{7}\PY{n}{\PYZus{}BatchPrep}
+         
+         \PY{c}{\PYZsh{} Remember, this script organizes Landsat images by path\PYZhy{}row (e.g., P020\PYZhy{}R047) AND Landsat ID}
+         \PY{n}{ls} \PY{o}{\PYZhy{}}\PY{n}{l} \PY{n}{P020}\PY{o}{\PYZhy{}}\PY{n}{R047}\PY{o}{/}
+         
+         \PY{n}{n}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{n}{P020}\PY{o}{\PYZhy{}}\PY{n}{R047} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*Fmask}\PY{l+s}{\PYZsq{}} \PY{o}{|} \PY{n}{wc} \PY{o}{\PYZhy{}}\PY{n}{l}\PY{p}{)}
+         
+         \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+         \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{We have \PYZdl{}n Fmask images}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+total 128
+drwxr-sr-x 3 ceholden landsat 32768 May  8 14:04 LE70200472014061-SC20140507171414
+drwxr-sr-x 3 ceholden landsat 32768 May  8 14:01 LE70200472014077-SC20140507171413
+drwxr-sr-x 3 ceholden landsat 32768 May  8 14:01 LE70200472014093-SC20140507171414
+drwxr-sr-x 3 ceholden landsat 32768 May  8 14:06 LE70200472014109-SC20140507171414
+
+We have 4 Fmask images
+    \end{Verbatim}
+
+    Our results are organized by the filename of the archives without the
+extension (i.e., no tar.gz).
+
+To rename our files, we can write a simple Bash loop:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{7}\PY{n}{\PYZus{}BatchPrep}\PY{o}{/}\PY{n}{P020}\PY{o}{\PYZhy{}}\PY{n}{R047}
+         
+         \PY{k}{for} \PY{n}{d} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{L*\PYZhy{}S*}\PY{l+s}{\PYZsq{}} \PY{o}{\PYZhy{}}\PY{n+nb}{type} \PY{n}{d}\PY{p}{)}\PY{p}{;} \PY{n}{do} 
+             \PY{n+nb}{id}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{err}{\PYZdl{}}\PY{n}{d} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*MTL.txt}\PY{l+s}{\PYZsq{}} \PY{o}{\PYZhy{}}\PY{k}{exec} \PY{n}{basename} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}} \PYZbs{}\PY{p}{;}\PY{p}{)}
+             \PY{n+nb}{id}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n+nb}{id} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZus{}}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}1 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{mv} \PY{err}{\PYZdl{}}\PY{n}{d} \PY{err}{\PYZdl{}}\PY{n+nb}{id}
+         \PY{n}{done}
+         
+         \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Done!}\PY{l+s}{\PYZdq{}}
+         
+         \PY{n}{ls} \PY{o}{\PYZhy{}}\PY{n}{l} \PY{o}{.}\PY{o}{/}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Done!
+total 128
+drwxr-sr-x 3 ceholden landsat 32768 May  8 14:04 LE70200472014061EDC00
+drwxr-sr-x 3 ceholden landsat 32768 May  8 14:01 LE70200472014077ASN00
+drwxr-sr-x 3 ceholden landsat 32768 May  8 14:01 LE70200472014093ASN00
+drwxr-sr-x 3 ceholden landsat 32768 May  8 14:06 LE70200472014109ASN00
+    \end{Verbatim}
+
+    \subsection{7. Create spatial subset using extent or polygon
+ROI}\label{create-spatial-subset-using-extent-or-polygon-roi}
+
+If you want to create a subset of your stacks, you can easily accomplish
+this using one or two of the GDAL command line utilities. Subsets are
+often very useful when you are rapidly iterating on your analysis and
+don't need to extend it to your entire study area, or if your study area
+is smaller than an entire Landsat image. In addition to just subsetting
+the size of your raster datasets, you can use GDAL to actually mask
+certain areas from your analysis.
+
+Simple subsetting using extent
+
+If you already have a bounding box defined (i.e., an extent listing
+upper left and lower right coordinates), you can use:
+
+\begin{quote}
+\textbf{\emph{gdal\_translate}}
+\end{quote}
+
+to very easily subset your data. You can either define your subset in
+units of pixels (-srcwin) or in units of actual coordinates (-projwin).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{gdal\PYZus{}translate} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{help}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Usage: gdal\_translate [--help-general] [--long-usage]
+       [-ot \{Byte/Int16/UInt16/UInt32/Int32/Float32/Float64/
+             CInt16/CInt32/CFloat32/CFloat64\}] [-strict]
+       [-of format] [-b band] [-mask band] [-expand \{gray|rgb|rgba\}]
+       [-outsize xsize[\%] ysize[\%]]
+       [-unscale] [-scale [src\_min src\_max [dst\_min dst\_max]]]
+       [-srcwin xoff yoff xsize ysize] [-projwin ulx uly lrx lry] [-epo] [-eco]
+       [-a\_srs srs\_def] [-a\_ullr ulx uly lrx lry] [-a\_nodata value]
+       [-gcp pixel line easting northing [elevation]]*
+       [-mo "META-TAG=VALUE"]* [-q] [-sds]
+       [-co "NAME=VALUE"]* [-stats]
+       src\_dataset dst\_dataset
+    \end{Verbatim}
+
+    For example, let's say I want to create a subset somewhere in the center
+of my stacked images:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{8}\PY{n}{\PYZus{}Subset}
+          
+          \PY{c}{\PYZsh{} gdalinfo will list the center coordinate of our raster}
+          \PY{n}{gdalinfo} \PY{n}{LE70200472014061EDC00}\PY{o}{/}\PY{o}{*}\PY{n}{stack} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{Center}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Center      (  200400.000, 2079900.000) ( 89d50'31.44"W, 18d47'21.19"N)
+    \end{Verbatim}
+
+    Note that 200400.000, 2079900.000 is the center of a pixel closest to
+our image's center so, we'll need to shift a half pixel to avoid
+clipping in the middle of a pixel.
+
+Let's make a 500x500 pixel raster centered on our image center:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{8}\PY{n}{\PYZus{}Subset}
+          
+          \PY{n}{gdalinfo} \PY{n}{LE70200472014061EDC00}\PY{o}{/}\PY{o}{*}\PY{n}{stack} \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{Center}\PY{l+s}{\PYZdq{}}
+          
+          \PY{c}{\PYZsh{} Center pixel ULx: 200385 }
+          \PY{c}{\PYZsh{} Center pixel ULy: 2079915}
+          
+          \PY{c}{\PYZsh{} So if we resize by 250 pixels in each direction,}
+          
+          \PY{n}{ulx}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{expr} \PY{l+m+mi}{200385} \PY{o}{\PYZhy{}} \PY{l+m+mi}{30} \PYZbs{}\PY{o}{*} \PY{l+m+mi}{250}\PY{p}{)}
+          \PY{n}{uly}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{expr} \PY{l+m+mi}{2079915} \PY{o}{+} \PY{l+m+mi}{30} \PYZbs{}\PY{o}{*} \PY{l+m+mi}{250}\PY{p}{)}
+          \PY{n}{lrx}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{expr} \PY{l+m+mi}{200385} \PY{o}{+} \PY{l+m+mi}{30} \PYZbs{}\PY{o}{*} \PY{l+m+mi}{250}\PY{p}{)}
+          \PY{n}{lry}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{expr} \PY{l+m+mi}{2079915} \PY{o}{\PYZhy{}} \PY{l+m+mi}{30} \PYZbs{}\PY{o}{*} \PY{l+m+mi}{250}\PY{p}{)}
+          
+          \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+          \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Our new extent:}\PY{l+s}{\PYZdq{}}
+          \PY{n}{extent}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}ulx \PYZdl{}uly \PYZdl{}lrx \PYZdl{}lry}\PY{l+s}{\PYZdq{}}
+          \PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{extent}
+          
+          \PY{c}{\PYZsh{} Perform subsetting on all of our stacked images}
+          \PY{k}{for} \PY{n}{stack} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*stack}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+              \PY{n+nb}{id}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{basename} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{dirname} \PY{err}{\PYZdl{}}\PY{n}{stack}\PY{p}{)}\PY{p}{)}
+          
+              \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Subsetting stack image for: \PYZdl{}id}\PY{l+s}{\PYZdq{}}
+              
+              \PY{n}{output}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{\PYZob{}}\PY{n}{stack}\PY{p}{\PYZcb{}}\PY{n}{\PYZus{}subset}\PY{o}{.}\PY{n}{gtif}
+              
+              \PY{n}{gdal\PYZus{}translate} \PY{o}{\PYZhy{}}\PY{n}{of} \PY{n}{GTiff} \PY{o}{\PYZhy{}}\PY{n}{projwin} \PY{err}{\PYZdl{}}\PY{n}{extent} \PY{err}{\PYZdl{}}\PY{n}{stack} \PY{err}{\PYZdl{}}\PY{n}{output}
+              
+              \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+          \PY{n}{done}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Center      (  200400.000, 2079900.000) ( 89d50'31.44"W, 18d47'21.19"N)
+
+Our new extent:
+192885 2087415 207885 2072415
+Subsetting stack image for: LE70200472014061EDC00
+Input file size is 8121, 7101
+Computed -srcwin 3810 3300 500 500 from projected window.
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+
+Subsetting stack image for: LE70200472014077ASN00
+Input file size is 8121, 7101
+Computed -srcwin 3810 3300 500 500 from projected window.
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+
+Subsetting stack image for: LE70200472014093ASN00
+Input file size is 8121, 7101
+Computed -srcwin 3810 3300 500 500 from projected window.
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+
+Subsetting stack image for: LE70200472014109ASN00
+Input file size is 8121, 7101
+Computed -srcwin 3810 3300 500 500 from projected window.
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+    \end{Verbatim}
+
+    As you can see from \textbf{\emph{gdal\_translate}}'s output, it took
+our ``projwin'' in projected coordinates (meters in our case, but it
+could just as well be used for geographic data in decimal degrees) and
+calculated the corresponding offsets and pixel size.
+
+If you already knew a range of rows and columns from your raster, you
+could specify the window you want to extract using:
+
+\begin{quote}
+-srcwin xoff yoff xsize ysize
+\end{quote}
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  xoff offset from 0 in columns
+\item
+  yoff offset from 0 in rows
+\item
+  xsize number of columns to include
+\item
+  ysize number of rows to include
+\end{itemize}
+
+    More complicated subsetting - polygon \& masking outside of polygon
+
+Let's suppose instead that you have some area of interest within your
+Landsat image that you'd like to analyze. In this scenario, the rest of
+the Landsat image would be a waste of disk space.
+
+You could calculate the spatial extent needed to contain the polygon of
+interest and simply run \textbf{\emph{gdal\_translate}} with the upper
+left and lower right X and Y coordinates as shown above.
+
+However, you could further limit your analysis by not only subsetting
+your raster images, but by masking out areas that you're not interested
+in. In order to do this, we will need to use
+
+\begin{quote}
+\textbf{\emph{gdalwarp}}
+\end{quote}
+
+\textbf{\emph{gdalwarp}} is mostly used for going from one projection to
+another, but it can also be used with a polygon vector file to crop
+images or to mask images.
+
+\textbf{NOTE}: \textbf{\emph{gdalwarp}}'s intended goal is to do
+reprojections. If we just want to clip our rasters, we will not be doing
+any reprojections. Unfortunately, even if we do not tell the program to
+reproject the data, it will recompute the pixel sizes and extent of our
+raster (see \textbf{\emph{gdalwarp}} bug ticket
+https://trac.osgeo.org/gdal/ticket/3947 and
+\textbf{\emph{gdal\_translate}} enhancement ticket
+https://trac.osgeo.org/gdal/ticket/4875)
+
+We can sidestep this potential issue by feeding \textbf{\emph{gdalwarp}}
+the correct extent and pixel size.
+
+First thing to do will be to use GDAL's sister library, OGR, to extract
+one polygon from a shapefile containing ``early action'' sites in
+Mexico. OGR is a very useful library and has many powerful command line
+utilities for working with vector data (see
+http://www.gdal.org/ogr/ogr\_sql.html for information about OGR's
+SQL-like queries).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}146}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{module} \PY{n}{load} \PY{n}{gdal}\PY{o}{/}\PY{l+m+mf}{1.10}\PY{o}{.}\PY{l+m+mi}{0}
+          
+          \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{8}\PY{n}{\PYZus{}Subset}
+          
+          \PY{n}{ogrinfo} \PY{o}{\PYZhy{}}\PY{n}{al} \PY{o}{\PYZhy{}}\PY{n}{geom}\PY{o}{=}\PY{n}{NO} \PY{o}{\PYZhy{}}\PY{n}{sql} \PY{l+s}{\PYZsq{}}\PY{l+s}{SELECT * FROM mredd\PYZus{}aatr WHERE (ESTADO  LIKE }\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZpc{}}\PY{l+s}{Campeche}\PY{l+s}{\PYZdq{}}\PY{l+s}{)}\PY{l+s}{\PYZsq{}} \PY{n}{mredd\PYZus{}aatr}\PY{o}{.}\PY{n}{shp}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+INFO: Open of `mredd\_aatr.shp'
+      using driver `ESRI Shapefile' successful.
+
+Layer name: mredd\_aatr
+Geometry: Polygon
+Feature Count: 1
+Extent: (-107.898611, 15.472142) - (-88.909351, 27.573289)
+Layer SRS WKT:
+GEOGCS["WGS 84",
+    DATUM["WGS\_1984",
+        SPHEROID["WGS 84",6378137,298.257223563,
+            AUTHORITY["EPSG","7030"]],
+        TOWGS84[0,0,0,0,0,0,0],
+        AUTHORITY["EPSG","6326"]],
+    PRIMEM["Greenwich",0,
+        AUTHORITY["EPSG","8901"]],
+    UNIT["degree",0.01745329251994328,
+        AUTHORITY["EPSG","9122"]],
+    AUTHORITY["EPSG","4326"]]
+ID: Real (11.0)
+SITIO: String (150.0)
+POLIGONO: String (50.0)
+ESTADO: String (50.0)
+OGRFeature(mredd\_aatr):0
+  ID (Real) = 1
+  SITIO (String) = Sierra Pucc- Los Chenes
+  POLIGONO (String) = -
+  ESTADO (String) = Yucatán - Campeche
+    \end{Verbatim}
+
+    Now we can use \textbf{\emph{ogr2ogr}} to extract this one action site
+into it's own shapefile. When we do this, we can also reproject our
+shapefile into the UTM zone we've been using with our Landsat data:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}153}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{module} \PY{n}{load} \PY{n}{gdal}\PY{o}{/}\PY{l+m+mf}{1.10}\PY{o}{.}\PY{l+m+mi}{0}
+          
+          \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{8}\PY{n}{\PYZus{}Subset}
+          
+          \PY{n}{ogr2ogr} \PY{o}{\PYZhy{}}\PY{n}{f} \PY{l+s}{\PYZdq{}}\PY{l+s}{ESRI Shapefile}\PY{l+s}{\PYZdq{}} \PY{o}{\PYZhy{}}\PY{n}{t\PYZus{}srs} \PY{n}{EPSG}\PY{p}{:}\PY{l+m+mi}{32616} \PYZbs{}
+              \PY{o}{\PYZhy{}}\PY{n}{sql} \PY{l+s}{\PYZdq{}}\PY{l+s}{SELECT * FROM mredd\PYZus{}aatr WHERE (ESTADO  LIKE }\PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZpc{}}\PY{l+s}{Campeche}\PY{l+s}{\PYZsq{}}\PY{l+s}{)}\PY{l+s}{\PYZdq{}} \PYZbs{}
+              \PY{n}{mredd\PYZus{}yucatan}\PY{o}{.}\PY{n}{shp} \PY{n}{mredd\PYZus{}aatr}\PY{o}{.}\PY{n}{shp}
+          
+          \PY{n}{ogrinfo} \PY{o}{\PYZhy{}}\PY{n}{al} \PY{o}{\PYZhy{}}\PY{n}{geom}\PY{o}{=}\PY{n}{NO} \PY{n}{mredd\PYZus{}yucatan}\PY{o}{.}\PY{n}{shp}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+INFO: Open of `mredd\_yucatan.shp'
+      using driver `ESRI Shapefile' successful.
+
+Layer name: mredd\_yucatan
+Geometry: Polygon
+Feature Count: 1
+Extent: (176449.259014, 2088249.065836) - (300170.064002, 2281342.856148)
+Layer SRS WKT:
+PROJCS["WGS\_1984\_UTM\_Zone\_16N",
+    GEOGCS["GCS\_WGS\_1984",
+        DATUM["WGS\_1984",
+            SPHEROID["WGS\_84",6378137,298.257223563]],
+        PRIMEM["Greenwich",0],
+        UNIT["Degree",0.017453292519943295]],
+    PROJECTION["Transverse\_Mercator"],
+    PARAMETER["latitude\_of\_origin",0],
+    PARAMETER["central\_meridian",-87],
+    PARAMETER["scale\_factor",0.9996],
+    PARAMETER["false\_easting",500000],
+    PARAMETER["false\_northing",0],
+    UNIT["Meter",1]]
+ID: Real (11.0)
+SITIO: String (150.0)
+POLIGONO: String (50.0)
+ESTADO: String (50.0)
+OGRFeature(mredd\_yucatan):0
+  ID (Real) = 1
+  SITIO (String) = Sierra Pucc- Los Chenes
+  POLIGONO (String) = -
+  ESTADO (String) = Yucatán - Campeche
+    \end{Verbatim}
+
+    With our polygon shapefile ready to go, we can calculate an output
+extent that clips to the polygon but preserves the spacing of the
+Landsat data. Once again, we'll be using a simple Bash function from
+Derek Watkin's GDAL/OGR cheat sheet
+(https://github.com/dwtkns/gdal-cheat-sheet) to easily parse
+\textbf{\emph{gdalinfo}} and \textbf{\emph{ogrinfo}}'s outputs into
+extent strings:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{function} \PY{n}{gdal\PYZus{}extent}\PY{p}{(}\PY{p}{)} \PY{p}{\PYZob{}}
+              \PY{k}{if} \PY{p}{[} \PY{o}{\PYZhy{}}\PY{n}{z} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}1}\PY{l+s}{\PYZdq{}} \PY{p}{]}\PY{p}{;} \PY{n}{then} 
+                  \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Missing arguments. Syntax:}\PY{l+s}{\PYZdq{}}
+                  \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{  gdal\PYZus{}extent \PYZlt{}input\PYZus{}raster\PYZgt{}}\PY{l+s}{\PYZdq{}}
+                  \PY{k}{return}
+              \PY{n}{fi}
+              \PY{n}{EXTENT}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{gdalinfo} \PY{err}{\PYZdl{}}\PY{l+m+mi}{1} \PY{o}{|}\PYZbs{}
+                  \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{Upper Left}\PY{l+s}{\PYZbs{}}\PY{l+s}{|Lower Right}\PY{l+s}{\PYZdq{}} \PY{o}{|}\PYZbs{}
+                  \PY{n}{sed} \PY{l+s}{\PYZdq{}}\PY{l+s}{s/Upper Left  //g;s/Lower Right //g;s/).*//g}\PY{l+s}{\PYZdq{}} \PY{o}{|}\PYZbs{}
+                  \PY{n}{tr} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s}{\PYZdq{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}} \PY{o}{|}\PYZbs{}
+                  \PY{n}{sed} \PY{l+s}{\PYZsq{}}\PY{l+s}{s/ *\PYZdl{}//g}\PY{l+s}{\PYZsq{}} \PY{o}{|}\PYZbs{}
+                  \PY{n}{tr} \PY{o}{\PYZhy{}}\PY{n}{d} \PY{l+s}{\PYZdq{}}\PY{l+s}{[(,]}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{echo} \PY{o}{\PYZhy{}}\PY{n}{n} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}EXTENT}\PY{l+s}{\PYZdq{}}
+          \PY{p}{\PYZcb{}}
+          
+          \PY{n}{function} \PY{n}{ogr\PYZus{}extent}\PY{p}{(}\PY{p}{)} \PY{p}{\PYZob{}}
+              \PY{k}{if} \PY{p}{[} \PY{o}{\PYZhy{}}\PY{n}{z} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}1}\PY{l+s}{\PYZdq{}} \PY{p}{]}\PY{p}{;} \PY{n}{then} 
+                  \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Missing arguments. Syntax:}\PY{l+s}{\PYZdq{}}
+                  \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{  ogr\PYZus{}extent \PYZlt{}input\PYZus{}vector\PYZgt{}}\PY{l+s}{\PYZdq{}}
+                  \PY{k}{return}
+              \PY{n}{fi}
+              \PY{n}{EXTENT}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{ogrinfo} \PY{o}{\PYZhy{}}\PY{n}{al} \PY{o}{\PYZhy{}}\PY{n}{so} \PY{err}{\PYZdl{}}\PY{l+m+mi}{1} \PY{o}{|}\PYZbs{}
+                  \PY{n}{grep} \PY{n}{Extent} \PY{o}{|}\PYZbs{}
+                  \PY{n}{sed} \PY{l+s}{\PYZsq{}}\PY{l+s}{s/Extent: //g}\PY{l+s}{\PYZsq{}} \PY{o}{|}\PYZbs{}
+                  \PY{n}{sed} \PY{l+s}{\PYZsq{}}\PY{l+s}{s/(//g}\PY{l+s}{\PYZsq{}} \PY{o}{|}\PYZbs{}
+                  \PY{n}{sed} \PY{l+s}{\PYZsq{}}\PY{l+s}{s/)//g}\PY{l+s}{\PYZsq{}} \PY{o}{|}\PYZbs{}
+                  \PY{n}{sed} \PY{l+s}{\PYZsq{}}\PY{l+s}{s/ \PYZhy{} /, /g}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{EXTENT}\PY{o}{=}\PY{l+s+sb}{`echo \PYZdl{}EXTENT | awk \PYZhy{}F \PYZsq{},\PYZsq{} \PYZsq{}\PYZob{}print \PYZdl{}1 \PYZdq{} \PYZdq{} \PYZdl{}4 \PYZdq{} \PYZdq{} \PYZdl{}3 \PYZdq{} \PYZdq{} \PYZdl{}2\PYZcb{}\PYZsq{}`}
+              \PY{n}{echo} \PY{o}{\PYZhy{}}\PY{n}{n} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}EXTENT}\PY{l+s}{\PYZdq{}}
+          \PY{p}{\PYZcb{}}
+          
+          \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{8}\PY{n}{\PYZus{}Subset}
+          
+          \PY{n}{img\PYZus{}ext}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{gdal\PYZus{}extent} \PY{n}{LE70200472014061EDC00}\PY{o}{/}\PY{n}{LE70200472014061EDC00\PYZus{}stack\PYZus{}chris}\PY{p}{)}
+          \PY{n}{shp\PYZus{}ext}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{ogr\PYZus{}extent} \PY{n}{mredd\PYZus{}yucatan}\PY{o}{.}\PY{n}{shp}\PY{p}{)}
+          
+          \PY{n}{pix}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{gdalinfo} \PY{n}{LE70200472014061EDC00}\PY{o}{/}\PY{n}{LE70200472014061EDC00\PYZus{}stack\PYZus{}chris} \PYZbs{}
+              \PY{o}{|} \PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{Pixel Size}\PY{l+s}{\PYZdq{}} \PY{o}{|} \PY{n}{sed} \PY{l+s}{\PYZdq{}}\PY{l+s}{s/Pixel.*(//g;s/,/ /g;s/)//g}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{pix\PYZus{}sz}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}pix \PYZdl{}pix}\PY{l+s}{\PYZdq{}}
+          
+          \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Extent of stacked images and extent of shapefile:}\PY{l+s}{\PYZdq{}}
+          \PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{img\PYZus{}ext}
+          \PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{shp\PYZus{}ext}
+          
+          \PY{n}{new\PYZus{}ext}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdq{}}
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{l+m+mi}{1} \PY{l+m+mi}{2} \PY{l+m+mi}{3} \PY{l+m+mi}{4}\PY{p}{;} \PY{n}{do}
+              \PY{c}{\PYZsh{} Get the ith coordinate from sequence}
+              \PY{n}{r}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{img\PYZus{}ext} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{v} \PY{n}{i}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{n}{i} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}i \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{v}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{shp\PYZus{}ext} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{v} \PY{n}{i}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{n}{i} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}i \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{pix}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{pix\PYZus{}sz} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{v} \PY{n}{i}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{n}{i} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}i \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{c}{\PYZsh{} Quick snippit of Python}
+              \PY{n}{ext}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{python} \PY{o}{\PYZhy{}}\PY{n}{c} \PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}\PYZbs{}}
+                  \PY{n}{offset}\PY{o}{=}\PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{err}{\PYZdl{}}\PY{n}{r} \PY{o}{\PYZhy{}} \PY{err}{\PYZdl{}}\PY{n}{v}\PY{p}{)} \PY{o}{/} \PY{err}{\PYZdl{}}\PY{n}{pix}\PY{p}{)}\PY{p}{;} \PYZbs{}
+                  \PY{k}{print} \PY{err}{\PYZdl{}}\PY{n}{r} \PY{o}{\PYZhy{}} \PY{n}{offset} \PY{o}{*} \PY{err}{\PYZdl{}}\PY{n}{pix}\PYZbs{}
+                  \PY{l+s}{\PYZdq{}}\PY{l+s}{)}
+              \PY{n}{new\PYZus{}ext}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}new\PYZus{}ext \PYZdl{}ext}\PY{l+s}{\PYZdq{}}
+          \PY{n}{done}
+          
+          \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Calculated new extent:}\PY{l+s}{\PYZdq{}}
+          \PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{new\PYZus{}ext}
+          
+          \PY{c}{\PYZsh{} Now, unfortunately, gdalwarp wants us to specify xmin ymin xmax ymax}
+          \PY{c}{\PYZsh{} In this case, this corresponds to the upper left X, lower right Y, lower right X, and upper left Y}
+          \PY{n}{warp\PYZus{}ext}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{new\PYZus{}ext} \PY{o}{|} \PY{n}{awk} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}1 }\PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{l+s}{ \PYZdl{}4 }\PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{l+s}{ \PYZdl{}3 }\PY{l+s}{\PYZdq{}}\PY{l+s}{ }\PY{l+s}{\PYZdq{}}\PY{l+s}{ \PYZdl{}2 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{gdalwarp extent:}\PY{l+s}{\PYZdq{}}
+          \PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n}{warp\PYZus{}ext}
+          
+          \PY{c}{\PYZsh{} Perform the clip:}
+          
+          \PY{k}{for} \PY{n}{stack} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*stack}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+              \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Clipping \PYZdl{}(basename \PYZdl{}(dirname \PYZdl{}stack))}\PY{l+s}{\PYZdq{}}
+              
+              \PY{n}{output}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{\PYZob{}}\PY{n}{stack}\PY{p}{\PYZcb{}}\PY{n}{\PYZus{}subset}
+              
+              \PY{n}{gdalwarp} \PY{o}{\PYZhy{}}\PY{n}{of} \PY{n}{ENVI} \PY{o}{\PYZhy{}}\PY{n}{co} \PY{l+s}{\PYZdq{}}\PY{l+s}{INTERLEAVE=BIP}\PY{l+s}{\PYZdq{}} \PY{o}{\PYZhy{}}\PY{n}{te} \PY{err}{\PYZdl{}}\PY{n}{warp\PYZus{}ext} \PY{o}{\PYZhy{}}\PY{n}{tr} \PY{l+m+mi}{30} \PY{l+m+mi}{30} \PYZbs{}
+                  \PY{o}{\PYZhy{}}\PY{n}{cutline} \PY{n}{mredd\PYZus{}yucatan}\PY{o}{.}\PY{n}{shp} \PY{o}{\PYZhy{}}\PY{n}{cl} \PY{n}{mredd\PYZus{}yucatan} \PY{o}{\PYZhy{}}\PY{n}{crop\PYZus{}to\PYZus{}cutline} \PYZbs{}
+                  \PY{o}{\PYZhy{}}\PY{n}{dstnodata} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9999} \PY{o}{\PYZhy{}}\PY{n}{wm} \PY{l+m+mi}{2000} \PYZbs{}
+                  \PY{err}{\PYZdl{}}\PY{n}{stack} \PY{err}{\PYZdl{}}\PY{n}{output}
+          
+          \PY{n}{done}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Extent of stacked images and extent of shapefile:
+77385.000 2187015.000 323115.000 1973385.000
+176449.259014 2281342.856148 300170.064002 2088249.065836
+Calculated new extent:
+176445.0 2281335.0 300195.0 2088225.0
+gdalwarp extent:
+176445.0 2088225.0 300195.0 2281335.0
+Clipping LE70200472014061EDC00
+Creating output file that is 4124P x 6436L.
+Processing input file ./LE70200472014061EDC00/LE70200472014061EDC00\_stack.
+Using internal nodata values (eg. -9999) for image ./LE70200472014061EDC00/LE70200472014061EDC00\_stack.
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Clipping LE70200472014077ASN00
+Creating output file that is 4124P x 6436L.
+Processing input file ./LE70200472014077ASN00/LE70200472014077ASN00\_stack.
+Using internal nodata values (eg. -9999) for image ./LE70200472014077ASN00/LE70200472014077ASN00\_stack.
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Clipping LE70200472014093ASN00
+Creating output file that is 4124P x 6436L.
+Processing input file ./LE70200472014093ASN00/LE70200472014093ASN00\_stack.
+Using internal nodata values (eg. -9999) for image ./LE70200472014093ASN00/LE70200472014093ASN00\_stack.
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Clipping LE70200472014109ASN00
+Creating output file that is 4124P x 6436L.
+Processing input file ./LE70200472014109ASN00/LE70200472014109ASN00\_stack.
+Using internal nodata values (eg. -9999) for image ./LE70200472014109ASN00/LE70200472014109ASN00\_stack.
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+    \end{Verbatim}
+
+    In practice, I don't actually calculate the correct extent that aligns
+with my raster programatically - I just run the numbers myself. It's a
+lot easier that way.
+
+What did we get?
+
+Before
+
+Lots of clouds!
+
+\subparagraph{After}\label{after}
+
+Well, at least it is smaller now
+
+    \subsection{8. Create ``preview'' images to help filter through
+preprocessed
+imagery}\label{create-preview-images-to-help-filter-through-preprocessed-imagery}
+
+By now you are probably thinking - how am I to actually look at these
+hundreds of images?
+
+With the right data policies (i.e., free), hardware, and software tools,
+the challenge of using Landsat data is no longer in getting the datasets
+together; the challenge is looking at all of your source data and
+results.
+
+One easy way of assessing whether or not an individual image might be
+useful or not is to create a ``browse'' or ``preview'' image of each
+image in your time series. By ``browse'' or ``preview'', I mean a 3
+color composite that is viewable using any number of image browsing
+softwares.
+
+GDAL tools
+
+Creation of a ``browse'' image is possible by combining
+\textbf{\emph{gdal\_merge.py}} with \textbf{\emph{gdal\_translate}}.
+\textbf{\emph{gdal\_merge.py}} can be used to extract band combinations
+from your stack images (e.g., my favorite 5, 4, and 3) into a new 3
+color image. \textbf{\emph{gdal\_translate}} can then be used to resize
+the image to a smaller resolution and scale the image numbers to 0-255.
+
+I won't discuss this workflow here because it is very limited for time
+series applications. For one, when you scale each image in
+\textbf{\emph{gdal\_translate}}, the scaling is very simplistic and will
+simply linearly scale the minimum and maximum of each band to fit
+between 0 - 255. If we want to compare images through time, we would
+need a constant stretch. Another limitation is that this workflow will
+not help us identify how Fmask is performing.
+
+If curious, a good description of this workflow is available here:
+
+http://davidvhill.com/article/creating-browse-images-from-landsat-data
+
+Custom tools
+
+To help fulfill the limitations described above, I created my own
+specific tool that has many possible customizations:
+
+\begin{quote}
+gen\_preview.py
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}213}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{module} \PY{n}{load} \PY{n}{gdal}\PY{o}{/}\PY{l+m+mf}{1.10}\PY{o}{.}\PY{l+m+mi}{0}
+          \PY{n}{module} \PY{n}{load} \PY{n}{batch\PYZus{}landsat}
+          
+          \PY{n}{gen\PYZus{}preview}\PY{o}{.}\PY{n}{py} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{help}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Generate preview image
+
+Usage:
+    gen\_preview.py [options] (--linear\_pct <pct> | --histeq | --manual <minmax>) 
+	<input> <output>
+
+Options:
+    -b --bands <bands>              Bands for output image [default: 3 2 1]
+    --mask <mask>                   Mask band [default: 8]
+    --maskval <value>\ldots            Mask band value [default: 2 3 4]
+    --maskcol <r, g, b>             Mask color [default: 0, 0, 0]
+    --ndv <value>                   No data value [default: 255]
+    --threshold <percent>           Min unmasked data for output [default: 0]
+    --srcwin <x y xsize ysize>      Window (in pixels) to subset
+    --projwin <ulx uly lrx lry>     Window (in projected coordinates) to subset
+    --resize\_pct <pct>              Image resize percent [default: 100]
+    --resize\_method <method>        Image resize method [default: antialias]
+    --format <format>               Output format [default: JPEG]
+    -v --verbose                    Print (verbose) debugging messages
+    -q --quiet                      Do not print except for warnings/errors
+    -h --help                       Show help
+    \end{Verbatim}
+
+    With this program, we can not only create many ``browse'' images with a
+consistent stretch, but we can:
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  --mask\\ specify Fmask band in our stack images
+\item
+  --maskval\\ specify which Fmask values we want to ignore
+\item
+  --threshold\\ specify minimum amount of unmasked pixels required to
+  output preview
+\item
+  --resize\_pct\\ resize image by a percentage
+\end{itemize}
+
+For example:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{module} \PY{n}{load} \PY{n}{gdal}\PY{o}{/}\PY{l+m+mf}{1.10}\PY{o}{.}\PY{l+m+mi}{0}
+          \PY{n}{module} \PY{n}{load} \PY{n}{batch\PYZus{}landsat}
+          
+          \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{9}\PY{n}{\PYZus{}PreviewImage}
+          
+          \PY{k}{for} \PY{n}{stack} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*stack}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+              \PY{n+nb}{id}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{basename} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{dirname} \PY{err}{\PYZdl{}}\PY{n}{stack}\PY{p}{)}\PY{p}{)}
+              \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Making preview image for \PYZdl{}id}\PY{l+s}{\PYZdq{}}
+              
+              \PY{n}{gen\PYZus{}preview}\PY{o}{.}\PY{n}{py} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{format} \PY{n}{PNG} \PY{o}{\PYZhy{}}\PY{n}{b} \PY{l+s}{\PYZdq{}}\PY{l+s}{5 4 3}\PY{l+s}{\PYZdq{}} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{resize\PYZus{}pct} \PY{l+m+mi}{25} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{manual} \PY{l+s}{\PYZdq{}}\PY{l+s}{0 8000}\PY{l+s}{\PYZdq{}} \PY{err}{\PYZdl{}}\PY{n}{stack} \PY{err}{\PYZdl{}}\PY{p}{\PYZob{}}\PY{n+nb}{id}\PY{p}{\PYZcb{}}\PY{n}{\PYZus{}preview}\PY{o}{.}\PY{n}{png}
+              
+          \PY{n}{done}
+          
+          \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Done!}\PY{l+s}{\PYZdq{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Making preview image for LE70200472014061EDC00
+Making preview image for LE70200472014077ASN00
+Making preview image for LE70200472014093ASN00
+Making preview image for LE70200472014109ASN00
+Done!
+    \end{Verbatim}
+
+    Results:
+
+\paragraph{And if you really want to get
+creative\ldots{}}\label{and-if-you-really-want-to-get-creative}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{k+kn}{import} \PY{n+nn}{io}
+          \PY{k+kn}{import} \PY{n+nn}{base64}
+          \PY{k+kn}{from} \PY{n+nn}{IPython.display} \PY{k+kn}{import} \PY{n}{HTML}
+          
+          \PY{n}{video} \PY{o}{=} \PY{n}{io}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{resources/movie.mp4}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{r+b}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+          \PY{n}{encoded} \PY{o}{=} \PY{n}{base64}\PY{o}{.}\PY{n}{b64encode}\PY{p}{(}\PY{n}{video}\PY{p}{)}
+          \PY{n}{HTML}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{l+s}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{l+s}{\PYZlt{}video alt=}\PY{l+s}{\PYZdq{}}\PY{l+s}{test}\PY{l+s}{\PYZdq{}}\PY{l+s}{ controls\PYZgt{}}
+          \PY{l+s}{                \PYZlt{}source src=}\PY{l+s}{\PYZdq{}}\PY{l+s}{data:video/mp4;base64,\PYZob{}0\PYZcb{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{ type=}\PY{l+s}{\PYZdq{}}\PY{l+s}{video/mp4}\PY{l+s}{\PYZdq{}}\PY{l+s}{ /\PYZgt{}}
+          \PY{l+s}{             \PYZlt{}/video\PYZgt{}}\PY{l+s}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{encoded}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{ascii}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}219}]:} <IPython.core.display.HTML at 0x1461cd0>
+\end{Verbatim}
+        
+    \subsection{9. Summarize and document your
+dataset}\label{summarize-and-document-your-dataset}
+
+By now, you've probably seen how useful loops combined with grep, sed,
+awk, etc. can be.
+
+The following are some examples of how you might summarize your dataset
+by querying the metadata provided with your Landsat images:
+
+ACCA Cloud Cover
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}
+          
+          \PY{k}{for} \PY{n}{mtl} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*MTL.txt}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+              \PY{n+nb}{id}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{basename} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{dirname} \PY{err}{\PYZdl{}}\PY{n}{mtl}\PY{p}{)}\PY{p}{)}
+              \PY{n}{echo} \PY{err}{\PYZdl{}}\PY{n+nb}{id} \PY{o}{\PYZhy{}} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{CLOUD\PYZus{}COVER}\PY{l+s}{\PYZdq{}} \PY{err}{\PYZdl{}}\PY{n}{mtl} \PY{o}{|} \PY{n}{tr} \PY{o}{\PYZhy{}}\PY{n}{d} \PY{l+s}{\PYZsq{}}\PY{l+s}{ }\PY{l+s}{\PYZsq{}} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{=}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}2 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{done}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LE70200472014061EDC00 - 21.00
+LE70200472014077ASN00 - 59.00
+LE70200472014093ASN00 - 17.00
+LE70200472014109ASN00 - 40.00
+    \end{Verbatim}
+
+    Sun Elevation, Sun Azimuth
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}
+          
+          \PY{k}{for} \PY{n}{mtl} \PY{o+ow}{in} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{find} \PY{o}{.}\PY{o}{/} \PY{o}{\PYZhy{}}\PY{n}{name} \PY{l+s}{\PYZsq{}}\PY{l+s}{*MTL.txt}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{;} \PY{n}{do}
+              \PY{n+nb}{id}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{basename} \PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{dirname} \PY{err}{\PYZdl{}}\PY{n}{mtl}\PY{p}{)}\PY{p}{)}
+              \PY{n}{az}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{SUN\PYZus{}AZIMUTH}\PY{l+s}{\PYZdq{}} \PY{err}{\PYZdl{}}\PY{n}{mtl} \PY{o}{|} \PY{n}{tr} \PY{o}{\PYZhy{}}\PY{n}{d} \PY{l+s}{\PYZsq{}}\PY{l+s}{ }\PY{l+s}{\PYZsq{}} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{=}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}2 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{el}\PY{o}{=}\PY{err}{\PYZdl{}}\PY{p}{(}\PY{n}{grep} \PY{l+s}{\PYZdq{}}\PY{l+s}{SUN\PYZus{}ELEVATION}\PY{l+s}{\PYZdq{}} \PY{err}{\PYZdl{}}\PY{n}{mtl} \PY{o}{|} \PY{n}{tr} \PY{o}{\PYZhy{}}\PY{n}{d} \PY{l+s}{\PYZsq{}}\PY{l+s}{ }\PY{l+s}{\PYZsq{}} \PY{o}{|} \PY{n}{awk} \PY{o}{\PYZhy{}}\PY{n}{F} \PY{l+s}{\PYZsq{}}\PY{l+s}{=}\PY{l+s}{\PYZsq{}} \PY{l+s}{\PYZsq{}}\PY{l+s}{\PYZob{} print \PYZdl{}2 \PYZcb{}}\PY{l+s}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{\PYZdl{}id, \PYZdl{}az, \PYZdl{}el}\PY{l+s}{\PYZdq{}}
+          \PY{n}{done}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+LE70200472014061EDC00, 130.59617147, 52.22814557
+LE70200472014077ASN00, 123.58852009, 57.11885778
+LE70200472014093ASN00, 114.75958139, 61.65047059
+LE70200472014109ASN00, 103.95380278, 65.12459343
+    \end{Verbatim}
+
+    Number of observations per pixel
+
+If you want a map of how many observations there are per pixel, you
+could loop through all images in your dataset and count the number of
+times each pixel is not masked by Fmask.
+
+In order to do this, I wrote the following program:
+
+\begin{quote}
+stack\_nobs.py
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+          \PY{n}{module} \PY{n}{load} \PY{n}{batch\PYZus{}landsat}
+          
+          \PY{n}{stack\PYZus{}nobs}\PY{o}{.}\PY{n}{py} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{help}
+          
+          \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{5}\PY{n}{\PYZus{}Stack}
+          
+          \PY{c}{\PYZsh{} Create our number of observations stack}
+          \PY{n}{stack\PYZus{}nobs}\PY{o}{.}\PY{n}{py} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{dname} \PY{l+s}{\PYZsq{}}\PY{l+s}{L*}\PY{l+s}{\PYZsq{}} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{format} \PY{n}{GTiff} \PY{o}{.}\PY{o}{/} \PY{n}{stack\PYZus{}nobs}\PY{o}{.}\PY{n}{gtif} \PY{l+m+mi}{2} \PY{l+m+mi}{3} \PY{l+m+mi}{4}
+          
+          \PY{c}{\PYZsh{} Make it smaller!}
+          \PY{n}{gdal\PYZus{}translate} \PY{o}{\PYZhy{}}\PY{n}{scale} \PY{l+m+mi}{0} \PY{l+m+mi}{4} \PY{l+m+mi}{0} \PY{l+m+mi}{255} \PY{o}{\PYZhy{}}\PY{n}{outsize} \PY{l+m+mi}{25}\PY{o}{\PYZpc{}} \PY{l+m+mi}{25}\PY{o}{\PYZpc{}} \PY{o}{\PYZhy{}}\PY{n}{of} \PY{n}{PNG} \PY{n}{stack\PYZus{}nobs}\PY{o}{.}\PY{n}{gtif} \PY{n}{stack\PYZus{}nobs}\PY{o}{.}\PY{n}{png}
+          
+          \PY{c}{\PYZsh{} Create class height file for gdaldem}
+          \PY{n}{echo} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{215}\PY{p}{,} \PY{l+m+mi}{25}\PY{p}{,} \PY{l+m+mi}{28} \PY{o}{\PYZgt{}} \PY{n}{colors}\PY{o}{.}\PY{n}{txt}
+          \PY{n}{echo} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{253}\PY{p}{,} \PY{l+m+mi}{174}\PY{p}{,} \PY{l+m+mi}{97} \PY{o}{\PYZgt{}\PYZgt{}} \PY{n}{colors}\PY{o}{.}\PY{n}{txt}
+          \PY{n}{echo} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{,} \PY{l+m+mi}{191} \PY{o}{\PYZgt{}\PYZgt{}} \PY{n}{colors}\PY{o}{.}\PY{n}{txt}
+          \PY{n}{echo} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{166}\PY{p}{,} \PY{l+m+mi}{217}\PY{p}{,} \PY{l+m+mi}{106} \PY{o}{\PYZgt{}\PYZgt{}} \PY{n}{colors}\PY{o}{.}\PY{n}{txt}
+          \PY{n}{echo} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{26}\PY{p}{,} \PY{l+m+mi}{150}\PY{p}{,} \PY{l+m+mi}{65} \PY{o}{\PYZgt{}\PYZgt{}} \PY{n}{colors}\PY{o}{.}\PY{n}{txt}
+          
+          \PY{n}{gdaldem} \PY{n}{color}\PY{o}{\PYZhy{}}\PY{n}{relief} \PY{n}{stack\PYZus{}nobs}\PY{o}{.}\PY{n}{gtif} \PY{n}{colors}\PY{o}{.}\PY{n}{txt} \PY{n}{stack\PYZus{}nobs\PYZus{}colormap}\PY{o}{.}\PY{n}{gtif}
+          
+          \PY{n}{gdal\PYZus{}translate} \PY{o}{\PYZhy{}}\PY{n}{outsize} \PY{l+m+mi}{25}\PY{o}{\PYZpc{}} \PY{l+m+mi}{25}\PY{o}{\PYZpc{}} \PY{o}{\PYZhy{}}\PY{n}{of} \PY{n}{PNG} \PY{n}{stack\PYZus{}nobs\PYZus{}colormap}\PY{o}{.}\PY{n}{gtif} \PY{n}{stack\PYZus{}nobs\PYZus{}colormap}\PY{o}{.}\PY{n}{png}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of Observations in Stacks
+
+Usage:
+    stack\_nobs.py [options] <location> <output> [<maskvalues>\ldots]
+
+Options:
+    -n --name <name>        Pattern of each stack file [default: *stack]
+    -d --dname <dname>      Pattern for each stack directory [default: LND*]
+    -m --mask <band>        Mask band [default: 8]
+    -n --ndv <ndv>          No data value [default: 255]
+    -f --format <format>    Output file format [default: GTiff]
+    -v --debug              Show (verbose) debugging messages
+    -h --help               Show help
+Finished image 1/4
+Finished image 2/4
+Finished image 3/4
+Finished image 4/4
+Input file size is 8121, 7101
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+Input file size is 8121, 7101
+0\ldots10\ldots20\ldots30\ldots40\ldots50\ldots60\ldots70\ldots80\ldots90\ldots100 - done.
+    \end{Verbatim}
+
+     
+
+    Visualize time series
+
+\begin{quote}
+module load CCDCTools/\_beta
+\end{quote}
+
+Example:
+
+ 
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
