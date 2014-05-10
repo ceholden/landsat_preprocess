@@ -1,6 +1,7 @@
 Landsat Preprocessing Workflow
 ==================
 
+#### About
 This guide seeks to demonstrate and document "a workflow" for gathering and preprocessing large amounts Landsat data such that the data may be ingested into "data mining" or time series algorithms. Individuals may have difference preferences with regard to what preprocessing is performed and accomplishing any given workflow could be done using a multitude of software options. This workflow documents one approach to preprocessing done using freely available tools including:
 - GDAL command line applications
 - Command line applications (grep, sed, awk, etc.) avialable on Linux / Unix environments
@@ -9,7 +10,7 @@ This guide seeks to demonstrate and document "a workflow" for gathering and prep
 
 The guide is currently written for the GEO / SCC cluster at Boston University, but it would be simple enough to port these instructions to any other Linux cluster or workstation environment.
 
-##### Access
+#### Access
 This workflow is documented using the IPython notebook (despite there being almost no Python involved) because it nicely mixes text documentation and media with code input and output.
 
 You can view the notebook by using IPython's "nbviewer" website:
