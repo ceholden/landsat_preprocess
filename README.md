@@ -21,7 +21,7 @@ If you wish to have a copy for yourself offline, you can download the "Landsat_P
 
 #### About Landsat
 
-The USGS has very recently developed a product generation system for atmospherically corrected and cloud masked Landsat data which make using Landsat data much easier. Information on this Landsat Surface Reflectance "Climate Data Record" (CDR) is available from their website:
+The USGS has very recently developed a product generation system for atmospherically corrected and cloud masked Landsat data which makes using Landsat data much easier. Information on this Landsat Surface Reflectance "Climate Data Record" (CDR) is available from their website:
 
 https://landsat.usgs.gov/CDR_LSR.php
 
