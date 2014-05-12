@@ -227,7 +227,7 @@ Chris Holden
 
 Friday, May 9th, 2014
 
-\subparagraph{Overview:}\label{overview}
+\subparagraph{Overview:}
 
 The Landsat family of satellites have been in space since 1972 and can
 provide a rich history of the land surface of the Earth over the last
@@ -280,7 +280,7 @@ be to give you access to my specialized scripts or programs while
 helping you understand what they are automating.
 
     \subsection{Step 1. Search for and filter Landsat acquisitions using
-EarthExplorer}\label{step-1.-search-for-and-filter-landsat-acquisitions-using-earthexplorer}
+EarthExplorer}
 
 The USGS has many portals for filtering through Landsat data (e.g.,
 GLOVIS, EarthExplorer, COVE tool, etc.), but the EarthExplorer tool is
@@ -294,7 +294,7 @@ dataset for Landsat) is available here:
 
 https://landsat.usgs.gov/worldwide\_reference\_system\_WRS.php
 
-\subsubsection{EarthExplorer}\label{earthexplorer}
+\subsubsection{EarthExplorer}
 
 Navigate to:
 
@@ -304,7 +304,7 @@ On the left side of the user interface you will see four tabs
 representing components of the search workflow. Begin by skipping the
 ``Search Criteria'' tab and continuing to the ``Data Sets'' tab.
 
-\subsubsection{Landsat CDR Datasets}\label{landsat-cdr-datasets}
+\subsubsection{Landsat CDR Datasets}
 
 We will be submitting an order for the Landsat Climate Data Record (CDR)
 product (http://landsat.usgs.gov/CDR\_ECV.php) so that the USGS can
@@ -314,7 +314,7 @@ for us before we download our data.
 In the list of available datasets below, find ``Landsat CDR'', expand
 the tab, and select both Landsat 7 ETM+ and Landsat 4-5 TM datasets.
 
-\subsubsection{Filter}\label{filter}
+\subsubsection{Filter}
 
 Proceed by clicking the ``Additional Cirteria
 \textgreater{}\textgreater{}'' button:
@@ -349,11 +349,11 @@ Landsat 4-5 TM datasets.
 Repeat this last step of adding filters for each Landsat sensor dataset
 -- Landsat 7 ETM+ and Landsat 4-5 TM.
 
-\subsubsection{Results}\label{results}
+\subsubsection{Results}
 
 Finally, click the ``Results'' button to submit your query.
 
-\subsubsection{Export}\label{export}
+\subsubsection{Export}
 
 The last tab -- ``Results'' -- shows the Landsat imagery that met your
 search query.
@@ -377,8 +377,7 @@ from their website. Unzip these files to find two comma separated text
 files.
 
     \subsection{Step 2: Submit order for ``Landsat Climate Data Record
-(CDR)'' product using
-ESPA}\label{step-2-submit-order-for-landsat-climate-data-record-cdr-product-using-espa}
+(CDR)'' product using ESPA}
 
 The two zip files containing our search results from the previous step
 contain the metadata required to further filter through the Landsat
@@ -434,7 +433,7 @@ Corner Upper Right Long dec   Corner Lower Left Lat dec     Corner Lower Left Lo
 Corner Lower Right Lat dec    Corner Lower Right Long dec
     \end{Verbatim}
 
-    \subsubsection{Extract IDs}\label{extract-ids}
+    \subsubsection{Extract IDs}
 
 For right now, let's just extract the Landsat IDs from our search
 result. We want to create a text file that only contains the Landsat IDs
@@ -486,8 +485,7 @@ You have 438 Landsat images in your text file
     \end{Verbatim}
 
     \subsubsection{Submit text file of Landsat IDs to EROS Science
-Processing Architecture
-(ESPA)}\label{submit-text-file-of-landsat-ids-to-eros-science-processing-architecture-espa}
+Processing Architecture (ESPA)}
 
 In a web browser, navigate to:
 
@@ -525,7 +523,7 @@ metadata:
   \begin{itemize}
   \itemsep1pt\parskip0pt\parsep0pt
   \item
-    ``lndsr*hdf" LEDAPS output, and the ``CFmask'' cloud mask
+    ``lndsr*hdf'' LEDAPS output, and the ``CFmask'' cloud mask
   \end{itemize}
 \item
   ``Band 6 Brightness Temperature''
@@ -533,7 +531,7 @@ metadata:
   \begin{itemize}
   \itemsep1pt\parskip0pt\parsep0pt
   \item
-    ``lndth*hdf" LEDAPS thermal brightness temperature
+    ``lndth*hdf'' LEDAPS thermal brightness temperature
   \end{itemize}
 \end{itemize}
 
@@ -550,8 +548,7 @@ reprojected, or subset.
 When you have submitted your order, you will receive a confirmation
 email and will be taken to your order status page:
 
-    \subsection{Step 3. Download completed order onto GEO
-cluster}\label{step-3.-download-completed-order-onto-geo-cluster}
+    \subsection{Step 3. Download completed order onto GEO cluster}
 
 When you receive an email update notifying you that your images have
 been processed, you may access them here:
@@ -575,28 +572,26 @@ allows for parallel downloads
 One simple way of downloading the datasets would be using ``wget''
 (enter ``man wget'' for more information).
 
-In this example, we use ``wget'' with several options: + ``-nH''
-specifies no host directories will be downloaded + ``-nc'' specifies
-``no clobber'', or no overwrite + ``--cut-dirs=2'' works with ``-nH'' to
-remove directories containing our files + ``-r'' specifies recursion, so
-we can find our files beneath the download URL + ``-A
-L*2014*-*tar.gz,L*2014*-*cksum" is an accept list that specifies a
-pattern for files we will download. Files not matching the pattern are
-ignored + ``-nv'' will turn off verbose
+In this example, we use ``wget'' with several options: + ``-nc''
+specifies ``no clobber'', or no overwrite + ``-r'' specifies recursion,
+so we can find our files beneath the download URL + ``-A tar.gz,cksum''
+is an accept list that specifies a pattern for files we will download.
+Files not matching the pattern are ignored + ``-nd'' will prevent
+downloading directories + ``-nv'' will turn off verbose
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}16}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
-         \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{3}\PY{n}{\PYZus{}Download}
-         
-         \PY{n}{url}\PY{o}{=}\PY{n}{http}\PY{p}{:}\PY{o}{/}\PY{o}{/}\PY{n}{espa}\PY{o}{.}\PY{n}{cr}\PY{o}{.}\PY{n}{usgs}\PY{o}{.}\PY{n}{gov}\PY{o}{/}\PY{n}{status}\PY{o}{/}\PY{n}{ceholden}\PY{o}{\PYZpc{}}\PY{k}{40bu}\PY{o}{.}\PY{n}{edu}\PY{o}{\PYZhy{}}\PY{l+m+mi}{572014}\PY{o}{\PYZhy{}}\PY{l+m+mi}{17955}\PY{o}{/}
-         
-         \PY{n}{wget} \PY{o}{\PYZhy{}}\PY{n}{nH} \PY{o}{\PYZhy{}}\PY{n}{nc} \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{n}{cut}\PY{o}{\PYZhy{}}\PY{n}{dirs}\PY{o}{=}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}}\PY{n}{r} \PY{o}{\PYZhy{}}\PY{n}{A} \PY{n}{L}\PY{o}{*}\PY{l+m+mi}{2014}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{o}{*}\PY{n}{tar}\PY{o}{.}\PY{n}{gz}\PY{p}{,}\PY{n}{L}\PY{o}{*}\PY{l+m+mi}{2014}\PY{o}{*}\PY{o}{\PYZhy{}}\PY{o}{*}\PY{n}{cksum} \PY{o}{\PYZhy{}}\PY{n}{nv} \PY{err}{\PYZdl{}}\PY{n}{url}
-         
-         \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Done!}\PY{l+s}{\PYZdq{}}
+{\color{incolor}In [{\color{incolor}3}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{bash}
+        \PY{n}{cd} \PY{o}{/}\PY{n}{projectnb}\PY{o}{/}\PY{n}{landsat}\PY{o}{/}\PY{n}{users}\PY{o}{/}\PY{n}{ceholden}\PY{o}{/}\PY{l+m+mi}{2014}\PY{n}{\PYZus{}Landsat\PYZus{}Preprocess}\PY{o}{/}\PY{l+m+mi}{3}\PY{n}{\PYZus{}Download}
+        
+        \PY{n}{url}\PY{o}{=}\PY{n}{http}\PY{p}{:}\PY{o}{/}\PY{o}{/}\PY{n}{espa}\PY{o}{.}\PY{n}{cr}\PY{o}{.}\PY{n}{usgs}\PY{o}{.}\PY{n}{gov}\PY{o}{/}\PY{n}{status}\PY{o}{/}\PY{n}{ceholden}\PY{o}{\PYZpc{}}\PY{k}{40bu}\PY{o}{.}\PY{n}{edu}\PY{o}{\PYZhy{}}\PY{l+m+mi}{572014}\PY{o}{\PYZhy{}}\PY{l+m+mi}{17955}\PY{o}{/}
+        
+        \PY{n}{wget} \PY{o}{\PYZhy{}}\PY{n}{nc} \PY{o}{\PYZhy{}}\PY{n}{r} \PY{o}{\PYZhy{}}\PY{n}{A} \PY{n}{tar}\PY{o}{.}\PY{n}{gz}\PY{p}{,}\PY{n}{cksum} \PY{o}{\PYZhy{}}\PY{n}{nd} \PY{o}{\PYZhy{}}\PY{n}{nv} \PY{err}{\PYZdl{}}\PY{n}{url}
+        
+        \PY{n}{echo} \PY{l+s}{\PYZdq{}}\PY{l+s}{Done!}\PY{l+s}{\PYZdq{}}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-Process is terminated.
+Done!
     \end{Verbatim}
 
     Validate checksums of downloads
@@ -607,7 +602,7 @@ cluster. We can assert that the files are in tact with high confidence
 by checking to make sure the ``checksum'' of the file matches once
 downloaded to BU.
 
-For each archive you download, there will be a corresponding ``*.cksum"
+For each archive you download, there will be a corresponding ``*.cksum''
 file. The checksum provided is output from the Unix ``cksum'' command
 (http://en.wikipedia.org/wiki/Cksum). Unfortuantely, there isn't a
 built-in mechanism in this program to validate checksums, so we'll do
@@ -648,8 +643,7 @@ LE70200472014077-SC20140507171413 is OK
 LE70200472014061-SC20140507171414 is OK
     \end{Verbatim}
 
-    \subsection{Step 4. Organize and extract imagery from
-archives}\label{step-4.-organize-and-extract-imagery-from-archives}
+    \subsection{Step 4. Organize and extract imagery from archives}
 
 If you have any prior experience with Landsat imagery, you'll notice
 that the archives we downloaded have an unusual filename:
@@ -761,8 +755,7 @@ mkdir: cannot create directory `L1G/': File exists
     \end{Verbatim}
 
     \subsection{Step 5. Combine dataset bands into ``stacked'' images of
-common geographic
-extent}\label{step-5.-combine-dataset-bands-into-stacked-images-of-common-geographic-extent}
+common geographic extent}
 
 We now have the images organized by their Landsat ID and extracted from
 the archives. The next step in our workflow is to create ``layer
@@ -1445,8 +1438,7 @@ Origin = (77385.000000000000000,2187015.000000000000000)
 891M	./LE70200472014109ASN00/LE70200472014109ASN00\_stack\_chris
     \end{Verbatim}
 
-    \subsection{6. Run Fmask using custom parameters on
-images}\label{run-fmask-using-custom-parameters-on-images}
+    \subsection{6. Run Fmask using custom parameters on images}
 
 Depending on your scene location or tolerance for noise, you may wish to
 run Fmask with a more conservative threshold.
@@ -1753,8 +1745,7 @@ drwxr-sr-x 3 ceholden landsat 32768 May  8 14:01 LE70200472014093ASN00
 drwxr-sr-x 3 ceholden landsat 32768 May  8 14:06 LE70200472014109ASN00
     \end{Verbatim}
 
-    \subsection{7. Create spatial subset using extent or polygon
-ROI}\label{create-spatial-subset-using-extent-or-polygon-roi}
+    \subsection{7. Create spatial subset using extent or polygon ROI}
 
 If you want to create a subset of your stacks, you can easily accomplish
 this using one or two of the GDAL command line utilities. Subsets are
@@ -2167,13 +2158,12 @@ Before
 
 Lots of clouds!
 
-\subparagraph{After}\label{after}
+\subparagraph{After}
 
 Well, at least it is smaller now
 
     \subsection{8. Create ``preview'' images to help filter through
-preprocessed
-imagery}\label{create-preview-images-to-help-filter-through-preprocessed-imagery}
+preprocessed imagery}
 
 By now you are probably thinking - how am I to actually look at these
 hundreds of images?
@@ -2297,27 +2287,25 @@ Done!
 
     Results:
 
-\paragraph{And if you really want to get
-creative\ldots{}}\label{and-if-you-really-want-to-get-creative}
+\paragraph{And if you really want to get creative\ldots{}}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}219}]:} \PY{k+kn}{import} \PY{n+nn}{io}
-          \PY{k+kn}{import} \PY{n+nn}{base64}
-          \PY{k+kn}{from} \PY{n+nn}{IPython.display} \PY{k+kn}{import} \PY{n}{HTML}
-          
-          \PY{n}{video} \PY{o}{=} \PY{n}{io}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{resources/movie.mp4}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{r+b}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
-          \PY{n}{encoded} \PY{o}{=} \PY{n}{base64}\PY{o}{.}\PY{n}{b64encode}\PY{p}{(}\PY{n}{video}\PY{p}{)}
-          \PY{n}{HTML}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{l+s}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{l+s}{\PYZlt{}video alt=}\PY{l+s}{\PYZdq{}}\PY{l+s}{test}\PY{l+s}{\PYZdq{}}\PY{l+s}{ controls\PYZgt{}}
-          \PY{l+s}{                \PYZlt{}source src=}\PY{l+s}{\PYZdq{}}\PY{l+s}{data:video/mp4;base64,\PYZob{}0\PYZcb{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{ type=}\PY{l+s}{\PYZdq{}}\PY{l+s}{video/mp4}\PY{l+s}{\PYZdq{}}\PY{l+s}{ /\PYZgt{}}
-          \PY{l+s}{             \PYZlt{}/video\PYZgt{}}\PY{l+s}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{encoded}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{ascii}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{io}
+        \PY{k+kn}{import} \PY{n+nn}{base64}
+        \PY{k+kn}{from} \PY{n+nn}{IPython.display} \PY{k+kn}{import} \PY{n}{HTML}
+        
+        \PY{n}{video} \PY{o}{=} \PY{n}{io}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{resources/movie.mp4}\PY{l+s}{\PYZsq{}}\PY{p}{,} \PY{l+s}{\PYZsq{}}\PY{l+s}{r+b}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+        \PY{n}{encoded} \PY{o}{=} \PY{n}{base64}\PY{o}{.}\PY{n}{b64encode}\PY{p}{(}\PY{n}{video}\PY{p}{)}
+        \PY{n}{HTML}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{l+s}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{l+s}{\PYZlt{}video alt=}\PY{l+s}{\PYZdq{}}\PY{l+s}{test}\PY{l+s}{\PYZdq{}}\PY{l+s}{ controls\PYZgt{}}
+        \PY{l+s}{                \PYZlt{}source src=}\PY{l+s}{\PYZdq{}}\PY{l+s}{data:video/mp4;base64,\PYZob{}0\PYZcb{}}\PY{l+s}{\PYZdq{}}\PY{l+s}{ type=}\PY{l+s}{\PYZdq{}}\PY{l+s}{video/mp4}\PY{l+s}{\PYZdq{}}\PY{l+s}{ /\PYZgt{}}
+        \PY{l+s}{             \PYZlt{}/video\PYZgt{}}\PY{l+s}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{encoded}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{ascii}\PY{l+s}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
             \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}219}]:} <IPython.core.display.HTML at 0x1461cd0>
+{\color{outcolor}Out[{\color{outcolor}1}]:} <IPython.core.display.HTML at 0x20b2990>
 \end{Verbatim}
         
-    \subsection{9. Summarize and document your
-dataset}\label{summarize-and-document-your-dataset}
+    \subsection{9. Summarize and document your dataset}
 
 By now, you've probably seen how useful loops combined with grep, sed,
 awk, etc. can be.

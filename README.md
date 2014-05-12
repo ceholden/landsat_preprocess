@@ -19,8 +19,19 @@ http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/tree/master/?crea
 
 If you wish to have a copy for yourself offline, you can download the "Landsat_Preprocessing.html" HTML page and the "resources" folder containing the image and movie resources referenced in the HTML. I have been unable to figure out how to properly format a PDF from this HTML page, but a PDF copy may be available in the future.
 
-#### About Landsat
+#### Files
+I have taken several of the steps in the workflow and turned them into fully functioning scripts. These may be found in the "scripts" directory. They are labeled with a number to indicate the corresponding step in the workflow and include:
 
++ 3_checksum_test.sh
+    + Check all in target directory tar.gz files against the checksum output in corresponding .cksum files
++ 4_unzip_archives.sh
+    + Unzip all tar.gz archives in target directory and rename them to Landsat ID
++ 4_remove_L1G.sh
+    + Check target directory for L1G images and move them into folder named "L1G"
++ 5_gdal_merge_LEDAPS.sh
+    + Use gdal_merge.py to create "layer stacks" of all "lndsr*hdf" files within target directory
+
+#### About Landsat
 The USGS has very recently developed a product generation system for atmospherically corrected and cloud masked Landsat data which makes using Landsat data much easier. Information on this Landsat Surface Reflectance "Climate Data Record" (CDR) is available from their website:
 
 https://landsat.usgs.gov/CDR_LSR.php

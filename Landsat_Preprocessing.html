@@ -1997,14 +1997,14 @@ You have 438 Landsat images in your text file
 <h6 id="download-onto-the-cluster">Download onto the cluster</h6>
 <p>The quickest and easiest way of downloading these datasets onto the cluster would be using Firefox's &quot;DownThemAll&quot; addon because it easily allows for parallel downloads (https://addons.mozilla.org/en-US/firefox/addon/downthemall/).</p>
 <p>One simple way of downloading the datasets would be using &quot;wget&quot; (enter &quot;man wget&quot; for more information).</p>
-<p>In this example, we use &quot;wget&quot; with several options: + &quot;-nH&quot; specifies no host directories will be downloaded + &quot;-nc&quot; specifies &quot;no clobber&quot;, or no overwrite + &quot;--cut-dirs=2&quot; works with &quot;-nH&quot; to remove directories containing our files + &quot;-r&quot; specifies recursion, so we can find our files beneath the download URL + &quot;-A L*2014*-*tar.gz,L*2014*-*cksum&quot; is an accept list that specifies a pattern for files we will download. Files not matching the pattern are ignored + &quot;-nv&quot; will turn off verbose</p>
+<p>In this example, we use &quot;wget&quot; with several options: + &quot;-nc&quot; specifies &quot;no clobber&quot;, or no overwrite + &quot;-r&quot; specifies recursion, so we can find our files beneath the download URL + &quot;-A tar.gz,cksum&quot; is an accept list that specifies a pattern for files we will download. Files not matching the pattern are ignored + &quot;-nd&quot; will prevent downloading directories + &quot;-nv&quot; will turn off verbose</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[16]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -2014,7 +2014,7 @@ In&nbsp;[16]:
 
 <span class="nv">url</span><span class="o">=</span>http://espa.cr.usgs.gov/status/ceholden%40bu.edu-572014-17955/
 
-wget -nH -nc --cut-dirs<span class="o">=</span>2 -r -A L*2014*-*tar.gz,L*2014*-*cksum -nv <span class="nv">$url</span>
+wget -nc -r -A tar.gz,cksum -nd -nv <span class="nv">$url</span>
 
 <span class="nb">echo</span> <span class="s2">&quot;Done!&quot;</span>
 </pre></div>
@@ -2030,7 +2030,7 @@ wget -nH -nc --cut-dirs<span class="o">=</span>2 -r -A L*2014*-*tar.gz,L*2014*-*
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-Process is terminated.
+Done!
 
 </pre>
 </div>
@@ -4383,7 +4383,7 @@ Done!
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[219]:
+In&nbsp;[1]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
@@ -4407,7 +4407,7 @@ In&nbsp;[219]:
 
 
 <div class="output_area"><div class="prompt output_prompt">
-    Out[219]:</div>
+    Out[1]:</div>
 
 <div class="output_html rendered_html output_subarea output_pyout">
 <video alt="test" controls>
