@@ -12,7 +12,7 @@ for ipynb in $(find ./ -name '*ipynb'); do
         continue
     fi
 
-#    ipython nbconvert $ipynb
+    ipython nbconvert $ipynb
 #    ipython nbconvert --to=latex --post=PDF $ipynb
 
     # remove tex files
