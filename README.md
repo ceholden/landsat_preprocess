@@ -13,11 +13,15 @@ The guide is currently written for the GEO / SCC cluster at Boston University, b
 #### Access
 This workflow is documented using the IPython notebook (despite there being almost no Python involved) because it nicely mixes text documentation and media with code input and output.
 
-You can view the notebook by using IPython's "nbviewer" website:
+You can view the notebook directly by using IPython's "nbviewer" website:
 
-http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/tree/master/?create=1/
+http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/tree/master/chapters/
 
-If you wish to have a copy for yourself offline, you can download the "Landsat_Preprocessing.html" HTML page and the "resources" folder containing the image and movie resources referenced in the HTML. I have been unable to figure out how to properly format a PDF from this HTML page, but a PDF copy may be available in the future.
+If you wish to have a copy for yourself without the "nbviewer" utility, you can download the HTML files found in the "build" folder.
+
+I have been unable to figure out how to properly format a PDF from this HTML page, but a PDF copy may be available in the future.
+
+You also may, of course, download the IPython Notebook files and run an IPython notebook server for yourself.
 
 #### Files
 I have taken several of the steps in the workflow and turned them into fully functioning scripts. These may be found in the "scripts" directory. They are labeled with a number to indicate the corresponding step in the workflow and include:
