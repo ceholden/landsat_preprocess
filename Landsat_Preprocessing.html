@@ -3223,7 +3223,7 @@ Origin = (77385.000000000000000,2187015.000000000000000)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="run-fmask-using-custom-parameters-on-images">6. Run Fmask using custom parameters on images</h2>
+<h2 id="step-6.-run-fmask-using-custom-parameters-on-images">Step 6. Run Fmask using custom parameters on images</h2>
 <p>Depending on your scene location or tolerance for noise, you may wish to run Fmask with a more conservative threshold.</p>
 <p>Since this example is in the Yucatan Penninsula, my guess is that the default Fmask cloud probability of 22.5 will miss a lot of small clouds. Furthermore, we have a relatively large amount of data to work with, so comission is not much of an issue.</p>
 <p>To run Fmask on our cluster, you can run MATLAB as a single threaded &quot;batch style&quot; job using some command line arguments to MATLAB:</p>
@@ -3677,7 +3677,7 @@ drwxr-sr-x 3 ceholden landsat 32768 May  8 14:06 LE70200472014109ASN00
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="create-spatial-subset-using-extent-or-polygon-roi">7. Create spatial subset using extent or polygon ROI</h2>
+<h2 id="step-7.-create-spatial-subset-using-extent-or-polygon-roi">Step 7. Create spatial subset using extent or polygon ROI</h2>
 <p>If you want to create a subset of your stacks, you can easily accomplish this using one or two of the GDAL command line utilities. Subsets are often very useful when you are rapidly iterating on your analysis and don't need to extend it to your entire study area, or if your study area is smaller than an entire Landsat image. In addition to just subsetting the size of your raster datasets, you can use GDAL to actually mask certain areas from your analysis.</p>
 <h6 id="simple-subsetting-using-extent">Simple subsetting using extent</h6>
 <p>If you already have a bounding box defined (i.e., an extent listing upper left and lower right coordinates), you can use:</p>
@@ -4230,7 +4230,7 @@ Well, at least it is smaller now
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="create-preview-images-to-help-filter-through-preprocessed-imagery">8. Create &quot;preview&quot; images to help filter through preprocessed imagery</h2>
+<h2 id="step-8.-create-preview-images-to-help-filter-through-preprocessed-imagery">Step 8. Create &quot;preview&quot; images to help filter through preprocessed imagery</h2>
 <p>By now you are probably thinking - how am I to actually look at these hundreds of images?</p>
 <p>With the right data policies (i.e., free), hardware, and software tools, the challenge of using Landsat data is no longer in getting the datasets together; the challenge is looking at all of your source data and results.</p>
 <p>One easy way of assessing whether or not an individual image might be useful or not is to create a &quot;browse&quot; or &quot;preview&quot; image of each image in your time series. By &quot;browse&quot; or &quot;preview&quot;, I mean a 3 color composite that is viewable using any number of image browsing softwares.</p>
@@ -4426,7 +4426,7 @@ In&nbsp;[1]:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="summarize-and-document-your-dataset">9. Summarize and document your dataset</h2>
+<h2 id="step-9.-summarize-and-document-your-dataset">Step 9. Summarize and document your dataset</h2>
 <p>By now, you've probably seen how useful loops combined with grep, sed, awk, etc. can be.</p>
 <p>The following are some examples of how you might summarize your dataset by querying the metadata provided with your Landsat images:</p>
 <h6 id="acca-cloud-cover">ACCA Cloud Cover</h6>
