@@ -1677,11 +1677,11 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="step-5.-combine-dataset-bands-into-stacked-images-of-common-geographic-extent">Step 5. Combine dataset bands into &quot;stacked&quot; images of common geographic extent</h2>
+<h2 id="step-5-combine-dataset-bands-into-stacked-images-of-common-geographic-extent">Step 5. Combine dataset bands into &quot;stacked&quot; images of common geographic extent</h2>
 <p>We now have the images organized by their Landsat ID and extracted from the archives. The next step in our workflow is to create &quot;layer stacks&quot; - or multiband images - that contain the bands we want to use in our analysis. For example, we might want to create a multiband image for each Landsat ID that contains all Landsat bands, ordered by wavelength, and the Fmask result.</p>
-<p>This workflow can be accomplished using a variety of software - ENVI, ArcGIS, ERDAS, R, and QGIS, for example - but it would be enormously time consuming to use these programs to accomplish our goal for hundreds of images. Instead, we will use the free program <strong><em>gdal_merge.py</em></strong> from the GDAL command line set of programs (http://www.gdal.org/ or http://www.gdal.org/gdal_merge.html).</p>
-<p>One complicating factor in this workflow is that our LEDAPS output are currently stored as HDF files which stores bands as &quot;subdatasets&quot; instead of bands, making referencing them a little difficult (see http://www.gdal.org/frmt_hdf4.html).</p>
-<p>Sometime soon, the ESPA processing system will allow you to download your datasets as either HDF, GeoTIFF, or binary files (http://landsat.usgs.gov/sr_samples.php).</p>
+<p>This workflow can be accomplished using a variety of software - ENVI, ArcGIS, ERDAS, R, and QGIS, for example - but it would be enormously time consuming to use these programs to accomplish our goal for hundreds of images. Instead, we will use the free program <strong><em>gdal_merge.py</em></strong> from the GDAL command line set of programs (<a href="http://www.gdal.org/">http://www.gdal.org/</a> or <a href="http://www.gdal.org/gdal_merge.html">http://www.gdal.org/gdal_merge.html</a>).</p>
+<p>One complicating factor in this workflow is that our LEDAPS output are currently stored as HDF files which stores bands as &quot;subdatasets&quot; instead of bands, making referencing them a little difficult (see <a href="http://www.gdal.org/frmt_hdf4.html">http://www.gdal.org/frmt_hdf4.html</a>). </p>
+<p>Sometime soon, the ESPA processing system will allow you to download your datasets as either HDF, GeoTIFF, or binary files (<a href="http://landsat.usgs.gov/sr_samples.php">http://landsat.usgs.gov/sr_samples.php</a>).</p>
 <p>First we will begin my loading the module for GDAL and inspecting one of the LEDAPS outputs.</p>
 </div>
 </div>
@@ -1689,18 +1689,18 @@ div#notebook {
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[45]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
 
+<span class="c"># Load GDAL 1.10.0 module on GEO/SCC cluster</span>
 module purge
 module load gdal/1.10.0
 
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/5_Stack/LE70200472014061EDC00
-
-gdalinfo lndsr.LE70200472014061EDC00.hdf
+<span class="c"># Let&#39;s look at &quot;gdalinfo&quot; output for an example LEDAPS output</span>
+gdalinfo LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf
 </pre></div>
 
 </div>
@@ -1715,7 +1715,7 @@ gdalinfo lndsr.LE70200472014061EDC00.hdf
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Driver: HDF4/Hierarchical Data Format Release 4
-Files: lndsr.LE70200472014061EDC00.hdf
+Files: LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf
 Size is 512, 512
 Coordinate System is &#96;&apos;
 Metadata:
@@ -1751,39 +1751,39 @@ Metadata:
   WRS_Row=47
   WRS_System=2
 Subdatasets:
-  SUBDATASET_1_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band1
+  SUBDATASET_1_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band1
   SUBDATASET_1_DESC=[7101x8121] band1 Grid (16-bit integer)
-  SUBDATASET_2_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band2
+  SUBDATASET_2_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band2
   SUBDATASET_2_DESC=[7101x8121] band2 Grid (16-bit integer)
-  SUBDATASET_3_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band3
+  SUBDATASET_3_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band3
   SUBDATASET_3_DESC=[7101x8121] band3 Grid (16-bit integer)
-  SUBDATASET_4_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band4
+  SUBDATASET_4_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band4
   SUBDATASET_4_DESC=[7101x8121] band4 Grid (16-bit integer)
-  SUBDATASET_5_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band5
+  SUBDATASET_5_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band5
   SUBDATASET_5_DESC=[7101x8121] band5 Grid (16-bit integer)
-  SUBDATASET_6_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band7
+  SUBDATASET_6_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band7
   SUBDATASET_6_DESC=[7101x8121] band7 Grid (16-bit integer)
-  SUBDATASET_7_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:atmos_opacity
+  SUBDATASET_7_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:atmos_opacity
   SUBDATASET_7_DESC=[7101x8121] atmos_opacity Grid (16-bit integer)
-  SUBDATASET_8_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:fill_QA
+  SUBDATASET_8_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:fill_QA
   SUBDATASET_8_DESC=[7101x8121] fill_QA Grid (8-bit unsigned integer)
-  SUBDATASET_9_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:DDV_QA
+  SUBDATASET_9_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:DDV_QA
   SUBDATASET_9_DESC=[7101x8121] DDV_QA Grid (8-bit unsigned integer)
-  SUBDATASET_10_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:cloud_QA
+  SUBDATASET_10_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:cloud_QA
   SUBDATASET_10_DESC=[7101x8121] cloud_QA Grid (8-bit unsigned integer)
-  SUBDATASET_11_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:cloud_shadow_QA
+  SUBDATASET_11_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:cloud_shadow_QA
   SUBDATASET_11_DESC=[7101x8121] cloud_shadow_QA Grid (8-bit unsigned integer)
-  SUBDATASET_12_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:snow_QA
+  SUBDATASET_12_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:snow_QA
   SUBDATASET_12_DESC=[7101x8121] snow_QA Grid (8-bit unsigned integer)
-  SUBDATASET_13_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:land_water_QA
+  SUBDATASET_13_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:land_water_QA
   SUBDATASET_13_DESC=[7101x8121] land_water_QA Grid (8-bit unsigned integer)
-  SUBDATASET_14_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:adjacent_cloud_QA
+  SUBDATASET_14_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:adjacent_cloud_QA
   SUBDATASET_14_DESC=[7101x8121] adjacent_cloud_QA Grid (8-bit unsigned integer)
-  SUBDATASET_15_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band6
+  SUBDATASET_15_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band6
   SUBDATASET_15_DESC=[7101x8121] band6 Grid (16-bit integer)
-  SUBDATASET_16_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band6_fill_QA
+  SUBDATASET_16_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band6_fill_QA
   SUBDATASET_16_DESC=[7101x8121] band6_fill_QA Grid (8-bit unsigned integer)
-  SUBDATASET_17_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:fmask_band
+  SUBDATASET_17_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:fmask_band
   SUBDATASET_17_DESC=[7101x8121] fmask_band Grid (8-bit unsigned integer)
 Corner Coordinates:
 Upper Left  (    0.0,    0.0)
@@ -1813,15 +1813,14 @@ Center      (  256.0,  256.0)
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[46]:
+In&nbsp;[4]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
 
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/5_Stack/LE70200472014061EDC00
-
-gdalinfo HDF4_EOS:EOS_GRID:<span class="s2">&quot;lndsr.LE70200472014061EDC00.hdf&quot;</span>:Grid:fmask_band
+<span class="c"># Now we&#39;ll look at an individual subdataset from that example LEDAPS output</span>
+gdalinfo HDF4_EOS:EOS_GRID:<span class="s2">&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;</span>:Grid:fmask_band
 </pre></div>
 
 </div>
@@ -1836,7 +1835,7 @@ gdalinfo HDF4_EOS:EOS_GRID:<span class="s2">&quot;lndsr.LE70200472014061EDC00.hd
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
 Driver: HDF4Image/HDF4 Dataset
-Files: lndsr.LE70200472014061EDC00.hdf
+Files: LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf
 Size is 8121, 7101
 Coordinate System is:
 PROJCS[&quot;UTM Zone 16, Northern Hemisphere&quot;,
@@ -1916,8 +1915,7 @@ Band 1 Block=8121x123 Type=Byte, ColorInterp=Gray
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>One thing to note is that the HDF files the USGS provides do not properly describe the datum of the datasets.</p>
 <pre><code>                GEOGCS[&quot;Unknown datum based upon the WGS 84 ellipsoid&quot;,
-                </code></pre>
-<p>From the &quot;Landsat Dictionary&quot; (https://lta.cr.usgs.gov/landsat_dictionary.html#ellipsoid), we know that Landsat data is using the WGS-84 ellipsoid.</p>
+</code></pre><p>From the &quot;Landsat Dictionary&quot; (<a href="https://lta.cr.usgs.gov/landsat_dictionary.html#ellipsoid">https://lta.cr.usgs.gov/landsat_dictionary.html#ellipsoid</a>), we know that Landsat data is using the WGS-84 ellipsoid.</p>
 <p>Fortunately, we can overwrite the projection with the correct one by either using the &quot;proj4&quot; string from one of the TIF files:</p>
 </div>
 </div>
@@ -1925,14 +1923,15 @@ Band 1 Block=8121x123 Type=Byte, ColorInterp=Gray
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[48]:
+In&nbsp;[5]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/5_Stack/LE70200472014061EDC00
 
-gdalinfo -proj4 LE70200472014061EDC00_B1.TIF | grep <span class="s2">&quot;+proj&quot;</span>
+<span class="c"># Inspect an example TIF image of the original Landsat DN imagery</span>
+<span class="c">#     note - &quot;-proj4&quot; flag to gdalinfo will output its PROJ4 string</span>
+gdalinfo -proj4 LE70200472014061EDC00/LE70200472014061EDC00_B1.TIF | grep <span class="s2">&quot;+proj&quot;</span>
 </pre></div>
 
 </div>
@@ -1961,7 +1960,7 @@ gdalinfo -proj4 LE70200472014061EDC00_B1.TIF | grep <span class="s2">&quot;+proj
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="stacked-images">Stacked images</h6>
+<h3 id="stacked-images">Stacked images</h3>
 <p>To create a &quot;layer stack&quot; from this LEDAPS output, we first need to identify which bands we would like to use and which subdatasets the bands are contained in.</p>
 <p>For a &quot;layer stack&quot; of the optical bands, the thermal band, and the Fmask band, we would reference the first 6 subdatasets, the 15th, and the 17th. Since we know &quot;gdalinfo&quot; will provide us with the correct references to the subdatasets, we can loop over these subdataset indices and store the names:</p>
 </div>
@@ -1970,15 +1969,13 @@ gdalinfo -proj4 LE70200472014061EDC00_B1.TIF | grep <span class="s2">&quot;+proj
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[38]:
+In&nbsp;[7]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
 
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/5_Stack/LE70200472014061EDC00
-
-<span class="nv">image</span><span class="o">=</span>lndsr.LE70200472014061EDC00.hdf
+<span class="nv">image</span><span class="o">=</span>LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf
 
 <span class="nv">bands</span><span class="o">=</span><span class="s2">&quot;1 2 3 4 5 6 15 17&quot;</span>
 
@@ -1990,6 +1987,8 @@ In&nbsp;[38]:
     <span class="nv">sds_names</span><span class="o">=</span><span class="s2">&quot;$sds_names $sds&quot;</span>
 <span class="k">done</span>
 
+<span class="nb">echo</span> <span class="s2">&quot;&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;&lt;----------------------------------------&quot;</span>
 <span class="nb">echo</span> <span class="s2">&quot;All subdatasets:&quot;</span>
 <span class="nb">echo</span> <span class="nv">$sds_names</span>
 </pre></div>
@@ -2005,16 +2004,18 @@ In&nbsp;[38]:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-  SUBDATASET_1_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band1
-  SUBDATASET_2_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band2
-  SUBDATASET_3_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band3
-  SUBDATASET_4_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band4
-  SUBDATASET_5_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band5
-  SUBDATASET_6_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band7
-  SUBDATASET_15_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band6
-  SUBDATASET_17_NAME=HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:fmask_band
+  SUBDATASET_1_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band1
+  SUBDATASET_2_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band2
+  SUBDATASET_3_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band3
+  SUBDATASET_4_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band4
+  SUBDATASET_5_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band5
+  SUBDATASET_6_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band7
+  SUBDATASET_15_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band6
+  SUBDATASET_17_NAME=HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:fmask_band
+
+&lt;----------------------------------------
 All subdatasets:
-HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band1 HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band2 HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band3 HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band4 HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band5 HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band7 HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band6 HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:fmask_band
+HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band1 HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band2 HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band3 HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band4 HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band5 HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band7 HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band6 HDF4_EOS:EOS_GRID:&quot;LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf&quot;:Grid:fmask_band
 
 </pre>
 </div>
@@ -2029,19 +2030,21 @@ HDF4_EOS:EOS_GRID:&quot;lndsr.LE70200472014061EDC00.hdf&quot;:Grid:band1 HDF4_EO
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="gdal_merge.py">gdal_merge.py</h6>
-<p>Now that we know which subdatasets we would like to include, we can create our &quot;layer stack&quot; using <strong><em>gdal_merge.py</em></strong> (see http://www.gdal.org/gdal_merge.html)</p>
+<h3 id="gdal_merge-py">gdal_merge.py</h3>
+<p>Now that we know which subdatasets we would like to include, we can create our &quot;layer stack&quot; using <strong><em>gdal_merge.py</em></strong> (see <a href="http://www.gdal.org/gdal_merge.html">http://www.gdal.org/gdal_merge.html</a>)</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[32]:
+In&nbsp;[8]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
+
+<span class="c"># Check out gdal_merge.py command line options</span>
 gdal_merge.py --help
 </pre></div>
 
@@ -2085,16 +2088,14 @@ Usage: gdal_merge.py [-o out_filename] [-of out_format] [-co NAME=VALUE]*
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[49]:
+In&nbsp;[9]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
 
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/5_Stack/LE70200472014061EDC00
-
-<span class="nv">image</span><span class="o">=</span>lndsr.LE70200472014061EDC00.hdf
-<span class="nv">output</span><span class="o">=</span>LE70200472014061EDC00_test_stack.bip
+<span class="nv">image</span><span class="o">=</span>LE70200472014061EDC00/lndsr.LE70200472014061EDC00.hdf
+<span class="nv">output</span><span class="o">=</span>LE70200472014061EDC00/LE70200472014061EDC00_test_stack.bip
 
 <span class="nv">bands</span><span class="o">=</span><span class="s2">&quot;1 2 3 4 5 6 15 17&quot;</span>
 
@@ -2109,7 +2110,9 @@ In&nbsp;[49]:
 gdal_merge.py -o temp.gtif -separate -a_nodata -9999 <span class="nv">$sds_names</span>
 
 <span class="c"># Correct the projection using gdal_translate</span>
-gdal_translate -of ENVI -co <span class="s2">&quot;INTERLEAVE=BIP&quot;</span> -a_srs <span class="s1">&#39;+proj=utm +zone=16 +datum=WGS84 +units=m +no_defs &#39;</span> temp.gtif <span class="nv">$output</span>
+gdal_translate -of ENVI -co <span class="s2">&quot;INTERLEAVE=BIP&quot;</span> <span class="se">\</span>
+    -a_srs <span class="s1">&#39;+proj=utm +zone=16 +datum=WGS84 +units=m +no_defs &#39;</span> <span class="se">\</span>
+    temp.gtif <span class="nv">$output</span>
 
 <span class="c"># Delete the temporary GeoTIFF</span>
 rm temp.*
@@ -2133,9 +2136,9 @@ gdalinfo <span class="nv">$output</span>
 Input file size is 8121, 7101
 0...10...20...30...40...50...60...70...80...90...100 - done.
 Driver: ENVI/ENVI .hdr Labelled
-Files: LE70200472014061EDC00_test_stack.bip
-       LE70200472014061EDC00_test_stack.bip.aux.xml
-       LE70200472014061EDC00_test_stack.hdr
+Files: LE70200472014061EDC00/LE70200472014061EDC00_test_stack.bip
+       LE70200472014061EDC00/LE70200472014061EDC00_test_stack.bip.aux.xml
+       LE70200472014061EDC00/LE70200472014061EDC00_test_stack.hdr
 Size is 8121, 7101
 Coordinate System is:
 PROJCS[&quot;WGS_1984_UTM_Zone_16N&quot;,
@@ -2172,21 +2175,21 @@ Upper Right (  322215.000, 2186415.000) ( 88d41&apos;48.80&quot;W, 19d45&apos;55
 Lower Right (  322215.000, 1973385.000) ( 88d40&apos;39.72&quot;W, 17d50&apos;27.37&quot;N)
 Center      (  200400.000, 2079900.000) ( 89d50&apos;31.44&quot;W, 18d47&apos;21.19&quot;N)
 Band 1 Block=8121x1 Type=Int16, ColorInterp=Undefined
-  Description = Band 1
+  NoData Value=-9999
 Band 2 Block=8121x1 Type=Int16, ColorInterp=Undefined
-  Description = Band 2
+  NoData Value=-9999
 Band 3 Block=8121x1 Type=Int16, ColorInterp=Undefined
-  Description = Band 3
+  NoData Value=-9999
 Band 4 Block=8121x1 Type=Int16, ColorInterp=Undefined
-  Description = Band 4
+  NoData Value=-9999
 Band 5 Block=8121x1 Type=Int16, ColorInterp=Undefined
-  Description = Band 5
+  NoData Value=-9999
 Band 6 Block=8121x1 Type=Int16, ColorInterp=Undefined
-  Description = Band 6
+  NoData Value=-9999
 Band 7 Block=8121x1 Type=Int16, ColorInterp=Undefined
-  Description = Band 7
+  NoData Value=-9999
 Band 8 Block=8121x1 Type=Int16, ColorInterp=Undefined
-  Description = Band 8
+  NoData Value=-9999
 
 </pre>
 </div>
@@ -2201,7 +2204,7 @@ Band 8 Block=8121x1 Type=Int16, ColorInterp=Undefined
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="output-extent">Output extent</h6>
+<h3 id="output-extent">Output extent</h3>
 <p>Since we will be utilizing a large number of images in whatever analysis we perform, it would be convenient if all of the &quot;layer stack&quot; images share a common image size and geographic extent. If they did not, then our algorithm would have to perform some arithmetic to determine which pixel it should read in from every image. Instead, it is much easier to know that every row and column corresponds to the same extent on the ground.</p>
 <p>In order to do this, the simplest approach would be to define an output extent based on one image. A more sophisticated approach would be to define the output extent as the maximum extent required to fit all images, but this is too difficult in Bash to demonstrate.</p>
 </div>
@@ -2215,8 +2218,6 @@ In&nbsp;[53]:
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/5_Stack/
 
 <span class="c"># Define &quot;extent&quot; function (from https://github.com/dwtkns/gdal-cheat-sheet)</span>
 <span class="k">function </span>gdal_extent<span class="o">()</span> <span class="o">{</span>
@@ -2331,7 +2332,7 @@ Input file size is 8121, 7101
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We can check out output to make sure they're all the same size and upper left coordinate:</p>
+<p>We can check out output to make sure they&#39;re all the same size and upper left coordinate:</p>
 </div>
 </div>
 </div>
@@ -2343,8 +2344,6 @@ In&nbsp;[55]:
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/5_Stack/
 
 <span class="k">for </span>stack in <span class="k">$(</span>find ./ -name <span class="s1">&#39;*stack&#39;</span><span class="k">)</span>; <span class="k">do</span>
 <span class="k">    </span>gdalinfo <span class="nv">$stack</span> | grep <span class="s2">&quot;Size is&quot;</span>
@@ -2390,10 +2389,24 @@ Origin = (78585.000000000000000,2186415.000000000000000)
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="complicated-stuff">Complicated stuff!</h6>
-<p>Wow - that's a lot of Bash work! You could formalize these lines of code into your own Bash script, of course, but it probably isn't the best language for the job.</p>
-<p>In order to create these layer stacks myself, I ended up writing a heavily modified version of <strong><em>gdal_merge.py</em></strong> that does the following: - Determines the output extent of your stack by: - the maximum extent of all datasets - the minimum extent of all datasets - a specified extent - a percentile of the extents (e.g., 1% for minimum and 99% for maximum) - Treats HDF subdatasets as bands, removing necessity for referencing them directly - Preserves band name metadata (i.e., so your stack has the name &quot;band 1 reflectance&quot; from the LEDAPS HDF file) - Applies NDV separately per band - Can overwrite UTM zone to fix datum - Can &quot;resume&quot; if interrupted</p>
-<p>If you'd like to use this solution, you may do so as follows:</p>
+<h3 id="complicated-stuff-">Complicated stuff!</h3>
+<p>Wow - that&#39;s a lot of Bash work! You could formalize these lines of code into your own Bash script, of course, but it probably isn&#39;t the best language for the job.</p>
+<p>In order to create these layer stacks myself, I ended up writing a heavily modified version of <strong><em>gdal_merge.py</em></strong> that does the following:</p>
+<ul>
+<li>Determines the output extent of your stack by:<ul>
+<li>the maximum extent of all datasets</li>
+<li>the minimum extent of all datasets</li>
+<li>a specified extent</li>
+<li>a percentile of the extents (e.g., 1% for minimum and 99% for maximum)</li>
+</ul>
+</li>
+<li>Treats HDF subdatasets as bands, removing necessity for referencing them directly</li>
+<li>Preserves band name metadata (i.e., so your stack has the name &quot;band 1 reflectance&quot; from the LEDAPS HDF file)</li>
+<li>Applies NDV separately per band</li>
+<li>Can overwrite UTM zone to fix datum</li>
+<li>Can &quot;resume&quot; if interrupted</li>
+</ul>
+<p>If you&#39;d like to use this solution, you may do so as follows:</p>
 </div>
 </div>
 </div>
@@ -2460,8 +2473,10 @@ Examples:
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="example">Example:</h6>
-<p>Let's say we want the same bands, but want to specify that the extent of the images be the maximum of all images in the stack so nothing gets clipped. We can also specify NoDataValues for each band:</p>
+<h3 id="example-">Example:</h3>
+<p>The default usage of <strong><em>landsat_stack.py</em></strong> will look for LEDAPS surface reflectance output (lndsr*hdf) and Fmask output (*Fmask). Since we do not yet have a custom run of Fmask, we can modify the &quot;<em>--files</em>&quot; flag to just use our LEDAPS output (lndsr*hdf). Our previous usage of <strong><em>gdalinfo</em></strong> shows that the LEDAPS surface reflectance image stores the Fmask band as the 17th subdataset.</p>
+<p>We will also need to change the &quot;<em>--bands</em>&quot; and &quot;<em>--ndv</em>&quot; flags to reflect our change to using the Fmask output provided by LEDAPS.</p>
+<p>Let&#39;s also specify that the extent of the images be the maximum of all images in the stack so no Landsat image gets clipped.</p>
 </div>
 </div>
 </div>
@@ -2474,14 +2489,12 @@ In&nbsp;[64]:
     <div class="input_area">
 <div class="highlight"><pre>%%bash
 
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/5_Stack/
-
 module load gdal/1.10.0
 module load batch_landsat
 
-landsat_stack.py -q -p --files <span class="s2">&quot;lndsr*hdf; *Fmask&quot;</span> <span class="se">\</span>
-    -b <span class="s2">&quot;1 2 3 4 5 6 15; 1&quot;</span> <span class="se">\</span>
-    -n <span class="s2">&quot;-9999 -9999 -9999 -9999 -9999 -9999; 255&quot;</span> <span class="se">\</span>
+landsat_stack.py -q -p --files <span class="s2">&quot;lndsr*hdf&quot;</span> <span class="se">\</span>
+    -b <span class="s2">&quot;1 2 3 4 5 6 15 17&quot;</span> <span class="se">\</span>
+    -n <span class="s2">&quot;-9999 -9999 -9999 -9999 -9999 -9999 -9999 255&quot;</span> <span class="se">\</span>
     --utm 16 -o <span class="s2">&quot;*_stack_chris&quot;</span> <span class="se">\</span>
     --format <span class="s2">&quot;ENVI&quot;</span> --co <span class="s2">&quot;INTERLEAVE=BIP&quot;</span> --max_extent ./
 </pre></div>
@@ -2565,7 +2578,7 @@ Stacking completed successfully
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now let's check the &quot;landsat_stack.py&quot; result:</p>
+<p>Now let&#39;s check the &quot;landsat_stack.py&quot; result:</p>
 </div>
 </div>
 </div>
@@ -2577,8 +2590,6 @@ In&nbsp;[86]:
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/5_Stack/
 
 <span class="k">for </span>stack in <span class="k">$(</span>find ./ -name <span class="s1">&#39;*stack_chris&#39;</span><span class="k">)</span>; <span class="k">do</span>
 <span class="k">    </span>gdalinfo <span class="nv">$stack</span> | grep <span class="s2">&quot;Size is&quot;</span>
