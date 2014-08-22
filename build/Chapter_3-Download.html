@@ -1277,6 +1277,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-weibo:before{content:"\f18a"}
 .icon-renren:before{content:"\f18b"}
 code{color:#000}
+pre{font-size:inherit;line-height:inherit}
 .border-box-sizing{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 .corner-all{border-radius:4px}
 .hbox{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
@@ -1340,6 +1341,8 @@ input.nbname_input,input.engine_num_input{padding-top:3px;padding-bottom:3px;hei
 input.engine_num_input{width:60px}
 .highlight_text{color:#00f}
 #project_name>.breadcrumb{padding:0;margin-bottom:0;background-color:transparent;font-weight:bold}
+.folder_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f114"}
+.notebook_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f02d"}
 .ansibold{font-weight:bold}
 .ansiblack{color:#000}
 .ansired{color:#8b0000}
@@ -1362,15 +1365,15 @@ div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
 div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
 div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
 @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
-div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
 div.prompt:empty{padding-top:0;padding-bottom:0}
 div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 @media (max-width:480px){div.input{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.input_prompt{color:#000080;border-top:1px solid transparent}
 div.input_area>div.highlight{margin:.4em;border:none;padding:0;background-color:transparent}
-div.input_area>div.highlight>pre{margin:0;border:0;padding:0;background-color:transparent;font-size:14px;line-height:1.21429em}
+div.input_area>div.highlight>pre{margin:0;border:none;padding:0;background-color:transparent}
 .CodeMirror{line-height:1.21429em;height:auto;background:none;}
 .CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}
-@-moz-document url-prefix(){.CodeMirror-scroll{overflow-x:hidden}}.CodeMirror-lines{padding:.4em}
+.CodeMirror-lines{padding:.4em}
 .CodeMirror-linenumber{padding:0 8px 0 4px}
 .CodeMirror-gutters{border-bottom-left-radius:4px;border-top-left-radius:4px}
 .CodeMirror pre{padding:0;border:0;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
@@ -1405,7 +1408,7 @@ div.output_area{padding:0;page-break-inside:avoid;display:-webkit-box;-webkit-bo
 div.output_area .rendered_html table{margin-left:0;margin-right:0}
 div.output_area .rendered_html img{margin-left:0;margin-right:0}
 .output{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}
-@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;color:#000;background-color:transparent;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;line-height:inherit}
+@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;vertical-align:baseline;color:#000;background-color:transparent;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 div.output_subarea{padding:.4em .4em 0 .4em;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
 div.output_text{text-align:left;color:#000;line-height:1.21429em}
 div.output_stderr{background:#fdd;}
@@ -1526,7 +1529,7 @@ ul#help_menu li a{overflow:hidden;padding-right:2.2em}ul#help_menu li a i{margin
 .notification_widget{color:#777;padding:1px 12px;margin:2px 4px;z-index:10;border:1px solid #ccc;border-radius:4px;background:rgba(240,240,240,0.5)}.notification_widget.span{padding-right:2px}
 div#pager_splitter{height:8px}
 #pager-container{position:relative;padding:15px 0}
-div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{font-size:13px;line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
+div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
 .quickhelp{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 .shortcut_key{display:inline-block;width:20ex;text-align:right;font-family:monospace}
 .shortcut_descr{display:inline-block;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
@@ -1677,33 +1680,65 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="step-3.-download-completed-order-onto-geo-cluster">Step 3. Download completed order onto GEO cluster</h2>
+<h1 id="step-3-download-completed-order-onto-geo-cluster">Step 3. Download completed order onto GEO cluster</h1>
 <p>When you receive an email update notifying you that your images have been processed, you may access them here:</p>
-<p>http://espa.cr.usgs.gov/status/</p>
-<p>Simply input the email address associated with your order, select your order, and you'll find a page with each image and it's status:</p>
+<p><a href="http://espa.cr.usgs.gov/status/">http://espa.cr.usgs.gov/status/</a></p>
+<p>Simply input the email address associated with your order, select your order, and you&#39;ll find a page with each image and it&#39;s status:</p>
 <p><img src="https://raw.githubusercontent.com/ceholden/landsat_preprocess/master/resources/ESPA_orderstatus.png" /></p>
-<p>The ESPA interface provides you with a URL for downloading the image archive and a checksum useful for assuring your download completed without error (see http://en.wikipedia.org/wiki/Checksum).</p>
-<h6 id="download-onto-the-cluster">Download onto the cluster</h6>
-<p>The quickest and easiest way of downloading these datasets onto the cluster would be using Firefox's &quot;DownThemAll&quot; addon because it easily allows for parallel downloads (https://addons.mozilla.org/en-US/firefox/addon/downthemall/).</p>
-<p>One simple way of downloading the datasets would be using &quot;wget&quot; (enter &quot;man wget&quot; for more information).</p>
-<p>In this example, we use &quot;wget&quot; with several options: + &quot;-nc&quot; specifies &quot;no clobber&quot;, or no overwrite + &quot;-r&quot; specifies recursion, so we can find our files beneath the download URL + &quot;-A tar.gz,cksum&quot; is an accept list that specifies a pattern for files we will download. Files not matching the pattern are ignored + &quot;-nd&quot; will prevent downloading directories + &quot;-nv&quot; will turn off verbose</p>
+<p>The ESPA interface provides you with a URL for downloading the image archive and a checksum useful for assuring your download completed without error (see <a href="http://en.wikipedia.org/wiki/Checksum">http://en.wikipedia.org/wiki/Checksum</a>). </p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="download-onto-the-cluster">Download onto the cluster</h3>
+<p>The quickest and easiest way of downloading these datasets onto the cluster would be using Firefox&#39;s &quot;DownThemAll&quot; addon because it easily allows for parallel downloads (<a href="https://addons.mozilla.org/en-US/firefox/addon/downthemall/">https://addons.mozilla.org/en-US/firefox/addon/downthemall/</a>).</p>
+<h4 id="notice-">NOTICE:</h4>
+<pre><code>As of sometime in July (?), 2014, ESPA now requires a login to access the download links.
+
+As such, a simple &#39;wget&#39; will not work. I recommend using the Firefox extension DownThemAll as described in the USGS documentation http://landsat.usgs.gov/documents/espa_odi_userguide.pdf.
+</code></pre><h4 id="method-wget">Method: wget</h4>
+<p>One simple way of downloading the datasets would be using &quot;wget&quot; (enter &quot;man wget&quot; for more information). </p>
+<p>In this example, we use &quot;wget&quot; with several options:</p>
+<ul>
+<li>&quot;-nc&quot; specifies &quot;no clobber&quot;, or no overwrite</li>
+<li>&quot;-r&quot; specifies recursion, so we can find our files beneath the download URL</li>
+<li>&quot;-A tar.gz,cksum&quot; is an accept list that specifies a pattern for files we will download. Files not matching the pattern are ignored</li>
+<li>&quot;-nd&quot; will prevent downloading directories</li>
+<li>&quot;-nv&quot; will turn off verbose</li>
+</ul>
+<p>A typical download command would look like this:</p>
+<blockquote>
+<p>wget -nc -r -A tar.gz,cksum -nd -nv <a href="http://espa.cr.usgs.gov/status/ceholden%40bu.edu-572014-17955/">http://espa.cr.usgs.gov/status/ceholden%40bu.edu-572014-17955/</a></p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="download-example-dataset">Download Example Dataset</h3>
+<p>For the purposes of this tutorial, we will be downloading an example dataset of 4 images from the Boston University Department of Earth &amp; Environment FTP website:</p>
+<p>First, change directory to a location where you have approximately <strong>50GB</strong> of space available and where you wish to preprocess this example dataset. Next,</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[3]:
+In&nbsp;[4]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
 
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/3_Download
-
-<span class="nv">url</span><span class="o">=</span>http://espa.cr.usgs.gov/status/ceholden%40bu.edu-572014-17955/
-
-wget -nc -r -A tar.gz,cksum -nd -nv <span class="nv">$url</span>
+<span class="c"># Download the example dataset from Chris&#39; public FTP space on E&amp;E FTP site</span>
+wget -r -A tar.gz,cksum -nv -nd ftp://ftp-earth.bu.edu/ceholden/LandsatPrep/dataset
 
 <span class="nb">echo</span> <span class="s2">&quot;Done!&quot;</span>
 </pre></div>
@@ -1734,22 +1769,20 @@ Done!
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="validate-checksums-of-downloads">Validate checksums of downloads</h6>
-<p>It is important, but not always necessary, to assert that the files stored on the USGS's servers are fully intact once downloaded to our cluster. We can assert that the files are in tact with high confidence by checking to make sure the &quot;checksum&quot; of the file matches once downloaded to BU.</p>
-<p>For each archive you download, there will be a corresponding &quot;*.cksum&quot; file. The checksum provided is output from the Unix &quot;cksum&quot; command (http://en.wikipedia.org/wiki/Cksum). Unfortuantely, there isn't a built-in mechanism in this program to validate checksums, so we'll do this in a Bash loop and if statement.</p>
+<h3 id="validate-checksums-of-downloads">Validate checksums of downloads</h3>
+<p>It is important, but not always necessary, to assert that the files stored on the USGS&#39;s servers are fully intact once downloaded to our cluster. We can assert that the files are in tact with high confidence by checking to make sure the &quot;checksum&quot; of the file matches once downloaded to BU.</p>
+<p>For each archive you download, there will be a corresponding &quot;*.cksum&quot; file. The checksum provided is output from the Unix &quot;cksum&quot; command (<a href="http://en.wikipedia.org/wiki/Cksum">http://en.wikipedia.org/wiki/Cksum</a>). Unfortuantely, there isn&#39;t a built-in mechanism in this program to validate checksums, so we&#39;ll do this in a Bash loop and if statement.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[18]:
+In&nbsp;[7]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/3_Download
 
 <span class="c"># Loop over cksum files</span>
 <span class="k">for </span>checksum in <span class="k">$(</span>find ./ -name <span class="s1">&#39;L*.cksum&#39;</span><span class="k">)</span>; <span class="k">do</span>
@@ -1786,10 +1819,10 @@ In&nbsp;[18]:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
-LE70200472014093-SC20140507171414 is OK
 LE70200472014109-SC20140507171414 is OK
 LE70200472014077-SC20140507171413 is OK
 LE70200472014061-SC20140507171414 is OK
+LE70200472014093-SC20140507171414 is OK
 
 </pre>
 </div>

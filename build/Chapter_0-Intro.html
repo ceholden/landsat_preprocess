@@ -1277,6 +1277,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-weibo:before{content:"\f18a"}
 .icon-renren:before{content:"\f18b"}
 code{color:#000}
+pre{font-size:inherit;line-height:inherit}
 .border-box-sizing{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 .corner-all{border-radius:4px}
 .hbox{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
@@ -1340,6 +1341,8 @@ input.nbname_input,input.engine_num_input{padding-top:3px;padding-bottom:3px;hei
 input.engine_num_input{width:60px}
 .highlight_text{color:#00f}
 #project_name>.breadcrumb{padding:0;margin-bottom:0;background-color:transparent;font-weight:bold}
+.folder_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f114"}
+.notebook_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f02d"}
 .ansibold{font-weight:bold}
 .ansiblack{color:#000}
 .ansired{color:#8b0000}
@@ -1362,15 +1365,15 @@ div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
 div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
 div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
 @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
-div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
 div.prompt:empty{padding-top:0;padding-bottom:0}
 div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 @media (max-width:480px){div.input{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.input_prompt{color:#000080;border-top:1px solid transparent}
 div.input_area>div.highlight{margin:.4em;border:none;padding:0;background-color:transparent}
-div.input_area>div.highlight>pre{margin:0;border:0;padding:0;background-color:transparent;font-size:14px;line-height:1.21429em}
+div.input_area>div.highlight>pre{margin:0;border:none;padding:0;background-color:transparent}
 .CodeMirror{line-height:1.21429em;height:auto;background:none;}
 .CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}
-@-moz-document url-prefix(){.CodeMirror-scroll{overflow-x:hidden}}.CodeMirror-lines{padding:.4em}
+.CodeMirror-lines{padding:.4em}
 .CodeMirror-linenumber{padding:0 8px 0 4px}
 .CodeMirror-gutters{border-bottom-left-radius:4px;border-top-left-radius:4px}
 .CodeMirror pre{padding:0;border:0;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
@@ -1405,7 +1408,7 @@ div.output_area{padding:0;page-break-inside:avoid;display:-webkit-box;-webkit-bo
 div.output_area .rendered_html table{margin-left:0;margin-right:0}
 div.output_area .rendered_html img{margin-left:0;margin-right:0}
 .output{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}
-@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;color:#000;background-color:transparent;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;line-height:inherit}
+@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;vertical-align:baseline;color:#000;background-color:transparent;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 div.output_subarea{padding:.4em .4em 0 .4em;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
 div.output_text{text-align:left;color:#000;line-height:1.21429em}
 div.output_stderr{background:#fdd;}
@@ -1526,7 +1529,7 @@ ul#help_menu li a{overflow:hidden;padding-right:2.2em}ul#help_menu li a i{margin
 .notification_widget{color:#777;padding:1px 12px;margin:2px 4px;z-index:10;border:1px solid #ccc;border-radius:4px;background:rgba(240,240,240,0.5)}.notification_widget.span{padding-right:2px}
 div#pager_splitter{height:8px}
 #pager-container{position:relative;padding:15px 0}
-div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{font-size:13px;line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
+div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
 .quickhelp{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 .shortcut_key{display:inline-block;width:20ex;text-align:right;font-family:monospace}
 .shortcut_descr{display:inline-block;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
@@ -1677,22 +1680,16 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 align="center">
-Landsat Data Preprocessing
-</h1> 
-<h4 align="center"> 
-Chris Holden
-</h4> 
-<h4 align="center"> 
-Friday, May 9th, 2014
-</h4>
+<p><h1 align="center">Landsat Data Preprocessing</h1> </p>
+<h4 align="center"> Chris Holden</h4> 
+<h4 align="center"> Friday, May 9th, 2014</h4>
 
 
-<h5 id="overview">Overview:</h5>
+<h5 id="overview-">Overview:</h5>
 <p>The Landsat family of satellites have been in space since 1972 and can provide a rich history of the land surface of the Earth over the last ~40 years. Recent advances in computing hardware, free access to the data, and new innovative cloud screening and atmospheric correction algorithms have enabled researchers to &quot;data mine&quot; this archive. Analyses that were previously only possible at a very coarse resolution (e.g., AVHRR and MODIS) are beginning to be possible at the 30m Landsat resolution.</p>
 <p>This workshop intends to teach good practices for acquiring, organizing, preprocessing, and documenting your dense Landsat time series before ingestion into the &quot;data mining&quot; algorithm of your choice.</p>
-<h6 id="topics">Topics:</h6>
-<ol style="list-style-type: decimal">
+<h6 id="topics-">Topics:</h6>
+<ol>
 <li>Search for and filter Landsat acquisitions using EarthExplorer</li>
 <li>Submit order for &quot;Landsat Climate Data Record (CDR)&quot; product using ESPA</li>
 <li>Download completed order onto GEO cluster</li>
@@ -1705,6 +1702,24 @@ Friday, May 9th, 2014
 </ol>
 <h6 id="notes-on-workshop">Notes on workshop</h6>
 <p>There are many ways to acquire and preprocess Landsat datasets and I will be demonstrating but one of the many approaches. Where applicable, I will demonstrate how to perform a step using a general method, and then by using one of my tools developed to help automate the general method for a specific workflow. The goal of showing both approaches will be to give you access to my specialized scripts or programs while helping you understand what they are automating.</p>
+<h6 id="technical-notes">Technical notes</h6>
+<p>This workflow makes extensive use of Bash and Linux command line utilities. Here are some good sources of information about Bash:</p>
+<ol>
+<li><a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html">The Linux Documentation Project Bash Intro</a></li>
+<li><a href="http://www.tldp.org/LDP/Bash-Beginners-Guide/html/">The Linux Documentation Project Bash for Beginners</a></li>
+<li><a href="http://www.tldp.org/LDP/abs/html/">The Linux Documentation Project Bash Guide (Advanced)</a></li>
+</ol>
+<p>Finally, while not about Bash, I highly recommend reading <a href="http://www.stanford.edu/class/cs124/kwc-unix-for-poets.pdf">Unix for Poets</a> to understand how you can use Unix/Linux command line utilities in conjunction with one another to perform complex tasks.</p>
+<p>If you come across a section of code that you do not understand, Bash&#39;s interpreted nature makes it very easy for you to figure it out for yourself. Take the example:</p>
+<pre><code>for f in $(find ./ -name 'L*MTL.txt'); do
+    echo "MTL file found: $f&quot;
+done
+</code></pre><p>This bit of code describes a simple &quot;for each&quot; loop over the results returned from the <strong>find</strong> command. A first step in figuring out what this code does would be to navigate to a directory of Landsat data and look at the output of the &quot;find&quot; command by typing:</p>
+<pre><code>find ./ -name &#39;L*MTL.txt&#39;
+</code></pre><p>This command will recursively search you current directory (i.e., <em>./</em>) for anything matching the pattern &#39;L<em>MTL.txt&#39;. The <em>*find</em></em> command outputs the results in a list with each result on a new line.</p>
+<p>The &quot;for each&quot; (see <a href="http://en.wikipedia.org/wiki/Foreach_loop">http://en.wikipedia.org/wiki/Foreach_loop</a> for comparison versus a &quot;for&quot; loop) iterates across all results from the find command. At each iteration, it defines the variable &quot;f&quot; as one element in the result list. </p>
+<p>On Linux, you can use <strong>echo</strong> to print text to the console. By referencing the variable &quot;f&quot; within the loop (you reference variables using $ in Bash), we can use <strong>echo</strong> format and print a string.</p>
+<p>By now it should be clear what the example code does. If you get confused, take a section of code and break it down piece by piece until you know what any one command does on its own. Proceed by piping, redirecting, or referencing the output of this first command into the rest of the workflow and you should build, piece by piece, an understanding of what&#39;s going on.</p>
 </div>
 </div>
 </div>

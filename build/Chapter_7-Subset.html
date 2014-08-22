@@ -1277,6 +1277,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-weibo:before{content:"\f18a"}
 .icon-renren:before{content:"\f18b"}
 code{color:#000}
+pre{font-size:inherit;line-height:inherit}
 .border-box-sizing{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 .corner-all{border-radius:4px}
 .hbox{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
@@ -1340,6 +1341,8 @@ input.nbname_input,input.engine_num_input{padding-top:3px;padding-bottom:3px;hei
 input.engine_num_input{width:60px}
 .highlight_text{color:#00f}
 #project_name>.breadcrumb{padding:0;margin-bottom:0;background-color:transparent;font-weight:bold}
+.folder_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f114"}
+.notebook_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f02d"}
 .ansibold{font-weight:bold}
 .ansiblack{color:#000}
 .ansired{color:#8b0000}
@@ -1362,15 +1365,15 @@ div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
 div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
 div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
 @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
-div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
 div.prompt:empty{padding-top:0;padding-bottom:0}
 div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 @media (max-width:480px){div.input{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.input_prompt{color:#000080;border-top:1px solid transparent}
 div.input_area>div.highlight{margin:.4em;border:none;padding:0;background-color:transparent}
-div.input_area>div.highlight>pre{margin:0;border:0;padding:0;background-color:transparent;font-size:14px;line-height:1.21429em}
+div.input_area>div.highlight>pre{margin:0;border:none;padding:0;background-color:transparent}
 .CodeMirror{line-height:1.21429em;height:auto;background:none;}
 .CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}
-@-moz-document url-prefix(){.CodeMirror-scroll{overflow-x:hidden}}.CodeMirror-lines{padding:.4em}
+.CodeMirror-lines{padding:.4em}
 .CodeMirror-linenumber{padding:0 8px 0 4px}
 .CodeMirror-gutters{border-bottom-left-radius:4px;border-top-left-radius:4px}
 .CodeMirror pre{padding:0;border:0;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
@@ -1405,7 +1408,7 @@ div.output_area{padding:0;page-break-inside:avoid;display:-webkit-box;-webkit-bo
 div.output_area .rendered_html table{margin-left:0;margin-right:0}
 div.output_area .rendered_html img{margin-left:0;margin-right:0}
 .output{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}
-@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;color:#000;background-color:transparent;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;line-height:inherit}
+@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;vertical-align:baseline;color:#000;background-color:transparent;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 div.output_subarea{padding:.4em .4em 0 .4em;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
 div.output_text{text-align:left;color:#000;line-height:1.21429em}
 div.output_stderr{background:#fdd;}
@@ -1526,7 +1529,7 @@ ul#help_menu li a{overflow:hidden;padding-right:2.2em}ul#help_menu li a i{margin
 .notification_widget{color:#777;padding:1px 12px;margin:2px 4px;z-index:10;border:1px solid #ccc;border-radius:4px;background:rgba(240,240,240,0.5)}.notification_widget.span{padding-right:2px}
 div#pager_splitter{height:8px}
 #pager-container{position:relative;padding:15px 0}
-div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{font-size:13px;line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
+div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
 .quickhelp{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 .shortcut_key{display:inline-block;width:20ex;text-align:right;font-family:monospace}
 .shortcut_descr{display:inline-block;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
@@ -1677,9 +1680,9 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="step-7.-create-spatial-subset-using-extent-or-polygon-roi">Step 7. Create spatial subset using extent or polygon ROI</h2>
-<p>If you want to create a subset of your stacks, you can easily accomplish this using one or two of the GDAL command line utilities. Subsets are often very useful when you are rapidly iterating on your analysis and don't need to extend it to your entire study area, or if your study area is smaller than an entire Landsat image. In addition to just subsetting the size of your raster datasets, you can use GDAL to actually mask certain areas from your analysis.</p>
-<h6 id="simple-subsetting-using-extent">Simple subsetting using extent</h6>
+<h2 id="step-7-create-spatial-subset-using-extent-or-polygon-roi">Step 7. Create spatial subset using extent or polygon ROI</h2>
+<p>If you want to create a subset of your stacks, you can easily accomplish this using one or two of the GDAL command line utilities. Subsets are often very useful when you are rapidly iterating on your analysis and don&#39;t need to extend it to your entire study area, or if your study area is smaller than an entire Landsat image. In addition to just subsetting the size of your raster datasets, you can use GDAL to actually mask certain areas from your analysis.</p>
+<h3 id="simple-subsetting-using-extent">Simple subsetting using extent</h3>
 <p>If you already have a bounding box defined (i.e., an extent listing upper left and lower right coordinates), you can use:</p>
 <blockquote>
 <p><strong><em>gdal_translate</em></strong></p>
@@ -1737,7 +1740,7 @@ Usage: gdal_translate [--help-general] [--long-usage]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For example, let's say I want to create a subset somewhere in the center of my stacked images:</p>
+<p>For example, let&#39;s say I want to create a subset somewhere in the center of my stacked images:</p>
 </div>
 </div>
 </div>
@@ -1749,8 +1752,6 @@ In&nbsp;[119]:
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/8_Subset
 
 <span class="c"># gdalinfo will list the center coordinate of our raster</span>
 gdalinfo LE70200472014061EDC00/*stack | grep <span class="s2">&quot;Center&quot;</span>
@@ -1782,8 +1783,8 @@ Center      (  200400.000, 2079900.000) ( 89d50&apos;31.44&quot;W, 18d47&apos;21
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Note that 200400.000, 2079900.000 is the center of a pixel closest to our image's center so, we'll need to shift a half pixel to avoid clipping in the middle of a pixel.</p>
-<p>Let's make a 500x500 pixel raster centered on our image center:</p>
+<p>Note that 200400.000, 2079900.000 is the center of a pixel closest to our image&#39;s center so, we&#39;ll need to shift a half pixel to avoid clipping in the middle of a pixel.</p>
+<p>Let&#39;s make a 500x500 pixel raster centered on our image center:</p>
 </div>
 </div>
 </div>
@@ -1795,8 +1796,6 @@ In&nbsp;[133]:
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/8_Subset
 
 gdalinfo LE70200472014061EDC00/*stack | grep <span class="s2">&quot;Center&quot;</span>
 
@@ -1878,16 +1877,16 @@ Computed -srcwin 3810 3300 500 500 from projected window.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As you can see from <strong><em>gdal_translate</em></strong>'s output, it took our &quot;projwin&quot; in projected coordinates (meters in our case, but it could just as well be used for geographic data in decimal degrees) and calculated the corresponding offsets and pixel size.</p>
+<p>As you can see from <strong><em>gdal_translate</em></strong>&#39;s output, it took our &quot;projwin&quot; in projected coordinates (meters in our case, but it could just as well be used for geographic data in decimal degrees) and calculated the corresponding offsets and pixel size.</p>
 <p>If you already knew a range of rows and columns from your raster, you could specify the window you want to extract using:</p>
 <blockquote>
 <p>-srcwin xoff yoff xsize ysize</p>
 </blockquote>
 <ul>
-<li>xoff offset from 0 in columns</li>
-<li>yoff offset from 0 in rows</li>
-<li>xsize number of columns to include</li>
-<li>ysize number of rows to include</li>
+<li>xoff      offset from 0 in columns</li>
+<li>yoff      offset from 0 in rows</li>
+<li>xsize     number of columns to include</li>
+<li>ysize     number of rows to include</li>
 </ul>
 </div>
 </div>
@@ -1897,17 +1896,17 @@ Computed -srcwin 3810 3300 500 500 from projected window.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="more-complicated-subsetting---polygon-masking-outside-of-polygon">More complicated subsetting - polygon &amp; masking outside of polygon</h6>
-<p>Let's suppose instead that you have some area of interest within your Landsat image that you'd like to analyze. In this scenario, the rest of the Landsat image would be a waste of disk space.</p>
+<h3 id="more-complicated-subsetting-polygon-masking-outside-of-polygon">More complicated subsetting - polygon &amp; masking outside of polygon</h3>
+<p>Let&#39;s suppose instead that you have some area of interest within your Landsat image that you&#39;d like to analyze. In this scenario, the rest of the Landsat image would be a waste of disk space. </p>
 <p>You could calculate the spatial extent needed to contain the polygon of interest and simply run <strong><em>gdal_translate</em></strong> with the upper left and lower right X and Y coordinates as shown above.</p>
-<p>However, you could further limit your analysis by not only subsetting your raster images, but by masking out areas that you're not interested in. In order to do this, we will need to use</p>
+<p>However, you could further limit your analysis by not only subsetting your raster images, but by masking out areas that you&#39;re not interested in. In order to do this, we will need to use</p>
 <blockquote>
 <p><strong><em>gdalwarp</em></strong></p>
 </blockquote>
 <p><strong><em>gdalwarp</em></strong> is mostly used for going from one projection to another, but it can also be used with a polygon vector file to crop images or to mask images.</p>
-<p><strong>NOTE</strong>: <strong><em>gdalwarp</em></strong>'s intended goal is to do reprojections. If we just want to clip our rasters, we will not be doing any reprojections. Unfortunately, even if we do not tell the program to reproject the data, it will recompute the pixel sizes and extent of our raster (see <strong><em>gdalwarp</em></strong> bug ticket https://trac.osgeo.org/gdal/ticket/3947 and <strong><em>gdal_translate</em></strong> enhancement ticket https://trac.osgeo.org/gdal/ticket/4875)</p>
+<p><strong>NOTE</strong>: <strong><em>gdalwarp</em></strong>&#39;s intended goal is to do reprojections. If we just want to clip our rasters, we will not be doing any reprojections. Unfortunately, even if we do not tell the program to reproject the data, it will recompute the pixel sizes and extent of our raster (see <strong><em>gdalwarp</em></strong> bug ticket <a href="https://trac.osgeo.org/gdal/ticket/3947">https://trac.osgeo.org/gdal/ticket/3947</a> and <strong><em>gdal_translate</em></strong> enhancement ticket <a href="https://trac.osgeo.org/gdal/ticket/4875">https://trac.osgeo.org/gdal/ticket/4875</a>)</p>
 <p>We can sidestep this potential issue by feeding <strong><em>gdalwarp</em></strong> the correct extent and pixel size.</p>
-<p>First thing to do will be to use GDAL's sister library, OGR, to extract one polygon from a shapefile containing &quot;early action&quot; sites in Mexico. OGR is a very useful library and has many powerful command line utilities for working with vector data (see http://www.gdal.org/ogr/ogr_sql.html for information about OGR's SQL-like queries).</p>
+<p>First thing to do will be to use GDAL&#39;s companion library, OGR, to extract one polygon from a shapefile containing &quot;early action&quot; sites in Mexico. OGR is a very useful library and has many powerful command line utilities for working with vector data (see <a href="http://www.gdal.org/ogr/ogr_sql.html">http://www.gdal.org/ogr/ogr_sql.html</a> for information about OGR&#39;s SQL-like queries).</p>
 </div>
 </div>
 </div>
@@ -1921,8 +1920,6 @@ In&nbsp;[146]:
 <div class="highlight"><pre>%%bash
 
 module load gdal/1.10.0
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/8_Subset
 
 ogrinfo -al -geom<span class="o">=</span>NO -sql <span class="s1">&#39;SELECT * FROM mredd_aatr WHERE (ESTADO  LIKE &quot;%Campeche&quot;)&#39;</span> mredd_aatr.shp
 </pre></div>
@@ -1981,7 +1978,7 @@ OGRFeature(mredd_aatr):0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now we can use <strong><em>ogr2ogr</em></strong> to extract this one action site into it's own shapefile. When we do this, we can also reproject our shapefile into the UTM zone we've been using with our Landsat data:</p>
+<p>Now we can use <strong><em>ogr2ogr</em></strong> to extract this one action site into it&#39;s own shapefile. When we do this, we can also reproject our shapefile into the UTM zone we&#39;ve been using with our Landsat data:</p>
 </div>
 </div>
 </div>
@@ -1995,8 +1992,6 @@ In&nbsp;[153]:
 <div class="highlight"><pre>%%bash
 
 module load gdal/1.10.0
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/8_Subset
 
 ogr2ogr -f <span class="s2">&quot;ESRI Shapefile&quot;</span> -t_srs EPSG:32616 <span class="se">\</span>
     -sql <span class="s2">&quot;SELECT * FROM mredd_aatr WHERE (ESTADO  LIKE &#39;%Campeche&#39;)&quot;</span> <span class="se">\</span>
@@ -2061,7 +2056,7 @@ OGRFeature(mredd_yucatan):0
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With our polygon shapefile ready to go, we can calculate an output extent that clips to the polygon but preserves the spacing of the Landsat data. Once again, we'll be using a simple Bash function from Derek Watkin's GDAL/OGR cheat sheet (https://github.com/dwtkns/gdal-cheat-sheet) to easily parse <strong><em>gdalinfo</em></strong> and <strong><em>ogrinfo</em></strong>'s outputs into extent strings:</p>
+<p>With our polygon shapefile ready to go, we can calculate an output extent that clips to the polygon but preserves the spacing of the Landsat data. Once again, we&#39;ll be using a simple Bash function from Derek Watkin&#39;s GDAL/OGR cheat sheet (<a href="https://github.com/dwtkns/gdal-cheat-sheet">https://github.com/dwtkns/gdal-cheat-sheet</a>) to easily parse <strong><em>gdalinfo</em></strong> and <strong><em>ogrinfo</em></strong>&#39;s outputs into extent strings:</p>
 </div>
 </div>
 </div>
@@ -2104,8 +2099,6 @@ In&nbsp;[211]:
     <span class="nv">EXTENT</span><span class="o">=</span><span class="sb">`</span><span class="nb">echo</span> <span class="nv">$EXTENT</span> | awk -F <span class="s1">&#39;,&#39;</span> <span class="s1">&#39;{print $1 &quot; &quot; $4 &quot; &quot; $3 &quot; &quot; $2}&#39;</span><span class="sb">`</span>
     <span class="nb">echo</span> -n <span class="s2">&quot;$EXTENT&quot;</span>
 <span class="o">}</span>
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/8_Subset
 
 <span class="nv">img_ext</span><span class="o">=</span><span class="k">$(</span>gdal_extent LE70200472014061EDC00/LE70200472014061EDC00_stack_chris<span class="k">)</span>
 <span class="nv">shp_ext</span><span class="o">=</span><span class="k">$(</span>ogr_extent mredd_yucatan.shp<span class="k">)</span>
@@ -2210,18 +2203,14 @@ Using internal nodata values (eg. -9999) for image ./LE70200472014109ASN00/LE702
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In practice, I don't actually calculate the correct extent that aligns with my raster programatically - I just run the numbers myself. It's a lot easier that way.</p>
+<p>In practice, I don&#39;t actually calculate the correct extent that aligns with my raster programatically - I just run the numbers myself. It&#39;s a lot easier that way.</p>
 <p>What did we get?</p>
 <h6 id="before">Before</h6>
-<h6 align="center">
-Lots of clouds!
-</h6>
-<p><img src="https://raw.githubusercontent.com/ceholden/landsat_preprocess/master/resources/clip_yucatan_full.png" /></p>
+<p><h6 align="center">Lots of clouds!</h6>
+<img src="https://raw.githubusercontent.com/ceholden/landsat_preprocess/master/resources/clip_yucatan_full.png" /></p>
 <h5 id="after">After</h5>
-<h6 align="center">
-Well, at least it is smaller now
-</h6>
-<p><img src="https://raw.githubusercontent.com/ceholden/landsat_preprocess/master/resources/clip_yucatan_clipped.png" /></p>
+<p><h6 align="center">Well, at least it is smaller now</h6>
+<img src="https://raw.githubusercontent.com/ceholden/landsat_preprocess/master/resources/clip_yucatan_clipped.png" /></p>
 </div>
 </div>
 </div>

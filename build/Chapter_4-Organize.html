@@ -1277,6 +1277,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-weibo:before{content:"\f18a"}
 .icon-renren:before{content:"\f18b"}
 code{color:#000}
+pre{font-size:inherit;line-height:inherit}
 .border-box-sizing{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 .corner-all{border-radius:4px}
 .hbox{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
@@ -1340,6 +1341,8 @@ input.nbname_input,input.engine_num_input{padding-top:3px;padding-bottom:3px;hei
 input.engine_num_input{width:60px}
 .highlight_text{color:#00f}
 #project_name>.breadcrumb{padding:0;margin-bottom:0;background-color:transparent;font-weight:bold}
+.folder_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f114"}
+.notebook_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f02d"}
 .ansibold{font-weight:bold}
 .ansiblack{color:#000}
 .ansired{color:#8b0000}
@@ -1362,15 +1365,15 @@ div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
 div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
 div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
 @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
-div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
 div.prompt:empty{padding-top:0;padding-bottom:0}
 div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 @media (max-width:480px){div.input{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.input_prompt{color:#000080;border-top:1px solid transparent}
 div.input_area>div.highlight{margin:.4em;border:none;padding:0;background-color:transparent}
-div.input_area>div.highlight>pre{margin:0;border:0;padding:0;background-color:transparent;font-size:14px;line-height:1.21429em}
+div.input_area>div.highlight>pre{margin:0;border:none;padding:0;background-color:transparent}
 .CodeMirror{line-height:1.21429em;height:auto;background:none;}
 .CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}
-@-moz-document url-prefix(){.CodeMirror-scroll{overflow-x:hidden}}.CodeMirror-lines{padding:.4em}
+.CodeMirror-lines{padding:.4em}
 .CodeMirror-linenumber{padding:0 8px 0 4px}
 .CodeMirror-gutters{border-bottom-left-radius:4px;border-top-left-radius:4px}
 .CodeMirror pre{padding:0;border:0;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
@@ -1405,7 +1408,7 @@ div.output_area{padding:0;page-break-inside:avoid;display:-webkit-box;-webkit-bo
 div.output_area .rendered_html table{margin-left:0;margin-right:0}
 div.output_area .rendered_html img{margin-left:0;margin-right:0}
 .output{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}
-@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;color:#000;background-color:transparent;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;line-height:inherit}
+@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;vertical-align:baseline;color:#000;background-color:transparent;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 div.output_subarea{padding:.4em .4em 0 .4em;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
 div.output_text{text-align:left;color:#000;line-height:1.21429em}
 div.output_stderr{background:#fdd;}
@@ -1526,7 +1529,7 @@ ul#help_menu li a{overflow:hidden;padding-right:2.2em}ul#help_menu li a i{margin
 .notification_widget{color:#777;padding:1px 12px;margin:2px 4px;z-index:10;border:1px solid #ccc;border-radius:4px;background:rgba(240,240,240,0.5)}.notification_widget.span{padding-right:2px}
 div#pager_splitter{height:8px}
 #pager-container{position:relative;padding:15px 0}
-div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{font-size:13px;line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
+div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
 .quickhelp{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 .shortcut_key{display:inline-block;width:20ex;text-align:right;font-family:monospace}
 .shortcut_descr{display:inline-block;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
@@ -1677,25 +1680,22 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="step-4.-organize-and-extract-imagery-from-archives">Step 4. Organize and extract imagery from archives</h2>
-<p>If you have any prior experience with Landsat imagery, you'll notice that the archives we downloaded have an unusual filename:</p>
+<h2 id="step-4-organize-and-extract-imagery-from-archives">Step 4. Organize and extract imagery from archives</h2>
+<p>If you have any prior experience with Landsat imagery, you&#39;ll notice that the archives we downloaded have an unusual filename:</p>
 <pre><code>                LE70200472011261-SC20140507171414.tar.gz
-                </code></pre>
-<p>The first half of this string is the Landsat ID, minus the receiving station information. The second half of this string details the timing of when the Landsat image was processed through ESPA.</p>
-<p>Since we're not very interested in the processing detail, we will extract each of these archives to a folder based on the reference ID of the Landsat image.</p>
+</code></pre><p>The first half of this string is the Landsat ID, minus the receiving station information. The second half of this string details the timing of when the Landsat image was processed through ESPA.</p>
+<p>Since we&#39;re not very interested in the processing detail, we will extract each of these archives to a folder based on the reference ID of the Landsat image.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[21]:
+In&nbsp;[3]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/4_Organize
 
 <span class="c"># We want to find things ONLY in our current directory, not in any subfolders</span>
 <span class="c">#     So, we use -maxdepth 1 option</span>
@@ -1705,7 +1705,7 @@ In&nbsp;[21]:
 <span class="nv">i</span><span class="o">=</span>1
 
 <span class="k">for </span>archive in <span class="k">$(</span>find ./ -maxdepth 1 -name <span class="s1">&#39;*tar.gz&#39;</span><span class="k">)</span>; <span class="k">do</span>
-<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;&lt;----- $i / $n: $(basename $img)&quot;</span>
+<span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;&lt;----- $i / $n: $(basename $archive)&quot;</span>
     
     <span class="c"># Create temporary folder for storage</span>
     mkdir temp
@@ -1749,6 +1749,114 @@ In&nbsp;[21]:
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>
+&lt;----- 1 / 4: LE70200472014077-SC20140507171413.tar.gz
+gap_mask/
+gap_mask/LE70200472014077ASN00_GM_B1.TIF.gz
+gap_mask/LE70200472014077ASN00_GM_B7.TIF.gz
+gap_mask/LE70200472014077ASN00_GM_B6_VCID_2.TIF.gz
+gap_mask/LE70200472014077ASN00_GM_B5.TIF.gz
+gap_mask/LE70200472014077ASN00_GM_B6_VCID_1.TIF.gz
+gap_mask/LE70200472014077ASN00_GM_B8.TIF.gz
+gap_mask/LE70200472014077ASN00_GM_B4.TIF.gz
+gap_mask/LE70200472014077ASN00_GM_B3.TIF.gz
+gap_mask/LE70200472014077ASN00_GM_B2.TIF.gz
+LE70200472014077ASN00_B1.TIF
+LE70200472014077ASN00_B2.TIF
+LE70200472014077ASN00_B3.TIF
+LE70200472014077ASN00_B4.TIF
+LE70200472014077ASN00_B5.TIF
+LE70200472014077ASN00_B6_VCID_1.TIF
+LE70200472014077ASN00_B6_VCID_2.TIF
+LE70200472014077ASN00_B7.TIF
+LE70200472014077ASN00_B8.TIF
+LE70200472014077ASN00_GCP.txt
+LE70200472014077ASN00_MTL.txt
+lndsr.LE70200472014077ASN00.hdf
+lndsr.LE70200472014077ASN00.hdf.hdr
+lndsr.LE70200472014077ASN00.txt
+lndth.LE70200472014077ASN00.hdf
+lndth.LE70200472014077ASN00.hdf.hdr
+&lt;----- 2 / 4: LE70200472014093-SC20140507171414.tar.gz
+gap_mask/
+gap_mask/LE70200472014093ASN00_GM_B2.TIF.gz
+gap_mask/LE70200472014093ASN00_GM_B4.TIF.gz
+gap_mask/LE70200472014093ASN00_GM_B6_VCID_2.TIF.gz
+gap_mask/LE70200472014093ASN00_GM_B5.TIF.gz
+gap_mask/LE70200472014093ASN00_GM_B1.TIF.gz
+gap_mask/LE70200472014093ASN00_GM_B8.TIF.gz
+gap_mask/LE70200472014093ASN00_GM_B6_VCID_1.TIF.gz
+gap_mask/LE70200472014093ASN00_GM_B3.TIF.gz
+gap_mask/LE70200472014093ASN00_GM_B7.TIF.gz
+LE70200472014093ASN00_B1.TIF
+LE70200472014093ASN00_B2.TIF
+LE70200472014093ASN00_B3.TIF
+LE70200472014093ASN00_B4.TIF
+LE70200472014093ASN00_B5.TIF
+LE70200472014093ASN00_B6_VCID_1.TIF
+LE70200472014093ASN00_B6_VCID_2.TIF
+LE70200472014093ASN00_B7.TIF
+LE70200472014093ASN00_B8.TIF
+LE70200472014093ASN00_GCP.txt
+LE70200472014093ASN00_MTL.txt
+lndsr.LE70200472014093ASN00.hdf
+lndsr.LE70200472014093ASN00.hdf.hdr
+lndsr.LE70200472014093ASN00.txt
+lndth.LE70200472014093ASN00.hdf
+lndth.LE70200472014093ASN00.hdf.hdr
+&lt;----- 3 / 4: LE70200472014061-SC20140507171414.tar.gz
+gap_mask/
+gap_mask/LE70200472014061EDC00_GM_B6_VCID_1.TIF.gz
+gap_mask/LE70200472014061EDC00_GM_B8.TIF.gz
+gap_mask/LE70200472014061EDC00_GM_B3.TIF.gz
+gap_mask/LE70200472014061EDC00_GM_B7.TIF.gz
+gap_mask/LE70200472014061EDC00_GM_B1.TIF.gz
+gap_mask/LE70200472014061EDC00_GM_B2.TIF.gz
+gap_mask/LE70200472014061EDC00_GM_B6_VCID_2.TIF.gz
+gap_mask/LE70200472014061EDC00_GM_B4.TIF.gz
+gap_mask/LE70200472014061EDC00_GM_B5.TIF.gz
+LE70200472014061EDC00_B1.TIF
+LE70200472014061EDC00_B2.TIF
+LE70200472014061EDC00_B3.TIF
+LE70200472014061EDC00_B4.TIF
+LE70200472014061EDC00_B5.TIF
+LE70200472014061EDC00_B6_VCID_1.TIF
+LE70200472014061EDC00_B6_VCID_2.TIF
+LE70200472014061EDC00_B7.TIF
+LE70200472014061EDC00_B8.TIF
+LE70200472014061EDC00_GCP.txt
+LE70200472014061EDC00_MTL.txt
+lndsr.LE70200472014061EDC00.hdf
+lndsr.LE70200472014061EDC00.hdf.hdr
+lndsr.LE70200472014061EDC00.txt
+lndth.LE70200472014061EDC00.hdf
+lndth.LE70200472014061EDC00.hdf.hdr
+&lt;----- 4 / 4: LE70200472014109-SC20140507171414.tar.gz
+gap_mask/
+gap_mask/LE70200472014109ASN00_GM_B7.TIF.gz
+gap_mask/LE70200472014109ASN00_GM_B2.TIF.gz
+gap_mask/LE70200472014109ASN00_GM_B6_VCID_2.TIF.gz
+gap_mask/LE70200472014109ASN00_GM_B6_VCID_1.TIF.gz
+gap_mask/LE70200472014109ASN00_GM_B1.TIF.gz
+gap_mask/LE70200472014109ASN00_GM_B3.TIF.gz
+gap_mask/LE70200472014109ASN00_GM_B8.TIF.gz
+gap_mask/LE70200472014109ASN00_GM_B5.TIF.gz
+gap_mask/LE70200472014109ASN00_GM_B4.TIF.gz
+LE70200472014109ASN00_B1.TIF
+LE70200472014109ASN00_B2.TIF
+LE70200472014109ASN00_B3.TIF
+LE70200472014109ASN00_B4.TIF
+LE70200472014109ASN00_B5.TIF
+LE70200472014109ASN00_B6_VCID_1.TIF
+LE70200472014109ASN00_B6_VCID_2.TIF
+LE70200472014109ASN00_B7.TIF
+LE70200472014109ASN00_B8.TIF
+LE70200472014109ASN00_GCP.txt
+LE70200472014109ASN00_MTL.txt
+lndsr.LE70200472014109ASN00.hdf
+lndsr.LE70200472014109ASN00.hdf.hdr
+lndsr.LE70200472014109ASN00.txt
+lndth.LE70200472014109ASN00.hdf
+lndth.LE70200472014109ASN00.hdf.hdr
 Done!
 
 </pre>
@@ -1764,7 +1872,7 @@ Done!
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="filter-l1g-images">Filter L1G images</h6>
+<h3 id="filter-l1g-images">Filter L1G images</h3>
 <p>If you recall when we filtered our dataset from the Landsat archive, we had selected the &quot;Processing Required&quot; option. This means that some of the images we downloaded that had this status will be L1T, but some of them will be L1G (not orthorectified).</p>
 <p>In order to remove the L1G images, we can run through our image stacks and do a quick &quot;grep&quot; on each MTL file:</p>
 </div>
@@ -1773,13 +1881,11 @@ Done!
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">
-In&nbsp;[2]:
+In&nbsp;[4]:
 </div>
 <div class="inner_cell">
     <div class="input_area">
 <div class="highlight"><pre>%%bash
-
-<span class="nb">cd</span> /projectnb/landsat/users/ceholden/2014_Landsat_Preprocess/4_Organize
 
 <span class="k">if</span> <span class="o">[</span> ! -d L1G <span class="o">]</span>; <span class="k">then</span>
 <span class="k">    </span>mkdir L1G/
@@ -1801,6 +1907,25 @@ In&nbsp;[2]:
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>
+LE70200472014093ASN00 is L1T
+LE70200472014061EDC00 is L1T
+LE70200472014109ASN00 is L1T
+LE70200472014077ASN00 is L1T
+
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 

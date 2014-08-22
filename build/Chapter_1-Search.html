@@ -1277,6 +1277,7 @@ a .icon-rotate-90:before,a .icon-rotate-180:before,a .icon-rotate-270:before,a .
 .icon-weibo:before{content:"\f18a"}
 .icon-renren:before{content:"\f18b"}
 code{color:#000}
+pre{font-size:inherit;line-height:inherit}
 .border-box-sizing{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}
 .corner-all{border-radius:4px}
 .hbox{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
@@ -1340,6 +1341,8 @@ input.nbname_input,input.engine_num_input{padding-top:3px;padding-bottom:3px;hei
 input.engine_num_input{width:60px}
 .highlight_text{color:#00f}
 #project_name>.breadcrumb{padding:0;margin-bottom:0;background-color:transparent;font-weight:bold}
+.folder_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f114"}
+.notebook_icon:before{font-family:FontAwesome;font-weight:normal;font-style:normal;text-decoration:inherit;-webkit-font-smoothing:antialiased;*margin-right:.3em;content:"\f02d"}
 .ansibold{font-weight:bold}
 .ansiblack{color:#000}
 .ansired{color:#8b0000}
@@ -1362,15 +1365,15 @@ div.cell.edit_mode{border-radius:4px;border:thin #008000 solid}
 div.cell{width:100%;padding:5px 5px 5px 0;margin:0;outline:none}
 div.prompt{min-width:11ex;padding:.4em;margin:0;font-family:monospace;text-align:right;line-height:1.21429em}
 @media (max-width:480px){div.prompt{text-align:left}}div.inner_cell{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
-div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7}
+div.input_area{border:1px solid #cfcfcf;border-radius:4px;background:#f7f7f7;line-height:1.21429em}
 div.prompt:empty{padding-top:0;padding-bottom:0}
 div.input{page-break-inside:avoid;display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 @media (max-width:480px){div.input{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.input_prompt{color:#000080;border-top:1px solid transparent}
 div.input_area>div.highlight{margin:.4em;border:none;padding:0;background-color:transparent}
-div.input_area>div.highlight>pre{margin:0;border:0;padding:0;background-color:transparent;font-size:14px;line-height:1.21429em}
+div.input_area>div.highlight>pre{margin:0;border:none;padding:0;background-color:transparent}
 .CodeMirror{line-height:1.21429em;height:auto;background:none;}
 .CodeMirror-scroll{overflow-y:hidden;overflow-x:auto}
-@-moz-document url-prefix(){.CodeMirror-scroll{overflow-x:hidden}}.CodeMirror-lines{padding:.4em}
+.CodeMirror-lines{padding:.4em}
 .CodeMirror-linenumber{padding:0 8px 0 4px}
 .CodeMirror-gutters{border-bottom-left-radius:4px;border-top-left-radius:4px}
 .CodeMirror pre{padding:0;border:0;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
@@ -1405,7 +1408,7 @@ div.output_area{padding:0;page-break-inside:avoid;display:-webkit-box;-webkit-bo
 div.output_area .rendered_html table{margin-left:0;margin-right:0}
 div.output_area .rendered_html img{margin-left:0;margin-right:0}
 .output{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}
-@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;font-size:100%;vertical-align:baseline;color:#000;background-color:transparent;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;line-height:inherit}
+@media (max-width:480px){div.output_area{display:-webkit-box;-webkit-box-orient:vertical;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:vertical;-moz-box-align:stretch;display:box;box-orient:vertical;box-align:stretch;display:flex;flex-direction:column;align-items:stretch}}div.output_area pre{margin:0;padding:0;border:0;vertical-align:baseline;color:#000;background-color:transparent;border-radius:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}
 div.output_subarea{padding:.4em .4em 0 .4em;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
 div.output_text{text-align:left;color:#000;line-height:1.21429em}
 div.output_stderr{background:#fdd;}
@@ -1526,7 +1529,7 @@ ul#help_menu li a{overflow:hidden;padding-right:2.2em}ul#help_menu li a i{margin
 .notification_widget{color:#777;padding:1px 12px;margin:2px 4px;z-index:10;border:1px solid #ccc;border-radius:4px;background:rgba(240,240,240,0.5)}.notification_widget.span{padding-right:2px}
 div#pager_splitter{height:8px}
 #pager-container{position:relative;padding:15px 0}
-div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{font-size:13px;line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
+div#pager{font-size:14px;line-height:20px;overflow:auto;display:none}div#pager pre{line-height:1.21429em;color:#000;background-color:#f7f7f7;padding:.4em}
 .quickhelp{display:-webkit-box;-webkit-box-orient:horizontal;-webkit-box-align:stretch;display:-moz-box;-moz-box-orient:horizontal;-moz-box-align:stretch;display:box;box-orient:horizontal;box-align:stretch;display:flex;flex-direction:row;align-items:stretch}
 .shortcut_key{display:inline-block;width:20ex;text-align:right;font-family:monospace}
 .shortcut_descr{display:inline-block;-webkit-box-flex:1;-moz-box-flex:1;box-flex:1;flex:1}
@@ -1677,17 +1680,17 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="step-1.-search-for-and-filter-landsat-acquisitions-using-earthexplorer">Step 1. Search for and filter Landsat acquisitions using EarthExplorer</h2>
-<p>The USGS has many portals for filtering through Landsat data (e.g., GLOVIS, EarthExplorer, COVE tool, etc.), but the EarthExplorer tool is one of the better ones. If you don't have an account with EarthExplorer, you will need to create one before ordering data.</p>
+<h2 id="step-1-search-for-and-filter-landsat-acquisitions-using-earthexplorer">Step 1. Search for and filter Landsat acquisitions using EarthExplorer</h2>
+<p>The USGS has many portals for filtering through Landsat data (e.g., GLOVIS, EarthExplorer, COVE tool, etc.), but the EarthExplorer tool is one of the better ones. If you don&#39;t have an account with EarthExplorer, you will need to create one before ordering data.</p>
 <p>You will also need to know the WRS-2 path and row for the dataset you wish to acquire. Further information on the WRS-2 reference system, including a shapefile of all path and rows (download the descending dataset for Landsat) is available here:</p>
-<p>https://landsat.usgs.gov/worldwide_reference_system_WRS.php</p>
+<p><a href="https://landsat.usgs.gov/worldwide_reference_system_WRS.php">https://landsat.usgs.gov/worldwide_reference_system_WRS.php</a></p>
 <h3 id="earthexplorer">EarthExplorer</h3>
 <p>Navigate to:</p>
-<p>http://earthexplorer.usgs.gov/</p>
+<p><a href="http://earthexplorer.usgs.gov/">http://earthexplorer.usgs.gov/</a></p>
 <p>On the left side of the user interface you will see four tabs representing components of the search workflow. Begin by skipping the &quot;Search Criteria&quot; tab and continuing to the &quot;Data Sets&quot; tab.</p>
 <p><img src="https://raw.githubusercontent.com/ceholden/landsat_preprocess/master/resources/EE_datasets.png" /></p>
 <h3 id="landsat-cdr-datasets">Landsat CDR Datasets</h3>
-<p>We will be submitting an order for the Landsat Climate Data Record (CDR) product (http://landsat.usgs.gov/CDR_ECV.php) so that the USGS can perform the atmospheric correction and cloud masking preprocessing steps for us before we download our data.</p>
+<p>We will be submitting an order for the Landsat Climate Data Record (CDR) product (<a href="http://landsat.usgs.gov/CDR_ECV.php">http://landsat.usgs.gov/CDR_ECV.php</a>) so that the USGS can perform the atmospheric correction and cloud masking preprocessing steps for us before we download our data.</p>
 <p>In the list of available datasets below, find &quot;Landsat CDR&quot;, expand the tab, and select both Landsat 7 ETM+ and Landsat 4-5 TM datasets.</p>
 <p><img src="https://raw.githubusercontent.com/ceholden/landsat_preprocess/master/resources/EE_LandsatCDR.png" /></p>
 <h3 id="filter">Filter</h3>
@@ -1698,7 +1701,7 @@ div#notebook {
 <li>Input your WRS-2 path and row into the &quot;WRS Path&quot; and &quot;WRS Row&quot; forms</li>
 <li>Select &quot;Less than 80%&quot; under the &quot;Cloud Cover&quot; option (this cloud cover is estimated from ACCA, not Fmask)</li>
 <li>Ensure that the &quot;Station Identifier&quot; is set to &quot;All&quot;</li>
-<li>Select &quot;Processing Required&quot; and the &quot;L1T&quot; data type option for both sensors (e.g., ETM+ L1T and TM L1T). We select the &quot;L1T&quot; product type because it is the only orthorectified product from the Landsat Level 1 Product Generation System (LPGS). Orthorectification is important to assure consistent geolocation of pixels on the land surface. We include images that have the &quot;Processing Required&quot; status to include images that can be orthorectified to a L1T image, but have not yet been processed (and thus don't have the L1T metadata status in their database). For more information on LPGS, visit this URL: http://landsat.usgs.gov/Landsat_Processing_Details.php</li>
+<li>Select &quot;Processing Required&quot; and the &quot;L1T&quot; data type option for both sensors (e.g., ETM+ L1T and TM L1T). We select the &quot;L1T&quot; product type because it is the only orthorectified product from the Landsat Level 1 Product Generation System (LPGS). Orthorectification is important to assure consistent geolocation of pixels on the land surface. We include images that have the &quot;Processing Required&quot; status to include images that can be orthorectified to a L1T image, but have not yet been processed (and thus don&#39;t have the L1T metadata status in their database). For more information on LPGS, visit this URL: <a href="http://landsat.usgs.gov/Landsat_Processing_Details.php">http://landsat.usgs.gov/Landsat_Processing_Details.php</a></li>
 </ul>
 <p><img src="https://raw.githubusercontent.com/ceholden/landsat_preprocess/master/resources/EE_filter.png" /></p>
 <p>Repeat this last step of adding filters for each Landsat sensor dataset -- Landsat 7 ETM+ and Landsat 4-5 TM.</p>
@@ -1711,8 +1714,8 @@ div#notebook {
 <p>Click the button that says &quot;Click here to export your results&quot; to export your results. Select &quot;Non-Limited Results&quot; under &quot;Export Type&quot;. I also recommend selecting the option &quot;Comma (,) Delimited&quot; for the &quot;Format&quot;.</p>
 <p><img src="https://raw.githubusercontent.com/ceholden/landsat_preprocess/master/resources/EE_resultsformat.png" /></p>
 <p>Remember to export your results from Landsat 4-5 TM and Landsat 7 ETM+. The results will be retrievable via a URL sent to the email account you registered with. In my case, my results are available at the following URLs:</p>
-<p>http://earthexplorer.usgs.gov/export/retrieve/?exportId=23721&amp;exportKey=1f457c3397af85c4c8b755355eb4eb52</p>
-<p>http://earthexplorer.usgs.gov/export/retrieve/?exportId=23722&amp;exportKey=cc5e80832dca85903a510f4ac4ddb311</p>
+<p><a href="http://earthexplorer.usgs.gov/export/retrieve/?exportId=23721&amp;exportKey=1f457c3397af85c4c8b755355eb4eb52">http://earthexplorer.usgs.gov/export/retrieve/?exportId=23721&amp;exportKey=1f457c3397af85c4c8b755355eb4eb52</a></p>
+<p><a href="http://earthexplorer.usgs.gov/export/retrieve/?exportId=23722&amp;exportKey=cc5e80832dca85903a510f4ac4ddb311">http://earthexplorer.usgs.gov/export/retrieve/?exportId=23722&amp;exportKey=cc5e80832dca85903a510f4ac4ddb311</a></p>
 <p>Manually click the links USGS provided you and download the ZIP files from their website. Unzip these files to find two comma separated text files.</p>
 </div>
 </div>
