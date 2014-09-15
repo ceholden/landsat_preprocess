@@ -1,7 +1,7 @@
 Landsat Preprocessing Workflow
 ==================
 
-#### About
+## About
 This guide seeks to demonstrate and document "a workflow" for gathering and preprocessing large amounts Landsat data such that the data may be ingested into "data mining" or time series algorithms. Individuals may have difference preferences with regard to what preprocessing is performed and accomplishing any given workflow could be done using a multitude of software options. This workflow documents one approach to preprocessing done using freely available tools including:
 - GDAL command line applications
 - Command line applications (grep, sed, awk, etc.) avialable on Linux / Unix environments
@@ -10,12 +10,22 @@ This guide seeks to demonstrate and document "a workflow" for gathering and prep
 
 The guide is currently written for the GEO / SCC cluster at Boston University, but it would be simple enough to port these instructions to any other Linux cluster or workstation environment.
 
-#### Access
+## Access
 This workflow is documented using the IPython notebook (despite there being almost no Python involved) because it nicely mixes text documentation and media with code input and output.
 
 You can view the notebook directly by using IPython's "nbviewer" website:
 
-http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/tree/master/chapters/
+###### [Introduction](http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/blob/master/chapters/Chapter_0-Intro.ipynb)
+
+1. [Chapter 1 - Search for images](http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/blob/master/chapters/Chapter_1-Search.ipynb)
+2. [Chapter 2 - Submit preprocessing order](http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/blob/master/chapters/Chapter_2-Submit.ipynb)
+3. [Chapter 3 - Download onto cluster](http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/blob/master/chapters/Chapter_3-Download.ipynb)
+4. [Chapter 4 - Organize and unzip images](http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/blob/master/chapters/Chapter_4-Organize.ipynb)
+5. [Chapter 5 - Create "Layer Stacks"](http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/blob/master/chapters/Chapter_5-Stack.ipynb)
+6. [Chapter 6 - Run Fmask on cluster](http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/blob/master/chapters/Chapter_6-Fmask.ipynb)
+7. [Chapter 7 - Subset images by extent or ROI](http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/blob/master/chapters/Chapter_7-Subset.ipynb)
+8. [Chapter 8 - Create "preview" JPEG/PNG images](http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/blob/master/chapters/Chapter_8-Preview.ipynb)
+9. [Chapter 9 - Summarize and document dataset](http://nbviewer.ipython.org/github/ceholden/landsat_preprocess/blob/master/chapters/Chapter_9-Summarize.ipynb)
 
 If you wish to have a copy for yourself without the "nbviewer" utility, you can download the HTML files found in the "build" folder.
 
@@ -23,7 +33,7 @@ I have been unable to figure out how to properly format a PDF from this HTML pag
 
 You also may, of course, download the IPython Notebook files and run an IPython notebook server for yourself.
 
-#### Files
+## Script Files
 I have taken several of the steps in the workflow and turned them into fully functioning scripts. These may be found in the "scripts" directory. They are labeled with a number to indicate the corresponding step in the workflow and include:
 
 + 3_checksum_test.sh
@@ -35,7 +45,7 @@ I have taken several of the steps in the workflow and turned them into fully fun
 + 5_gdal_merge_LEDAPS.sh
     + Use gdal_merge.py to create "layer stacks" of all "lndsr*hdf" files within target directory
 
-#### About Landsat
+## About Landsat
 The USGS has very recently developed a product generation system for atmospherically corrected and cloud masked Landsat data which makes using Landsat data much easier. Information on this Landsat Surface Reflectance "Climate Data Record" (CDR) is available from their website:
 
 https://landsat.usgs.gov/CDR_LSR.php
