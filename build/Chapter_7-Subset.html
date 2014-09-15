@@ -2144,7 +2144,7 @@ In&nbsp;[211]:
     <span class="nv">output</span><span class="o">=</span><span class="k">${</span><span class="nv">stack</span><span class="k">}</span>_subset
     
     gdalwarp -of ENVI -co <span class="s2">&quot;INTERLEAVE=BIP&quot;</span> -te <span class="nv">$warp_ext</span> -tr 30 30 <span class="se">\</span>
-        -cutline mredd_yucatan.shp -cl mredd_yucatan -crop_to_cutline <span class="se">\</span>
+        -cutline mredd_yucatan.shp -cl mredd_yucatan <span class="se">\</span>
         -dstnodata -9999 -wm 2000 <span class="se">\</span>
         <span class="nv">$stack</span> <span class="nv">$output</span>
 
